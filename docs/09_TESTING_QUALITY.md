@@ -33,8 +33,13 @@ Mandatory for every artifact declared known at T: feature, structural point/segm
 
 Verify:
 
-- same-value re-fetch is idempotent;
-- changed source candle creates a revision candidate;
+- first valid ingestion creates `revision_seq = 1` as `accepted_current`;
+- the initial accepted revision records `observed_at` and `accepted_at` with `observed_at <= accepted_at`;
+- its exact revision reference is stable for DatasetSnapshot manifests;
+- same-value re-fetch is idempotent and creates no new revision;
+- changed source candle creates a revision candidate with the next `revision_seq` before confirmation;
+- a quarantined candidate retains its allocated sequence and the next candidate does not reuse it;
+- promotion preserves the candidate's already allocated `revision_seq`;
 - native confirmation agreement promotes the revision and records `accepted_at`;
 - every accepted revision satisfies `observed_at <= accepted_at`;
 - disagreement/unavailable confirmation quarantines it, leaves `accepted_at` absent, and preserves current canonical state;

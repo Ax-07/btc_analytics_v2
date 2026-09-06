@@ -76,6 +76,22 @@ PostgreSQL is the **current canonical product store**.
 
 Repeated observations that normalize to the same values are idempotent.
 
+### Initial closed candle ingestion
+
+For the first valid observation of a previously unknown closed candle:
+
+1. normalize the provider observation;
+2. validate all canonical invariants;
+3. create `CandleRevision` with `revision_seq = 1`;
+4. record `observed_at` from the first BTC Analytics observation of that normalized candle;
+5. record `accepted_at` when canonical validation succeeds;
+6. set `revision_status = accepted_current`;
+7. make the canonical Candle current state reference that exact revision.
+
+The initial accepted revision does **not** require a per-candle confirmation against the native endpoint. P1 instead validates the CCXT provider path with the bounded CCXT-vs-Binance-native fixture defined below. Native per-candle confirmation is required when a later observation conflicts with an already accepted candle.
+
+The exact local revision reference is `(market, timeframe, open_time, revision_seq)`.
+
 ### Changed closed candle: revision acceptance policy v1
 
 A different re-observation of an already stored closed candle never overwrites current state directly.
@@ -86,11 +102,11 @@ The deterministic flow is:
 2. validate all canonical invariants;
 3. compare it with the current accepted revision;
 4. if values are identical, do nothing except optional observation metadata;
-5. if values differ, create a revision candidate and record `observed_at`;
+5. if values differ, create a revision candidate, allocate the next monotonically increasing `revision_seq`, and record `observed_at`;
 6. confirm the candidate against the configured native authoritative endpoint for the **same venue and market**;
 7. promote the candidate only if the normalized native confirmation agrees on canonical OHLC and `base_volume`;
-8. when confirmed, record `accepted_at` at the successful promotion instant, mark the old revision `accepted_superseded`, the new revision `accepted_current`, increment `revision_seq`, and write the before/after audit entry;
-9. if confirmation disagrees, is unavailable, or validation fails, mark the candidate `quarantined`, leave `accepted_at` absent, and leave PostgreSQL current canonical values unchanged.
+8. when confirmed, record `accepted_at` at the successful promotion instant, mark the old revision `accepted_superseded`, mark the candidate `accepted_current`, preserve its already allocated `revision_seq`, and write the before/after audit entry;
+9. if confirmation disagrees, is unavailable, or validation fails, mark the candidate `quarantined`, preserve its allocated `revision_seq`, leave `accepted_at` absent, and leave PostgreSQL current canonical values unchanged.
 
 For the initial Binance provider, the confirmation source is Binance native klines.
 

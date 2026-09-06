@@ -10,27 +10,25 @@ P0 — Foundation / documentation
 
 ## Statut
 
-`P0 — VALIDATION CANDIDATE v5`
+`P0 — VALIDATION CANDIDATE v6`
 
-La v5 ferme le dernier blocage identifié lors de l’audit v4 : le moment d’acceptation d’une `CandleRevision` pour le replay `observed_point_in_time`.
+La v6 ferme les deux blocages identifiés lors des audits indépendants de la v5 :
 
-Le contrat distingue désormais :
+1. `docs/15_TEMPORAL_CONVENTIONS.md` utilisait encore `observed_at <= T` pour le replay `observed_point_in_time` au lieu de la règle canonique `accepted_at <= T` ;
+2. le cycle de vie de la première `CandleRevision` acceptée lors de l’ingestion initiale d’une nouvelle candle n’était pas explicitement défini.
 
-- `observed_at` : première observation de la révision par BTC Analytics ;
-- `accepted_at` : instant où la révision est confirmée et devient admissible comme état canonique accepté.
+Le contrat définit désormais la première révision avec `revision_seq = 1`, puis alloue chaque `revision_seq` suivant à la création d’une nouvelle observation distincte, y compris si elle est ensuite quarantinée.
 
-En `observed_point_in_time`, une révision n’est utilisable à T que si `accepted_at <= T`.
-
-P1 reste interdit tant que l’audit final v5 n’a pas conclu `P0 — VALIDATION READY` et que les décisions D-001 à D-020 ne sont pas explicitement approuvées.
+P1 reste interdit tant que l’audit final v6 n’a pas conclu `P0 — VALIDATION READY` et que les décisions D-001 à D-020 ne sont pas explicitement approuvées.
 
 ## Source canonique ChatGPT recommandée
 
 Utiliser en priorité le fichier unique :
 
-`BTC_ANALYTICS_V2_P0_CANONICAL_v5.md`
+`BTC_ANALYTICS_V2_P0_CANONICAL_v6.md`
 
-Ne pas conserver simultanément l’ancien master v4 dans les sources actives du projet ChatGPT.
+Ne pas conserver simultanément un ancien master P0 dans les sources actives du projet ChatGPT.
 
 ## Prochaine étape
 
-Audit final ciblé du contrat `accepted_at` puis contrôle transversal court de la source canonique v5.
+Audit final ciblé des deux corrections v6, puis contrôle transversal court de la source canonique.

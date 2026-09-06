@@ -103,7 +103,7 @@ The canonical interval is `[open_time, end_time)` and `available_at = end_time` 
 
 ## CandleRevision
 
-Every changed observation of an already-known candle is represented explicitly.
+Every canonical candle has an explicit append-only revision lineage, including its first accepted observation and every later distinct observation.
 
 Minimum fields:
 
@@ -117,6 +117,31 @@ Minimum fields:
 - confirmation provenance when required;
 - before/after logical value fingerprints;
 - reason/audit metadata.
+
+The stable exact local revision reference is:
+
+```text
+(market, timeframe, open_time, revision_seq)
+```
+
+### Initial accepted revision
+
+The first valid observation of a previously unknown closed candle creates the first revision immediately:
+
+- `revision_seq = 1`;
+- `observed_at` = earliest time BTC Analytics observed that normalized candle;
+- `accepted_at` = instant canonical validation succeeds;
+- `revision_status = accepted_current`.
+
+Initial acceptance does not require a per-candle same-venue native confirmation. Provider-path correctness is validated separately by the bounded P1 CCXT-vs-native fixture.
+
+### Later distinct observations
+
+Every later observation that differs from the current accepted logical values creates a new revision candidate and receives the next monotonically increasing `revision_seq` **at candidate creation time**. Sequence numbers are never reused.
+
+A candidate that is later quarantined retains its allocated `revision_seq` and has no `accepted_at`. Promotion never renumbers a revision; it records `accepted_at`, marks the previous current revision `accepted_superseded`, and makes the candidate `accepted_current`.
+
+A same-value re-observation is idempotent and creates no new semantic revision.
 
 A later revision never mutates an immutable DatasetSnapshot.
 

@@ -62,11 +62,22 @@ Joining a structural point by physical time while ignoring its later `known_at` 
 
 `available_at=end_time` belongs to the reconstructed closed-bar market-time model.
 
-A specific corrected `CandleRevision` additionally has `observed_at`.
+Every canonical candle has a revision lineage. Each revision records `observed_at`; every revision that becomes accepted additionally records `accepted_at`.
+
+For accepted revisions:
+
+```text
+observed_at <= accepted_at
+```
 
 Therefore:
 
-- `reconstructed_latest` analyses may use the latest accepted revision while anchoring analytical bar sequencing at `end_time`, but must not claim that a later correction was actually known at historical T;
-- `observed_point_in_time` analyses may use a revision at T only when its recorded `observed_at <= T`.
+- `reconstructed_latest` analyses may use the latest accepted revision while anchoring analytical bar sequencing at `end_time`, but must not claim that a later correction was actually known or accepted at historical T;
+- `observed_point_in_time` analyses may use only an accepted revision whose `accepted_at <= T`;
+- `observed_at <= T` alone is insufficient when the candidate had not yet been accepted by T;
+- for a given candle, PIT selects the accepted revision with the greatest `accepted_at <= T`;
+- quarantined revisions have no `accepted_at` and are never PIT-eligible.
 
-Historical periods without revision-observation provenance cannot be labeled `observed_point_in_time`.
+Example: a correction observed at 10:00 and accepted at 10:05 cannot influence replay at 10:02; it becomes eligible at 10:05.
+
+Historical periods without sufficient observation **and acceptance** provenance cannot be labeled `observed_point_in_time`. Historical backfills created later are analyzed with `reconstructed_latest` unless genuine point-in-time revision provenance exists.
