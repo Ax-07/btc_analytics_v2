@@ -33,6 +33,12 @@ P0 is validated only when:
 - Decision Log D-001 through D-020 is explicitly approved;
 - no blocking question remains.
 
+## Validation status
+
+`P0 — VALIDATED`
+
+Final v7 audits independently concluded `P0 — VALIDATION READY`, and D-001 through D-020 were explicitly approved by the user on 2026-09-06.
+
 ## Rule
 
-Do not begin P1 before explicit P0 validation.
+P1 is authorized to begin from this validated P0 contract. Any semantic change to a validated P0 decision requires an explicit versioned follow-up decision; it must not silently rewrite P0 history.

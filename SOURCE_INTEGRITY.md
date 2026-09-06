@@ -1,5 +1,11 @@
 # Source Integrity — P0 v7
 
+## Validation state
+
+`P0 — VALIDATED`
+
+Two independent final v7 audits concluded `P0 — VALIDATION READY`, and the user explicitly approved D-001 through D-020 in block on 2026-09-06. The v7 semantic contracts are frozen as the validated P0 baseline.
+
 ## Canonical ChatGPT source
 
 Use a single source file:

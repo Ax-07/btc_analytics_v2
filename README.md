@@ -41,4 +41,4 @@ En cas de contradiction :
 3. `docs/00_PROJECT_CHARTER.md`
 4. `README.md`
 
-Aucun code de production ne doit être écrit avant validation explicite de P0. La révision candidate v7 reste en attente de validation utilisateur.
+P0 a été explicitement validé le 6 septembre 2026 après deux audits finaux indépendants de la v7 et l’approbation utilisateur en bloc de D-001 à D-020. P1 peut désormais commencer en respectant strictement les contrats P0 validés.

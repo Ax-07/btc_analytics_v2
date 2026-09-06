@@ -2,10 +2,9 @@
 
 ## Status
 
-`P0 — VALIDATION CANDIDATE v7`
+`P0 — VALIDATED`
 
-This revision closes the final blocker reported by the independent v6 audit.
-It does not validate P0 and does not authorize P1.
+This revision closes the final blocker reported by the independent v6 audit. Two independent final v7 audits subsequently concluded `P0 — VALIDATION READY`. On 2026-09-06, the user explicitly approved D-001 through D-020 in block. P0 is therefore validated and P1 is authorized to begin from these frozen contracts.
 
 ## Previously resolved v6 blockers
 
@@ -48,6 +47,10 @@ Data revision tests must additionally verify:
 - a candle cannot have two unresolved pending candidates and confirmation outcomes cannot be applied out of order;
 - restart/recovery preserves pending state and does not imply acceptance.
 
-## Gate
+## Gate — satisfied
 
-P0 remains non-validated until the v7 audit concludes `P0 — VALIDATION READY` and the complete Decision Log D-001 to D-020 is explicitly approved by the user.
+- Final independent audit A: `P0 — VALIDATION READY`.
+- Final independent audit B: `P0 — VALIDATION READY`.
+- User approval: D-001 through D-020 explicitly approved in block on 2026-09-06.
+
+Result: `P0 — VALIDATED`. P1 may begin, but validated P0 decisions are append-only historical contracts and must not be silently rewritten.

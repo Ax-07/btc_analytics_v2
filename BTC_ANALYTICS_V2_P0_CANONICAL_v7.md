@@ -1,7 +1,7 @@
 # BTC Analytics V2 — P0 Canonical v7
 
-> Source maître consolidée pour audit dans le projet ChatGPT.
-> P0 reste non validé tant que D-001 à D-020 ne sont pas explicitement approuvées.
+> Source maître consolidée validée pour BTC Analytics V2.
+> `P0 — VALIDATED` — D-001 à D-020 approuvées explicitement par l’utilisateur le 6 septembre 2026 après deux audits finaux indépendants `P0 — VALIDATION READY`.
 
 
 ---
@@ -51,7 +51,7 @@ En cas de contradiction :
 3. `docs/00_PROJECT_CHARTER.md`
 4. `README.md`
 
-Aucun code de production ne doit être écrit avant validation explicite de P0. La révision candidate v7 reste en attente de validation utilisateur.
+P0 a été explicitement validé le 6 septembre 2026 après deux audits finaux indépendants de la v7 et l’approbation utilisateur en bloc de D-001 à D-020. P1 peut désormais commencer en respectant strictement les contrats P0 validés.
 
 
 ---
@@ -93,9 +93,15 @@ P0 is validated only when:
 - Decision Log D-001 through D-020 is explicitly approved;
 - no blocking question remains.
 
+## Validation status
+
+`P0 — VALIDATED`
+
+Final v7 audits independently concluded `P0 — VALIDATION READY`, and D-001 through D-020 were explicitly approved by the user on 2026-09-06.
+
 ## Rule
 
-Do not begin P1 before explicit P0 validation.
+P1 is authorized to begin from this validated P0 contract. Any semantic change to a validated P0 decision requires an explicit versioned follow-up decision; it must not silently rewrite P0 history.
 
 
 ---
@@ -114,7 +120,7 @@ P0 — Foundation / documentation
 
 ## Statut
 
-`P0 — VALIDATION CANDIDATE v7`
+`P0 — VALIDATED`
 
 La v7 ferme le dernier blocage identifié lors de l’audit indépendant de la v6 : une `CandleRevision` candidate existait entre sa création et sa confirmation native, mais `revision_status` ne possédait aucun état représentant cette phase intermédiaire.
 
@@ -127,7 +133,7 @@ Le contrat définit désormais `pending_confirmation` :
 - une seule candidate `pending_confirmation` est autorisée à la fois par lignée de candle afin de sérialiser les transitions et empêcher les acceptations hors ordre ;
 - après interruption, une candidate pending reste durablement pending jusqu’à reprise/résolution et n’est jamais assimilée à une révision acceptée.
 
-P1 reste interdit tant que l’audit final v7 n’a pas conclu `P0 — VALIDATION READY` et que les décisions D-001 à D-020 ne sont pas explicitement approuvées.
+Les deux audits finaux indépendants de la v7 ont conclu `P0 — VALIDATION READY`. Le 6 septembre 2026, l’utilisateur a explicitement approuvé D-001 à D-020 en bloc. Le gate P0 est donc satisfait et P1 est autorisé à démarrer à partir de ces contrats validés.
 
 ## Source canonique ChatGPT recommandée
 
@@ -139,7 +145,7 @@ Ne pas conserver simultanément un ancien master P0 dans les sources actives du 
 
 ## Prochaine étape
 
-Audit final ciblé de la machine d’état `CandleRevision`, puis contrôle transversal court de la source canonique.
+Figer le jalon Git P0 validé, puis démarrer **P1 — Market Data** dans une nouvelle discussion sans modifier rétroactivement les décisions P0 validées.
 
 
 ---
@@ -200,10 +206,9 @@ La V1 peut être consultée pour comparer les résultats, pas comme base de code
 
 ## Status
 
-`P0 — VALIDATION CANDIDATE v7`
+`P0 — VALIDATED`
 
-This revision closes the final blocker reported by the independent v6 audit.
-It does not validate P0 and does not authorize P1.
+This revision closes the final blocker reported by the independent v6 audit. Two independent final v7 audits subsequently concluded `P0 — VALIDATION READY`. On 2026-09-06, the user explicitly approved D-001 through D-020 in block. P0 is therefore validated and P1 is authorized to begin from these frozen contracts.
 
 ## Previously resolved v6 blockers
 
@@ -246,9 +251,13 @@ Data revision tests must additionally verify:
 - a candle cannot have two unresolved pending candidates and confirmation outcomes cannot be applied out of order;
 - restart/recovery preserves pending state and does not imply acceptance.
 
-## Gate
+## Gate — satisfied
 
-P0 remains non-validated until the v7 audit concludes `P0 — VALIDATION READY` and the complete Decision Log D-001 to D-020 is explicitly approved by the user.
+- Final independent audit A: `P0 — VALIDATION READY`.
+- Final independent audit B: `P0 — VALIDATION READY`.
+- User approval: D-001 through D-020 explicitly approved in block on 2026-09-06.
+
+Result: `P0 — VALIDATED`. P1 may begin, but validated P0 decisions are append-only historical contracts and must not be silently rewritten.
 
 
 ---
@@ -256,6 +265,12 @@ P0 remains non-validated until the v7 audit concludes `P0 — VALIDATION READY` 
 ## SOURCE FILE: `SOURCE_INTEGRITY.md`
 
 # Source Integrity — P0 v7
+
+## Validation state
+
+`P0 — VALIDATED`
+
+Two independent final v7 audits concluded `P0 — VALIDATION READY`, and the user explicitly approved D-001 through D-020 in block on 2026-09-06. The v7 semantic contracts are frozen as the validated P0 baseline.
 
 ## Canonical ChatGPT source
 
@@ -1450,32 +1465,32 @@ No milestone is called validated before actual local/CI command output is review
 
 ## SOURCE FILE: `docs/10_DECISIONS.md`
 
-# 10 — Decision Log — P0 Candidate
+# 10 — Decision Log — P0 Validated
 
-Policy: decisions are append-only after validation. This candidate file does **not** mark them validated on behalf of the user.
+Policy: D-001 through D-020 were explicitly approved by the user on 2026-09-06 and are now validated, append-only historical decisions. Any future semantic change requires an explicit new/versioned decision and must not silently rewrite these entries.
 
-| ID | Candidate decision | Status |
+| ID | Validated decision | Status |
 |---|---|---|
-| D-001 | V2 is a greenfield repository; V1 code is not migrated automatically. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-002 | Product scope is analysis, not trading/portfolio/order/strategy execution. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-003 | Strict causality: no artifact known at T may use information after T. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-004 | CCXT is the initial exchange-access implementation behind an internal MarketDataProvider abstraction. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-005 | PostgreSQL is the current canonical product store; immutable Parquet snapshots serve reproducible research; DuckDB queries those snapshots. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-006 | Polars is the primary dataframe engine; NumPy/SciPy supply numerical/scientific primitives. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-007 | Selected TA-Lib functions may be ADOPTed only behind adapters after per-function causal/golden validation; TA-Lib can also serve as REFERENCE. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-008 | VectorBT is research/reference inspiration; its portfolio/trading engine is not a product dependency. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-009 | Candlestick patterns are analytical events, never trading signals. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-010 | Chart patterns are optional interpretation above market structure and require demonstrated incremental value. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-011 | Canonical Candle interval is `[open_time,end_time)` UTC; closed-bar analytical `available_at=end_time`; `ingested_at` is technical provenance. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-012 | P0–P8 canonical analytics operate on closed-candle cadence; intrabar semantics require a future explicit contract. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-013 | Outcome base price is anchor-candle close; horizon H uses the next H complete candles, excluding the anchor candle. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-014 | Every comparative ExperimentRun freezes an explicit BaselineDefinition. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-015 | P1 timeframes 1h/4h/1d are fetched natively; no canonical resampling; gaps are hard continuity boundaries. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-016 | Source candle corrections are audited; experiment reproducibility uses immutable DatasetSnapshots. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-017 | Pyright is the Python static type checker for V2. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-018 | Basic causal Context definitions move to P5; P8 is Advanced Contexts & Regimes. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-019 | Deterministic analytical identities use schema-normalized parameters, RFC 8785 JCS serialization and SHA-256 lowercase-hex fingerprints; `occurrence_key.v1` uses the exact canonical payload defined in the Domain Model. | RECOMMENDED — AWAITING USER VALIDATION |
-| D-020 | Every canonical closed candle has an append-only revision lineage: first valid ingestion creates `revision_seq = 1` as `accepted_current` with `observed_at` and `accepted_at`; each later distinct observation allocates the next `revision_seq` at candidate creation and is persisted as `pending_confirmation` before native confirmation. Pending revisions have no `accepted_at`, are never PIT-eligible, survive interruption without implied acceptance, and are serialized to at most one unresolved pending candidate per candle lineage. Changed accepted candles are confirmed against the same venue's native authoritative endpoint; agreement transitions the same pending revision to `accepted_current` and supersedes the prior current revision, while disagreement/unavailability/validation failure transitions it to `quarantined` without renumbering. Accepted revisions satisfy `observed_at <= accepted_at`; `observed_point_in_time` selects only the latest accepted revision with `accepted_at <= T`; snapshots never retroactively claim a late correction was observed or accepted at historical T. | RECOMMENDED — AWAITING USER VALIDATION |
+| D-001 | V2 is a greenfield repository; V1 code is not migrated automatically. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-002 | Product scope is analysis, not trading/portfolio/order/strategy execution. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-003 | Strict causality: no artifact known at T may use information after T. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-004 | CCXT is the initial exchange-access implementation behind an internal MarketDataProvider abstraction. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-005 | PostgreSQL is the current canonical product store; immutable Parquet snapshots serve reproducible research; DuckDB queries those snapshots. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-006 | Polars is the primary dataframe engine; NumPy/SciPy supply numerical/scientific primitives. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-007 | Selected TA-Lib functions may be ADOPTed only behind adapters after per-function causal/golden validation; TA-Lib can also serve as REFERENCE. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-008 | VectorBT is research/reference inspiration; its portfolio/trading engine is not a product dependency. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-009 | Candlestick patterns are analytical events, never trading signals. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-010 | Chart patterns are optional interpretation above market structure and require demonstrated incremental value. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-011 | Canonical Candle interval is `[open_time,end_time)` UTC; closed-bar analytical `available_at=end_time`; `ingested_at` is technical provenance. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-012 | P0–P8 canonical analytics operate on closed-candle cadence; intrabar semantics require a future explicit contract. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-013 | Outcome base price is anchor-candle close; horizon H uses the next H complete candles, excluding the anchor candle. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-014 | Every comparative ExperimentRun freezes an explicit BaselineDefinition. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-015 | P1 timeframes 1h/4h/1d are fetched natively; no canonical resampling; gaps are hard continuity boundaries. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-016 | Source candle corrections are audited; experiment reproducibility uses immutable DatasetSnapshots. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-017 | Pyright is the Python static type checker for V2. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-018 | Basic causal Context definitions move to P5; P8 is Advanced Contexts & Regimes. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-019 | Deterministic analytical identities use schema-normalized parameters, RFC 8785 JCS serialization and SHA-256 lowercase-hex fingerprints; `occurrence_key.v1` uses the exact canonical payload defined in the Domain Model. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-020 | Every canonical closed candle has an append-only revision lineage: first valid ingestion creates `revision_seq = 1` as `accepted_current` with `observed_at` and `accepted_at`; each later distinct observation allocates the next `revision_seq` at candidate creation and is persisted as `pending_confirmation` before native confirmation. Pending revisions have no `accepted_at`, are never PIT-eligible, survive interruption without implied acceptance, and are serialized to at most one unresolved pending candidate per candle lineage. Changed accepted candles are confirmed against the same venue's native authoritative endpoint; agreement transitions the same pending revision to `accepted_current` and supersedes the prior current revision, while disagreement/unavailability/validation failure transitions it to `quarantined` without renumbering. Accepted revisions satisfy `observed_at <= accepted_at`; `observed_point_in_time` selects only the latest accepted revision with `accepted_at <= T`; snapshots never retroactively claim a late correction was observed or accepted at historical T. | VALIDATED — USER APPROVED 2026-09-06 |
 
 
 ---
