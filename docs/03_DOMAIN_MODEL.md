@@ -112,7 +112,7 @@ Minimum fields:
 - normalized OHLCV values;
 - `observed_at`;
 - optional `accepted_at`;
-- `revision_status`: `accepted_current`, `accepted_superseded`, `quarantined`;
+- `revision_status`: `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined`;
 - primary provider provenance;
 - confirmation provenance when required;
 - before/after logical value fingerprints;
@@ -139,9 +139,15 @@ Initial acceptance does not require a per-candle same-venue native confirmation.
 
 Every later observation that differs from the current accepted logical values creates a new revision candidate and receives the next monotonically increasing `revision_seq` **at candidate creation time**. Sequence numbers are never reused.
 
-A candidate that is later quarantined retains its allocated `revision_seq` and has no `accepted_at`. Promotion never renumbers a revision; it records `accepted_at`, marks the previous current revision `accepted_superseded`, and makes the candidate `accepted_current`.
+The newly created candidate is persisted with `revision_status = pending_confirmation`, has `observed_at`, and has no `accepted_at`. A `pending_confirmation` revision is never PIT-eligible.
 
-A same-value re-observation is idempotent and creates no new semantic revision.
+For a given candle lineage, at most one unresolved `pending_confirmation` revision may exist at a time. Processing of another distinct candidate for that candle is serialized until the pending revision resolves. A same-value re-observation matching the pending candidate is idempotent and creates no additional revision. This prevents confirmation outcomes from being applied out of revision order.
+
+If native confirmation succeeds, the **same** pending revision transitions to `accepted_current`: promotion never renumbers it, records `accepted_at`, and marks the previous current accepted revision `accepted_superseded`. If confirmation disagrees, is unavailable, or validation fails, the same pending revision transitions to `quarantined`, retains its allocated `revision_seq`, and keeps `accepted_at` absent.
+
+An interruption/restart does not infer a terminal status: an unresolved pending revision remains `pending_confirmation`, remains PIT-ineligible, and must be retried/reconciled before another distinct candidate for the same candle is processed.
+
+A same-value re-observation of the current accepted revision is idempotent and creates no new semantic revision when no conflicting pending candidate exists.
 
 A later revision never mutates an immutable DatasetSnapshot.
 

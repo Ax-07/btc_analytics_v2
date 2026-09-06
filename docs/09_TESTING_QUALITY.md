@@ -37,7 +37,11 @@ Verify:
 - the initial accepted revision records `observed_at` and `accepted_at` with `observed_at <= accepted_at`;
 - its exact revision reference is stable for DatasetSnapshot manifests;
 - same-value re-fetch is idempotent and creates no new revision;
-- changed source candle creates a revision candidate with the next `revision_seq` before confirmation;
+- changed source candle creates a persisted `pending_confirmation` revision with the next `revision_seq` before confirmation;
+- pending candidate records `observed_at`, has no `accepted_at`, and is never PIT-eligible;
+- same-value re-observation of the pending candidate is idempotent and allocates no new revision;
+- at most one unresolved pending candidate exists per candle lineage and confirmation outcomes cannot be applied out of order;
+- interruption/restart preserves pending state and never implies acceptance or quarantine;
 - a quarantined candidate retains its allocated sequence and the next candidate does not reuse it;
 - promotion preserves the candidate's already allocated `revision_seq`;
 - native confirmation agreement promotes the revision and records `accepted_at`;

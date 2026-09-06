@@ -10,25 +10,29 @@ P0 — Foundation / documentation
 
 ## Statut
 
-`P0 — VALIDATION CANDIDATE v6`
+`P0 — VALIDATION CANDIDATE v7`
 
-La v6 ferme les deux blocages identifiés lors des audits indépendants de la v5 :
+La v7 ferme le dernier blocage identifié lors de l’audit indépendant de la v6 : une `CandleRevision` candidate existait entre sa création et sa confirmation native, mais `revision_status` ne possédait aucun état représentant cette phase intermédiaire.
 
-1. `docs/15_TEMPORAL_CONVENTIONS.md` utilisait encore `observed_at <= T` pour le replay `observed_point_in_time` au lieu de la règle canonique `accepted_at <= T` ;
-2. le cycle de vie de la première `CandleRevision` acceptée lors de l’ingestion initiale d’une nouvelle candle n’était pas explicitement défini.
+Le contrat définit désormais `pending_confirmation` :
 
-Le contrat définit désormais la première révision avec `revision_seq = 1`, puis alloue chaque `revision_seq` suivant à la création d’une nouvelle observation distincte, y compris si elle est ensuite quarantinée.
+- la candidate reçoit son `revision_seq` et son `observed_at` dès sa création ;
+- elle reste sans `accepted_at` et n’est jamais PIT-éligible tant que la confirmation n’a pas réussi ;
+- confirmation réussie -> `accepted_current` et l’ancienne current devient `accepted_superseded` ;
+- désaccord, indisponibilité ou échec de validation -> `quarantined` ;
+- une seule candidate `pending_confirmation` est autorisée à la fois par lignée de candle afin de sérialiser les transitions et empêcher les acceptations hors ordre ;
+- après interruption, une candidate pending reste durablement pending jusqu’à reprise/résolution et n’est jamais assimilée à une révision acceptée.
 
-P1 reste interdit tant que l’audit final v6 n’a pas conclu `P0 — VALIDATION READY` et que les décisions D-001 à D-020 ne sont pas explicitement approuvées.
+P1 reste interdit tant que l’audit final v7 n’a pas conclu `P0 — VALIDATION READY` et que les décisions D-001 à D-020 ne sont pas explicitement approuvées.
 
 ## Source canonique ChatGPT recommandée
 
 Utiliser en priorité le fichier unique :
 
-`BTC_ANALYTICS_V2_P0_CANONICAL_v6.md`
+`BTC_ANALYTICS_V2_P0_CANONICAL_v7.md`
 
 Ne pas conserver simultanément un ancien master P0 dans les sources actives du projet ChatGPT.
 
 ## Prochaine étape
 
-Audit final ciblé des deux corrections v6, puis contrôle transversal court de la source canonique.
+Audit final ciblé de la machine d’état `CandleRevision`, puis contrôle transversal court de la source canonique.

@@ -1,16 +1,16 @@
-# Source Integrity — P0 v6
+# Source Integrity — P0 v7
 
 ## Canonical ChatGPT source
 
 Use a single source file:
 
-`BTC_ANALYTICS_V2_P0_CANONICAL_v6.md`
+`BTC_ANALYTICS_V2_P0_CANONICAL_v7.md`
 
 Do not keep earlier P0 master files simultaneously in the same project sources.
 
-## Required v6 markers
+## Required v7 markers
 
-The canonical v6 source must contain all of the following:
+The canonical v7 source must contain all of the following:
 
 - Decision Log D-001 through D-020;
 - `RFC 8785` and `parameter_fingerprint`;
@@ -20,6 +20,10 @@ The canonical v6 source must contain all of the following:
 - initial accepted revision with `revision_seq = 1`;
 - stable exact revision reference `(market, timeframe, open_time, revision_seq)`;
 - subsequent distinct observations allocate the next `revision_seq` at candidate creation;
+- `revision_status` includes `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined`;
+- pending candidates have `observed_at`, no `accepted_at`, and are never PIT-eligible;
+- at most one unresolved pending candidate per candle lineage;
+- pending confirmation survives interruption/restart without implying acceptance;
 - quarantined candidates retain their allocated sequence and have no `accepted_at`;
 - `observed_at`;
 - `accepted_at`;
@@ -38,6 +42,6 @@ The canonical v6 source must contain all of the following:
 - PostgreSQL current canonical authority;
 - immutable Parquet snapshots;
 - generalized prefix-invariance tests;
-- data-revision tests covering initial revision, observation-before-acceptance and quarantine.
+- data-revision tests covering initial revision, pending confirmation, observation-before-acceptance, quarantine and recovery.
 
-If an audit reports that these markers are absent, it is not reading the canonical v6 source.
+If an audit reports that these markers are absent, it is not reading the canonical v7 source.

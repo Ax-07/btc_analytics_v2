@@ -102,15 +102,27 @@ The deterministic flow is:
 2. validate all canonical invariants;
 3. compare it with the current accepted revision;
 4. if values are identical, do nothing except optional observation metadata;
-5. if values differ, create a revision candidate, allocate the next monotonically increasing `revision_seq`, and record `observed_at`;
-6. confirm the candidate against the configured native authoritative endpoint for the **same venue and market**;
+5. if values differ, create and persist a revision candidate with the next monotonically increasing `revision_seq`, record `observed_at`, set `revision_status = pending_confirmation`, and leave `accepted_at` absent;
+6. confirm that pending candidate against the configured native authoritative endpoint for the **same venue and market**;
 7. promote the candidate only if the normalized native confirmation agrees on canonical OHLC and `base_volume`;
-8. when confirmed, record `accepted_at` at the successful promotion instant, mark the old revision `accepted_superseded`, mark the candidate `accepted_current`, preserve its already allocated `revision_seq`, and write the before/after audit entry;
-9. if confirmation disagrees, is unavailable, or validation fails, mark the candidate `quarantined`, preserve its allocated `revision_seq`, leave `accepted_at` absent, and leave PostgreSQL current canonical values unchanged.
+8. when confirmed, transition that same revision from `pending_confirmation` to `accepted_current`, record `accepted_at` at the successful promotion instant, mark the old revision `accepted_superseded`, preserve the candidate's already allocated `revision_seq`, and write the before/after audit entry;
+9. if confirmation disagrees, is unavailable, or validation fails, transition that same revision from `pending_confirmation` to `quarantined`, preserve its allocated `revision_seq`, leave `accepted_at` absent, and leave PostgreSQL current canonical values unchanged.
 
 For the initial Binance provider, the confirmation source is Binance native klines.
 
 No observation from another exchange/venue can automatically replace the canonical Binance candle.
+
+### Pending confirmation serialization
+
+For one candle lineage, at most one unresolved `pending_confirmation` revision may exist at a time. Confirmation processing is serialized per candle so an older pending candidate cannot be accepted after a newer candidate and overwrite acceptance order.
+
+While a revision is pending:
+
+- a re-observation with the same normalized logical values as that pending revision is idempotent and does not allocate another `revision_seq`;
+- another distinct candidate for the same candle is not processed as a new revision until the existing pending candidate has resolved;
+- `accepted_at` remains absent and the pending revision is never eligible for point-in-time replay.
+
+If processing is interrupted, the persisted pending revision remains `pending_confirmation` after restart. Recovery retries/reconciles that exact revision before processing another distinct candidate for the same candle; restart alone never promotes or quarantines it.
 
 ### Revision temporal semantics
 
@@ -120,7 +132,7 @@ Two notions must not be conflated:
 - `CandleRevision.observed_at`: when BTC Analytics first observed a particular revision candidate;
 - `CandleRevision.accepted_at`: when validation/confirmation completed successfully and that revision became accepted canonical state.
 
-For every accepted revision, `observed_at <= accepted_at`. A quarantined revision has no `accepted_at`.
+For every accepted revision, `observed_at <= accepted_at`. Pending and quarantined revisions have no `accepted_at`.
 
 A correction discovered later is never claimed to have been **system-observed** or **accepted** at the original `end_time`.
 
@@ -148,7 +160,7 @@ For a given candle, point-in-time replay selects the accepted revision with the 
 accepted_at <= T
 ```
 
-`observed_at <= T` alone is insufficient: an observed candidate that had not yet passed confirmation at T cannot influence the replay. A quarantined revision is never eligible because it has no `accepted_at`.
+`observed_at <= T` alone is insufficient: a `pending_confirmation` candidate that had not yet passed confirmation at T cannot influence the replay. Pending and quarantined revisions are never eligible because they have no `accepted_at`.
 
 Example: if a candidate is observed at 10:00 and accepted at 10:05, replay at 10:02 uses the previously accepted revision; replay at or after 10:05 may use the new accepted revision.
 

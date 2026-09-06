@@ -1,55 +1,53 @@
-# P0 Audit Resolution — Consolidated v6
+# P0 Audit Resolution — Consolidated v7
 
 ## Status
 
-`P0 — VALIDATION CANDIDATE v6`
+`P0 — VALIDATION CANDIDATE v7`
 
-This revision closes the two blockers reported by the independent v5 audits.
+This revision closes the final blocker reported by the independent v6 audit.
 It does not validate P0 and does not authorize P1.
 
-## Blocker R4 — stale point-in-time rule in temporal conventions
+## Previously resolved v6 blockers
 
-The v5 Market Data, Domain Model, Testing and D-020 contracts correctly used `accepted_at`, but `docs/15_TEMPORAL_CONVENTIONS.md` still allowed `observed_point_in_time` use when only `observed_at <= T`.
+The v6 candidate already closed:
 
-Resolved candidate contract in v6:
+- the stale `observed_at <= T` point-in-time rule in Temporal Conventions, replacing it with the canonical `accepted_at <= T` rule;
+- the initial accepted `CandleRevision` lifecycle, including `revision_seq = 1`, stable local revision references and monotonic sequence allocation at candidate creation.
 
-- `observed_at` records first system observation of a revision;
-- `accepted_at` records when the revision becomes accepted canonical state;
-- `observed_at <= T` alone is never sufficient for PIT eligibility;
-- PIT selects the accepted revision with the greatest `accepted_at <= T`;
-- quarantined revisions have no `accepted_at` and are never PIT-eligible.
+Those contracts remain unchanged.
 
-## Blocker R5 — initial accepted CandleRevision lifecycle
+## Blocker R6 — unresolved revision candidate state
 
-The v5 contract described changed observations but did not explicitly define the first accepted revision of a newly ingested candle, while DatasetSnapshots require exact accepted CandleRevision references.
+The v6 model created a distinct revision candidate and allocated its `revision_seq` before same-venue native confirmation, but the allowed `revision_status` values were only `accepted_current`, `accepted_superseded`, and `quarantined`. No status represented the real interval between candidate creation and confirmation resolution.
 
-Resolved candidate contract in v6:
+Resolved candidate contract in v7:
 
-- the first valid observation of a new closed candle creates `CandleRevision` with `revision_seq = 1`;
-- `observed_at` is the first time BTC Analytics observed that normalized candle;
-- `accepted_at` is recorded when canonical validation succeeds and the revision becomes `accepted_current`;
-- the initial revision does not require per-candle same-venue native confirmation; P1 provider correctness is instead covered by the bounded CCXT-vs-native validation fixture;
-- each later distinct observation receives the next monotonically increasing `revision_seq` at candidate creation time;
-- quarantined candidates retain their allocated `revision_seq` and have no `accepted_at`;
-- promotion never renumbers a revision; it only changes acceptance state and records `accepted_at`;
-- `(market, timeframe, open_time, revision_seq)` is the stable exact local revision reference used by snapshots/manifests.
+- `revision_status` additionally includes `pending_confirmation`;
+- a later distinct observation of an already accepted candle creates a durable `pending_confirmation` revision with the next `revision_seq`, `observed_at`, and no `accepted_at`;
+- `pending_confirmation` is never eligible for `observed_point_in_time`;
+- successful native confirmation transitions that same revision to `accepted_current`, records `accepted_at`, and moves the previous current accepted revision to `accepted_superseded`;
+- disagreement, unavailable confirmation, or validation failure transitions the same revision to `quarantined`, retaining its sequence and leaving `accepted_at` absent;
+- promotion/quarantine never renumbers the revision;
+- at most one unresolved `pending_confirmation` revision may exist for a candle lineage at a time; processing of another distinct candidate for that candle is serialized until the pending revision resolves;
+- a same-value observation matching the pending candidate is idempotent and does not allocate another sequence;
+- after interruption/restart, an unresolved pending revision remains pending and PIT-ineligible until confirmation is retried/resolved; it is never silently treated as accepted or quarantined.
 
 ## Decision update
 
-D-020 now includes initial-revision creation, monotonic candidate numbering and the canonical PIT acceptance rule.
+D-020 now explicitly includes the `pending_confirmation` state, its PIT ineligibility and serialized per-candle transition rule.
 
 ## Tests added to the contract
 
-Data revision tests must verify:
+Data revision tests must additionally verify:
 
-- first valid ingestion creates revision 1 as `accepted_current`;
-- initial accepted revision satisfies `observed_at <= accepted_at`;
-- a later changed observation receives the next `revision_seq` before confirmation;
-- quarantining does not reuse or renumber that sequence;
-- promotion does not change the revision sequence;
-- PIT uses only revisions with `accepted_at <= T`;
-- exact snapshot revision references remain stable and reproducible.
+- a changed observation is persisted as `pending_confirmation` before confirmation returns;
+- pending revision has `observed_at`, no `accepted_at`, and is never PIT-eligible;
+- successful confirmation transitions the same revision/sequence to `accepted_current`;
+- failed/unavailable confirmation transitions the same revision/sequence to `quarantined`;
+- same-value re-observation of a pending candidate is idempotent;
+- a candle cannot have two unresolved pending candidates and confirmation outcomes cannot be applied out of order;
+- restart/recovery preserves pending state and does not imply acceptance.
 
 ## Gate
 
-P0 remains non-validated until the v6 audit concludes `P0 — VALIDATION READY` and the complete Decision Log D-001 to D-020 is explicitly approved by the user.
+P0 remains non-validated until the v7 audit concludes `P0 — VALIDATION READY` and the complete Decision Log D-001 to D-020 is explicitly approved by the user.
