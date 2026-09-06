@@ -35,10 +35,15 @@ Verify:
 
 - same-value re-fetch is idempotent;
 - changed source candle creates a revision candidate;
-- native confirmation agreement promotes the revision;
-- disagreement/unavailable confirmation quarantines it and preserves current canonical state;
+- native confirmation agreement promotes the revision and records `accepted_at`;
+- every accepted revision satisfies `observed_at <= accepted_at`;
+- disagreement/unavailable confirmation quarantines it, leaves `accepted_at` absent, and preserves current canonical state;
+- an observed candidate is not PIT-eligible before `accepted_at`;
+- PIT replay selects the accepted revision with greatest `accepted_at <= T`;
+- a quarantined revision is never PIT-eligible;
 - accepted correction never mutates an existing DatasetSnapshot;
-- `reconstructed_latest` and `observed_point_in_time` do not make the same historical-knowledge claim.
+- `reconstructed_latest` and `observed_point_in_time` do not make the same historical-knowledge claim;
+- golden temporal fixture: candidate observed at 10:00 and accepted at 10:05 must not affect replay at 10:02 and may affect replay at 10:05 or later.
 
 ### Deterministic identity golden tests
 

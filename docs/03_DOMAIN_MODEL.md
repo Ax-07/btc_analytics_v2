@@ -111,6 +111,7 @@ Minimum fields:
 - monotonically increasing local `revision_seq`;
 - normalized OHLCV values;
 - `observed_at`;
+- optional `accepted_at`;
 - `revision_status`: `accepted_current`, `accepted_superseded`, `quarantined`;
 - primary provider provenance;
 - confirmation provenance when required;
@@ -120,6 +121,16 @@ Minimum fields:
 A later revision never mutates an immutable DatasetSnapshot.
 
 `observed_at` is the earliest time BTC Analytics observed that revision. A correction observed later must never be represented as having been actually observed by the system at the historical candle `end_time`.
+
+`accepted_at` is the instant at which required validation/confirmation succeeds and the revision becomes accepted canonical state. It is present only for revisions that have been accepted at least once (`accepted_current` or `accepted_superseded`). A quarantined revision has no `accepted_at`.
+
+For every accepted revision:
+
+```text
+observed_at <= accepted_at
+```
+
+`accepted_at` is temporal provenance. It does not participate in Candle identity, DefinitionIdentity, `occurrence_key`, or any other semantic identity unless a future versioned contract explicitly says otherwise.
 
 ## FeatureDefinition / FeatureValue
 

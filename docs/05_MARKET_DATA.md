@@ -89,8 +89,8 @@ The deterministic flow is:
 5. if values differ, create a revision candidate and record `observed_at`;
 6. confirm the candidate against the configured native authoritative endpoint for the **same venue and market**;
 7. promote the candidate only if the normalized native confirmation agrees on canonical OHLC and `base_volume`;
-8. when confirmed, mark the old revision `accepted_superseded`, the new revision `accepted_current`, increment `revision_seq`, and write the before/after audit entry;
-9. if confirmation disagrees, is unavailable, or validation fails, mark the candidate `quarantined` and leave PostgreSQL current canonical values unchanged.
+8. when confirmed, record `accepted_at` at the successful promotion instant, mark the old revision `accepted_superseded`, the new revision `accepted_current`, increment `revision_seq`, and write the before/after audit entry;
+9. if confirmation disagrees, is unavailable, or validation fails, mark the candidate `quarantined`, leave `accepted_at` absent, and leave PostgreSQL current canonical values unchanged.
 
 For the initial Binance provider, the confirmation source is Binance native klines.
 
@@ -101,9 +101,12 @@ No observation from another exchange/venue can automatically replace the canonic
 Two notions must not be conflated:
 
 - `available_at = end_time`: market-time availability of the completed candle in the reconstructed closed-bar model;
-- `CandleRevision.observed_at`: when BTC Analytics actually observed a particular revision.
+- `CandleRevision.observed_at`: when BTC Analytics first observed a particular revision candidate;
+- `CandleRevision.accepted_at`: when validation/confirmation completed successfully and that revision became accepted canonical state.
 
-A correction discovered later is never claimed to have been **system-observed** at the original `end_time`.
+For every accepted revision, `observed_at <= accepted_at`. A quarantined revision has no `accepted_at`.
+
+A correction discovered later is never claimed to have been **system-observed** or **accepted** at the original `end_time`.
 
 ## Dataset knowledge modes
 
@@ -121,7 +124,17 @@ This mode is appropriate for “analyse the best currently available reconstruct
 
 Strict replay mode.
 
-A candle revision may influence an anchor T only if that revision was actually observed no later than T under the stored revision history.
+A candle revision may influence an anchor T only if it had already become accepted canonical state no later than T.
+
+For a given candle, point-in-time replay selects the accepted revision with the greatest `accepted_at` satisfying:
+
+```text
+accepted_at <= T
+```
+
+`observed_at <= T` alone is insufficient: an observed candidate that had not yet passed confirmation at T cannot influence the replay. A quarantined revision is never eligible because it has no `accepted_at`.
+
+Example: if a candidate is observed at 10:00 and accepted at 10:05, replay at 10:02 uses the previously accepted revision; replay at or after 10:05 may use the new accepted revision.
 
 This mode is only valid for periods with sufficient continuous observation/revision provenance. Historical backfill predating BTC Analytics observation coverage cannot be silently treated as point-in-time observed history.
 

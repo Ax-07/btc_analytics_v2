@@ -1,0 +1,7 @@
+BTC Analytics V2 — remplacement P0 v4 -> v5
+
+1. Extraire ce paquet à la racine du repository et accepter l’écrasement des fichiers existants.
+2. Supprimer l’ancien fichier : BTC_ANALYTICS_V2_P0_CANONICAL_v4.md
+3. Conserver comme seul master actif : BTC_ANALYTICS_V2_P0_CANONICAL_v5.md
+4. Dans les sources du projet ChatGPT, remplacer également le master v4 par le master v5.
+5. P0 reste NON VALIDÉ tant que l’audit v5 n’a pas conclu VALIDATION READY et que D-001 à D-020 n’ont pas été approuvées explicitement.

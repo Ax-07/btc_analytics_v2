@@ -41,4 +41,4 @@ En cas de contradiction :
 3. `docs/00_PROJECT_CHARTER.md`
 4. `README.md`
 
-Aucun code de production ne doit être écrit avant validation explicite de P0. La révision candidate v4 reste en attente de validation utilisateur.
+Aucun code de production ne doit être écrit avant validation explicite de P0. La révision candidate v5 reste en attente de validation utilisateur.
