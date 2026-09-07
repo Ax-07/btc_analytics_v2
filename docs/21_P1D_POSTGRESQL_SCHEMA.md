@@ -1,6 +1,6 @@
 # P1D — Schéma PostgreSQL canonique
 
-Statut : `VALIDATION READY — VALIDATION UTILISATEUR EN ATTENTE`
+Statut : `VALIDATED — VALIDATION UTILISATEUR 2026-09-07`
 
 P1D matérialise dans PostgreSQL les contrats de données de marché déjà validés en P0 et implémentés côté domaine en P1B. Il n'implémente pas la machine transactionnelle des révisions de P1E.
 
@@ -159,4 +159,8 @@ Les tests d’intégration PostgreSQL confirment en particulier :
 
 La revue finale distingue volontairement deux niveaux d’invariants : le DDL P1D garantit la référence exacte de révision et les contraintes structurelles locales ; la vérification transactionnelle qu’un `candles.current_revision_seq` pointe, après chaque transition, vers la révision au statut `accepted_current` reste P1E. L’imposer dès P1D exigerait une mécanique supplémentaire de trigger ou une redondance de statut sans valeur analytique propre. Ce choix ne modifie pas le contrat P0 : P1E devra maintenir cet invariant atomiquement lors des promotions/quarantaines.
 
-Ces résultats placent P1D au statut **`VALIDATION READY`**. La validation finale du jalon reste soumise à l’approbation explicite de l’utilisateur après création et revue du commit candidat.
+Ces résultats ont été revus, puis P1D a été explicitement validé par l’utilisateur le 7 septembre 2026.
+
+## Décision de clôture
+
+Le 7 septembre 2026, l’utilisateur a explicitement validé P1D après revue du gate local, des invariants PostgreSQL et du commit candidat. P1D est donc clôturé avec le statut `VALIDATED`. Le sous-jalon suivant autorisé est **P1E — transitions et politique des révisions**.
