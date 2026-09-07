@@ -9,6 +9,17 @@ from btc_analytics.market_data.provider import (
     ProviderOHLCV,
     UnsupportedMarketError,
 )
+from btc_analytics.market_data.revisions import (
+    PendingRevision,
+    RevisionFingerprintError,
+    RevisionObservation,
+    RevisionOperation,
+    RevisionPolicyError,
+    RevisionReference,
+    RevisionResult,
+    RevisionStore,
+    RevisionTimestampError,
+)
 
 __all__ = [
     "CcxtBinanceMarketDataProvider",
@@ -17,5 +28,14 @@ __all__ = [
     "ProviderCapabilityError",
     "ProviderDataError",
     "ProviderOHLCV",
+    "PendingRevision",
+    "RevisionFingerprintError",
+    "RevisionObservation",
+    "RevisionOperation",
+    "RevisionPolicyError",
+    "RevisionReference",
+    "RevisionResult",
+    "RevisionStore",
+    "RevisionTimestampError",
     "UnsupportedMarketError",
 ]
