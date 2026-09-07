@@ -1,4 +1,4 @@
-# État courant
+﻿# État courant
 
 ## Projet
 
@@ -37,4 +37,4 @@ Les décisions validées restent à ajouts uniquement (append-only) dans `docs/1
 
 ## Prochaine étape
 
-Créer le commit de clôture P1A, pousser la branche `p1-market-data`, puis démarrer **P1B — Domaine des données de marché** à partir des contrats P0 validés et du socle P1A.
+P1A est validé, publié sur `p1-market-data` et figé par le tag `p1a-backend-bootstrap`. Démarrer **P1B — Domaine des données de marché** à partir des contrats P0 validés et du socle P1A.
