@@ -30,4 +30,4 @@ Les décisions validées restent à ajouts uniquement (append-only) dans `docs/1
 
 ## Prochaine étape
 
-Créer le commit de clôture P1C, pousser la branche `p1-market-data`, figer le jalon par un tag, puis démarrer **P1D — schéma PostgreSQL canonique** à partir des contrats P0 validés et des primitives P1B/P1C.
+P1C est validé, publié sur `p1-market-data` et figé par le tag `p1c-ccxt-provider`. Démarrer **P1D — schéma PostgreSQL canonique** à partir des contrats P0 validés et des primitives P1B/P1C.
