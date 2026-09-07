@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.14,<3.15"
 dependencies = [
     "alembic==1.19.2",
+    "ccxt==4.5.77",
     "psycopg[binary]==3.3.5",
     "sqlalchemy==2.0.52",
 ]
@@ -33,6 +34,7 @@ testpaths = ["backend/tests"]
 addopts = "-ra --strict-config --strict-markers"
 markers = [
     "integration: requires external infrastructure such as PostgreSQL",
+    "binance_integration: requires public network access to Binance Spot through CCXT",
 ]
 
 [tool.ruff]

@@ -1,6 +1,6 @@
 # 17 — Évaluation des dépendances
 
-Date de vérification : 2026-09-06. Les versions exactes sont figées uniquement lors de l'amorçage du dépôt.
+Date de vérification initiale : 2026-09-06. Les versions exactes sont figées dans `pyproject.toml` et `uv.lock` au moment où chaque dépendance entre effectivement dans son jalon d'implémentation.
 
 ## CCXT — ADOPT derrière adaptateur
 
@@ -12,6 +12,20 @@ Date de vérification : 2026-09-06. Les versions exactes sont figées uniquement
 - Licence : MIT.
 - Couplage : moyen en cas de fuite ; faible lorsqu'il est isolé derrière `MarketDataProvider`.
 - Décision : ADOPT comme couche d'accès, pas comme modèle de domaine.
+
+### Revalidation P1C — 2026-09-07
+
+- Version PyPI vérifiée : `4.5.77`, publiée le 1er septembre 2026.
+- Licence recontrôlée : MIT.
+- Métadonnées Python : `>=3.10` ; compatibilité réelle avec Python 3.14.7 confirmée localement par installation, tests et smoke public Binance.
+- API recontrôlée : `fetchOHLCV` / `fetch_ohlcv`, `since` en millisecondes Unix UTC, timeframes exposés par l'exchange.
+- Risque causal recontrôlé : la dernière bougie peut être incomplète ; BTC Analytics la filtre avec un cutoff capturé avant l'appel fournisseur afin de ne pas accepter une bougie qui se clôture pendant la requête.
+- Qualité/tests : tests unitaires de la frontière, suite projet complète et smoke public Binance borné exécutés localement ; la fixture de parité native reste P1G.
+- Dépendances : le verrouillage P1C fait passer le graphe uv de 19 à 41 paquets, soit CCXT plus 21 dépendances transitives verrouillées pour les plateformes supportées par le lock.
+- Performances : P1C utilise le chemin synchrone batch avec `enableRateLimit=True`; aucune optimisation n'est revendiquée sans profiling. Ce coût est acceptable pour le périmètre borné P1C et sera réévalué uniquement sur mesure.
+- Compatibilité architecturale : aucun type CCXT ne traverse `MarketDataProvider` vers le domaine ; l'adaptateur peut être remplacé sans modifier `Market`, `Timeframe` ou `Candle`.
+- Les gaps éventuels sont transmis par CCXT tels que retournés par l'exchange ; leur politique canonique reste propriété de BTC Analytics.
+- Décision maintenue : **ADOPT derrière `MarketDataProvider`**, usage P1C limité aux endpoints publics de données de marché.
 
 ## Polars — ADOPT
 
