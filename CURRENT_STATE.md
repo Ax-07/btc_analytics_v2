@@ -10,7 +10,7 @@ P1 — Données de marché / P1C — `MarketDataProvider` + adaptateur CCXT Bina
 
 ## Statut
 
-`P1C — VALIDATION READY / VALIDATION UTILISATEUR EN ATTENTE`
+`P1C — VALIDATED`
 
 P0 — Fondation reste validé et figé au jalon `p0-foundation-v7`. P1A — Amorçage du backend reste validé et figé au jalon `p1a-backend-bootstrap`. P1B — Domaine des données de marché reste validé et figé au jalon `p1b-market-data-domain`.
 
@@ -20,7 +20,7 @@ Le périmètre P1C reste limité à l'accès public OHLCV : mapping explicite `M
 
 CCXT reste classé **ADOPT derrière adaptateur**. La dépendance est revalidée pour P1C avant verrouillage local ; aucune API de trading, ordre ou portefeuille n'est utilisée.
 
-Le gate local P1C a été exécuté le 7 septembre 2026 : Ruff lint et formatage sont passés, Pyright a terminé avec `0 errors, 0 warnings`, pytest avec `54 passed, 1 skipped` (le seul skip étant le smoke Binance désactivé par défaut), PostgreSQL était `healthy`, et le smoke public Binance a passé avec `1 passed`. La revue Git finale a confirmé les neuf fichiers P1C attendus. Le candidat est donc **prêt pour validation utilisateur**, mais n'est pas encore validé.
+Le gate local P1C a été exécuté le 7 septembre 2026 : Ruff lint et formatage sont passés, Pyright a terminé avec `0 errors, 0 warnings`, pytest avec `54 passed, 1 skipped` (le seul skip étant le smoke Binance désactivé par défaut), PostgreSQL était `healthy`, et le smoke public Binance a passé avec `1 passed`. La revue Git finale a confirmé les neuf fichiers P1C attendus. Le 7 septembre 2026, l'utilisateur a explicitement validé P1C après revue du commit candidat. Le jalon P1C est donc **validé**.
 
 ## Source canonique P0
 
@@ -30,4 +30,4 @@ Les décisions validées restent à ajouts uniquement (append-only) dans `docs/1
 
 ## Prochaine étape
 
-Créer le commit d'implémentation candidat de **P1C — `MarketDataProvider` + adaptateur CCXT Binance**, vérifier l'état Git, puis attendre la validation explicite de l'utilisateur avant de passer P1C au statut `VALIDATED` et de poursuivre vers P1D.
+Créer le commit de clôture P1C, pousser la branche `p1-market-data`, figer le jalon par un tag, puis démarrer **P1D — schéma PostgreSQL canonique** à partir des contrats P0 validés et des primitives P1B/P1C.

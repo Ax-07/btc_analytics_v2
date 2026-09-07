@@ -1,6 +1,6 @@
 # P1C — `MarketDataProvider` + adaptateur CCXT Binance
 
-Statut : `VALIDATION READY — VALIDATION UTILISATEUR EN ATTENTE`
+Statut : `VALIDATED — VALIDATION UTILISATEUR 2026-09-07`
 
 P1C implémente la frontière fournisseur déjà décidée en P0. Il ne modifie ni le domaine P1B ni les décisions validées dans `docs/10_DECISIONS.md`.
 
@@ -130,4 +130,8 @@ Les contrôles P1C ont été exécutés sur l'environnement local Python 3.14.7 
 
 Les edge cases finaux couvrent notamment le cutoff causal avant l'appel réseau, la provenance `observed_at`, la validation runtime stricte de `limit`, les types fournisseur invalides et l'absence de fuite de types CCXT vers le domaine.
 
-Ces résultats placent P1C au statut **`VALIDATION READY`**. La validation finale du jalon reste soumise à l'approbation explicite de l'utilisateur après création et revue du commit candidat.
+Ces résultats ont été revus, puis P1C a été explicitement validé par l'utilisateur le 7 septembre 2026.
+
+## Décision de clôture
+
+Le 7 septembre 2026, l'utilisateur a explicitement validé P1C après revue du gate local, des edge cases et du commit candidat. P1C est donc clôturé avec le statut `VALIDATED`. Le sous-jalon suivant autorisé est **P1D — schéma PostgreSQL canonique**.
