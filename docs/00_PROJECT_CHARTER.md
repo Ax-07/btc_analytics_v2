@@ -1,4 +1,4 @@
-# 00 — Project Charter
+# 00 — Charte du projet
 
 ## Vision
 
@@ -16,20 +16,20 @@ V2 n'est pas :
 
 - un bot de trading ;
 - un moteur d'ordres ;
-- un système buy/sell ;
+- un système d'achat/vente ;
 - un gestionnaire de portefeuille ;
 - une plateforme de copy trading ;
 - un optimiseur de stratégie ;
 - une plateforme ML par défaut.
 
-## Scope initial
+## Périmètre initial
 
 ### Marché
 
 - Bitcoin spot ;
-- provider initial : Binance ;
+- fournisseur initial : Binance ;
 - accès principal : CCXT derrière une abstraction interne ;
-- marché initial : BTC/USDC côté provider ;
+- marché initial : BTC/USDC côté fournisseur ;
 - timeframes : `1h`, `4h`, `1d` ;
 - UTC canonique.
 
@@ -47,11 +47,11 @@ V2 n'est pas :
 - pentes ;
 - compression / expansion ;
 - événements techniques ;
-- événements chandeliers ;
+- événements de chandeliers ;
 - contextes ;
-- forward outcomes.
+- outcomes futurs.
 
-### Chart patterns
+### Figures chartistes
 
 Les figures chartistes ne sont pas un objectif central. Elles pourront être ajoutées comme interprétations optionnelles si elles démontrent une valeur analytique supplémentaire.
 

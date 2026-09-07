@@ -1,53 +1,53 @@
-# Source Integrity — P0 v7
+# Intégrité des sources — P0 v7
 
-## Validation state
+## État de validation
 
 `P0 — VALIDATED`
 
-Two independent final v7 audits concluded `P0 — VALIDATION READY`, and the user explicitly approved D-001 through D-020 in block on 2026-09-06. The v7 semantic contracts are frozen as the validated P0 baseline.
+Deux audits finaux indépendants de la v7 ont conclu `P0 — VALIDATION READY`, et l'utilisateur a explicitement approuvé D-001 à D-020 en bloc le 6 septembre 2026. Les contrats sémantiques v7 sont figés comme référence P0 validée.
 
-## Canonical ChatGPT source
+## Source canonique ChatGPT
 
-Use a single source file:
+Utiliser un seul fichier source :
 
 `BTC_ANALYTICS_V2_P0_CANONICAL_v7.md`
 
-Do not keep earlier P0 master files simultaneously in the same project sources.
+Ne pas conserver simultanément d'anciens fichiers maîtres P0 dans les mêmes sources de projet.
 
-## Required v7 markers
+## Marqueurs v7 obligatoires
 
-The canonical v7 source must contain all of the following:
+La source canonique v7 doit contenir tous les éléments suivants :
 
-- Decision Log D-001 through D-020;
-- `RFC 8785` and `parameter_fingerprint`;
-- exact `occurrence-key.v1` payload;
-- `DatasetSnapshot` with `knowledge_mode`;
-- `CandleRevision` model;
-- initial accepted revision with `revision_seq = 1`;
-- stable exact revision reference `(market, timeframe, open_time, revision_seq)`;
-- subsequent distinct observations allocate the next `revision_seq` at candidate creation;
-- `revision_status` includes `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined`;
-- pending candidates have `observed_at`, no `accepted_at`, and are never PIT-eligible;
-- at most one unresolved pending candidate per candle lineage;
-- pending confirmation survives interruption/restart without implying acceptance;
-- quarantined candidates retain their allocated sequence and have no `accepted_at`;
-- `observed_at`;
-- `accepted_at`;
-- invariant `observed_at <= accepted_at` for accepted revisions;
-- `revision acceptance policy v1`;
-- `reconstructed_latest`;
-- `observed_point_in_time`;
-- PIT eligibility rule `accepted_at <= T`;
-- `observed_at <= T` alone is insufficient for PIT;
-- quarantined revisions are never PIT-eligible;
-- same-venue native confirmation for changed accepted candles and no cross-exchange replacement;
-- initial ingestion does not require per-candle native confirmation;
-- Pyright;
-- Basic Contexts in P5;
-- Advanced Contexts & Regimes in P8;
-- PostgreSQL current canonical authority;
-- immutable Parquet snapshots;
-- generalized prefix-invariance tests;
-- data-revision tests covering initial revision, pending confirmation, observation-before-acceptance, quarantine and recovery.
+- le journal de décisions D-001 à D-020 ;
+- `RFC 8785` et `parameter_fingerprint` ;
+- le payload exact `occurrence-key.v1` ;
+- `DatasetSnapshot` avec `knowledge_mode` ;
+- le modèle `CandleRevision` ;
+- la première révision acceptée avec `revision_seq = 1` ;
+- la référence exacte et stable de révision `(market, timeframe, open_time, revision_seq)` ;
+- les observations distinctes ultérieures allouent le prochain `revision_seq` lors de la création de la candidate ;
+- `revision_status` inclut `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined` ;
+- les candidates en attente possèdent `observed_at`, n'ont pas d'`accepted_at` et ne sont jamais éligibles au PIT ;
+- au plus une candidate en attente non résolue par lignée de bougie ;
+- une confirmation en attente survit à une interruption/redémarrage sans impliquer une acceptation ;
+- les candidates mises en quarantaine conservent leur séquence allouée et n'ont pas d'`accepted_at` ;
+- `observed_at` ;
+- `accepted_at` ;
+- l'invariant `observed_at <= accepted_at` pour les révisions acceptées ;
+- `revision acceptance policy v1` ;
+- `reconstructed_latest` ;
+- `observed_point_in_time` ;
+- la règle d'éligibilité PIT `accepted_at <= T` ;
+- `observed_at <= T` seul est insuffisant pour le PIT ;
+- les révisions mises en quarantaine ne sont jamais éligibles au PIT ;
+- confirmation native sur la même venue pour les candles acceptées modifiées et absence de remplacement cross-exchange ;
+- l'ingestion initiale ne requiert pas de confirmation native candle par candle ;
+- Pyright ;
+- les contextes basiques en P5 ;
+- les contextes avancés et régimes en P8 ;
+- PostgreSQL comme autorité canonique courante ;
+- snapshots Parquet immuables ;
+- tests généralisés d'invariance par préfixe ;
+- tests de révision de données couvrant la révision initiale, la confirmation en attente, l'observation avant acceptation, la quarantaine et la reprise.
 
-If an audit reports that these markers are absent, it is not reading the canonical v7 source.
+Si un audit affirme que ces marqueurs sont absents, il ne lit pas la source canonique v7.

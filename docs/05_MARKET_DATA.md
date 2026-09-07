@@ -1,197 +1,197 @@
-# 05 — Market Data
+# 05 — Données de marché
 
-## Goal
+## Objectif
 
-Provide reliable exchange-independent closed candles for analytical use.
+Fournir des bougies clôturées fiables et indépendantes de la plateforme d'échange pour l'usage analytique.
 
-## Access architecture
+## Architecture d'accès
 
 ```text
-Exchange -> CCXT Adapter -> Provider DTO -> Normalizer -> Validator -> Canonical Candle
-                                                     -> PostgreSQL current canonical store
-                                                     -> Parquet immutable analytical snapshots
+Plateforme d'échange -> Adaptateur CCXT -> DTO fournisseur -> Normaliseur -> Validateur -> Bougie canonique (`Candle`)
+                                                          -> stockage canonique courant PostgreSQL
+                                                          -> snapshots analytiques immuables Parquet
 ```
 
-## Initial provider/market
+## Fournisseur/marché initial
 
-- access library: CCXT;
-- exchange: Binance Spot;
-- provider symbol: `BTC/USDC`;
-- internal canonical market identity is independent of CCXT notation.
+- bibliothèque d'accès : CCXT ;
+- plateforme d'échange : Binance Spot ;
+- symbole fournisseur : `BTC/USDC` ;
+- l'identité canonique interne du marché est indépendante de la notation CCXT.
 
-The domain never imports CCXT types.
+Le domaine n'importe jamais de types CCXT.
 
-## Canonical candle semantics
+## Sémantique de la bougie canonique
 
-- interval: `[open_time, end_time)`;
-- UTC;
-- P1 stores/uses closed candles for analytics;
-- `available_at = end_time` describes historical market-time bar availability;
-- provider-specific raw close timestamps may be retained as provenance only.
+- intervalle : `[open_time, end_time)` ;
+- UTC ;
+- P1 stocke/utilise des bougies clôturées pour l'analytique ;
+- `available_at = end_time` décrit la disponibilité historique de la barre en temps de marché ;
+- les timestamps bruts de clôture propres au fournisseur peuvent être conservés uniquement comme provenance.
 
 ### Volume
 
-Canonical `base_volume` is volume in the base asset (BTC for BTC/USDC).
+Le `base_volume` canonique est le volume dans l'actif de base (BTC pour BTC/USDC).
 
-If retained, quote activity is named `quote_volume`; trade count is `trade_count`. No ambiguous generic `volume` field is used in canonical domain contracts.
+Si elles sont conservées, l'activité en devise de cotation est nommée `quote_volume` et le nombre de transactions `trade_count`. Aucun champ canonique ambigu nommé simplement `volume` n'est utilisé dans les contrats du domaine.
 
-## Initial native timeframes
+## Unités de temps natives initiales (`timeframes`)
 
 - `1h`
 - `4h`
 - `1d`
 
-P1 fetches each timeframe natively from the provider. No canonical resampling is performed in P1.
+P1 récupère chaque unité de temps nativement auprès du fournisseur. Aucun rééchantillonnage canonique (`resampling`) n'est effectué en P1.
 
-Expected UTC alignment is validated.
+L'alignement UTC attendu est validé.
 
-If an exchange/provider does not support a required native timeframe, that market/timeframe is unsupported until a separate resampling contract is explicitly added.
+Si une plateforme d'échange ou un fournisseur ne prend pas en charge une unité de temps native requise, ce couple `market/timeframe` est non pris en charge jusqu'à l'ajout explicite d'un contrat distinct de rééchantillonnage (`resampling`).
 
 ## Validation
 
-- timezone/interval alignment;
-- OHLC invariants;
-- non-negative volumes/counts;
-- uniqueness;
-- closed status/eligibility;
-- monotonic ordering;
-- duplicate detection;
-- gap detection.
+- alignement fuseau horaire/intervalle ;
+- invariants OHLC ;
+- volumes/nombres de transactions non négatifs ;
+- unicité ;
+- statut/éligibilité de clôture ;
+- ordre monotone ;
+- détection des doublons ;
+- détection des gaps.
 
-## Gap policy
+## Politique des lacunes (`gaps`)
 
-A gap is never interpolated silently.
+Une lacune (`gap`) n'est jamais interpolée silencieusement.
 
-Canonical analytics treat gaps as hard continuity boundaries:
+Les analyses canoniques traitent les lacunes (`gaps`) comme des frontières dures de continuité :
 
-- rolling feature warm-up restarts after a gap when continuity is required;
-- structural algorithms do not connect points across a gap by default;
-- events/contexts depending on continuous history are unavailable until their requirements are satisfied again;
-- an outcome horizon crossing a gap is `incomplete_gap`;
-- ExperimentRun reports exclusions/incomplete counts.
+- la phase d'initialisation (`warm-up`) des `features` glissantes redémarre après un `gap` lorsqu'une continuité est requise ;
+- les algorithmes structurels ne relient pas par défaut des points de part et d'autre d'un gap ;
+- les événements/contextes dépendant d'un historique continu sont indisponibles jusqu'à ce que leurs exigences soient de nouveau satisfaites ;
+- un horizon d'`Outcome` traversant un `gap` est `incomplete_gap` ;
+- ExperimentRun rapporte les exclusions et comptes incomplets.
 
-## PostgreSQL authority
+## Autorité PostgreSQL
 
-PostgreSQL is the **current canonical product store**.
+PostgreSQL est le **stockage produit canonique courant**.
 
-Repeated observations that normalize to the same values are idempotent.
+Les observations répétées qui se normalisent vers les mêmes valeurs sont idempotentes.
 
-### Initial closed candle ingestion
+### Ingestion initiale d'une bougie clôturée
 
-For the first valid observation of a previously unknown closed candle:
+Pour la première observation valide d'une bougie clôturée jusque-là inconnue :
 
-1. normalize the provider observation;
-2. validate all canonical invariants;
-3. create `CandleRevision` with `revision_seq = 1`;
-4. record `observed_at` from the first BTC Analytics observation of that normalized candle;
-5. record `accepted_at` when canonical validation succeeds;
-6. set `revision_status = accepted_current`;
-7. make the canonical Candle current state reference that exact revision.
+1. normaliser l'observation du fournisseur ;
+2. valider tous les invariants canoniques ;
+3. créer une `CandleRevision` avec `revision_seq = 1` ;
+4. enregistrer `observed_at` au premier instant où BTC Analytics a observé cette bougie normalisée ;
+5. enregistrer `accepted_at` lorsque la validation canonique réussit ;
+6. définir `revision_status = accepted_current` ;
+7. faire référencer cet identifiant exact de révision par l'état courant de la Candle canonique.
 
-The initial accepted revision does **not** require a per-candle confirmation against the native endpoint. P1 instead validates the CCXT provider path with the bounded CCXT-vs-Binance-native fixture defined below. Native per-candle confirmation is required when a later observation conflicts with an already accepted candle.
+La première révision acceptée ne requiert **pas** de confirmation individuelle par bougie contre l'endpoint natif. P1 valide plutôt le chemin fournisseur CCXT avec un jeu de test de référence borné (`fixture`) CCXT-vs-Binance-native défini ci-dessous. Une confirmation native par bougie est requise lorsqu'une observation ultérieure entre en conflit avec une bougie déjà acceptée.
 
-The exact local revision reference is `(market, timeframe, open_time, revision_seq)`.
+La référence locale exacte de révision est `(market, timeframe, open_time, revision_seq)`.
 
-### Changed closed candle: revision acceptance policy v1
+### Bougie clôturée modifiée : politique d'acceptation des révisions v1 (`revision acceptance policy v1`)
 
-A different re-observation of an already stored closed candle never overwrites current state directly.
+Une réobservation différente d'une bougie clôturée déjà stockée n'écrase jamais directement l'état courant.
 
-The deterministic flow is:
+Le flux déterministe est :
 
-1. normalize the new observation;
-2. validate all canonical invariants;
-3. compare it with the current accepted revision;
-4. if values are identical, do nothing except optional observation metadata;
-5. if values differ, create and persist a revision candidate with the next monotonically increasing `revision_seq`, record `observed_at`, set `revision_status = pending_confirmation`, and leave `accepted_at` absent;
-6. confirm that pending candidate against the configured native authoritative endpoint for the **same venue and market**;
-7. promote the candidate only if the normalized native confirmation agrees on canonical OHLC and `base_volume`;
-8. when confirmed, transition that same revision from `pending_confirmation` to `accepted_current`, record `accepted_at` at the successful promotion instant, mark the old revision `accepted_superseded`, preserve the candidate's already allocated `revision_seq`, and write the before/after audit entry;
-9. if confirmation disagrees, is unavailable, or validation fails, transition that same revision from `pending_confirmation` to `quarantined`, preserve its allocated `revision_seq`, leave `accepted_at` absent, and leave PostgreSQL current canonical values unchanged.
+1. normaliser la nouvelle observation ;
+2. valider tous les invariants canoniques ;
+3. la comparer à la révision courante acceptée ;
+4. si les valeurs sont identiques, ne rien faire hormis d'éventuelles métadonnées d'observation ;
+5. si les valeurs diffèrent, créer et persister une candidate de révision avec le prochain `revision_seq` croissant, enregistrer `observed_at`, définir `revision_status = pending_confirmation` et laisser `accepted_at` absent ;
+6. confirmer cette candidate en attente contre l'endpoint natif faisant autorité configuré pour la **même venue et le même marché** ;
+7. promouvoir la candidate uniquement si la confirmation native normalisée concorde sur OHLC canonique et `base_volume` ;
+8. en cas de confirmation, faire passer cette même révision de `pending_confirmation` à `accepted_current`, enregistrer `accepted_at` à l'instant de la promotion réussie, marquer l'ancienne révision comme `accepted_superseded`, préserver le `revision_seq` déjà alloué à la candidate et écrire l'entrée d'audit avant/après ;
+9. si la confirmation est en désaccord, indisponible ou si la validation échoue, faire passer cette même révision de `pending_confirmation` à `quarantined`, préserver son `revision_seq`, laisser `accepted_at` absent et ne pas modifier les valeurs canoniques courantes de PostgreSQL.
 
-For the initial Binance provider, the confirmation source is Binance native klines.
+Pour le fournisseur Binance initial, la source de confirmation est l'endpoint natif Binance klines.
 
-No observation from another exchange/venue can automatically replace the canonical Binance candle.
+Aucune observation provenant d'un autre exchange/d'une autre venue ne peut remplacer automatiquement la bougie canonique Binance.
 
-### Pending confirmation serialization
+### Sérialisation des confirmations en attente (`pending_confirmation`)
 
-For one candle lineage, at most one unresolved `pending_confirmation` revision may exist at a time. Confirmation processing is serialized per candle so an older pending candidate cannot be accepted after a newer candidate and overwrite acceptance order.
+Pour une lignée de bougie donnée, au plus une révision `pending_confirmation` non résolue peut exister à la fois. Le traitement des confirmations est sérialisé par bougie afin qu'une ancienne candidate en attente ne puisse pas être acceptée après une candidate plus récente et écraser l'ordre d'acceptation.
 
-While a revision is pending:
+Tant qu'une révision est en attente :
 
-- a re-observation with the same normalized logical values as that pending revision is idempotent and does not allocate another `revision_seq`;
-- another distinct candidate for the same candle is not processed as a new revision until the existing pending candidate has resolved;
-- `accepted_at` remains absent and the pending revision is never eligible for point-in-time replay.
+- une réobservation avec les mêmes valeurs logiques normalisées que cette révision en attente est idempotente et n'alloue pas de nouveau `revision_seq` ;
+- une autre candidate distincte pour la même bougie n'est pas traitée comme nouvelle révision avant résolution de la candidate en attente existante ;
+- `accepted_at` reste absent et la révision en attente n'est jamais éligible au relecture point-in-time (`PIT`).
 
-If processing is interrupted, the persisted pending revision remains `pending_confirmation` after restart. Recovery retries/reconciles that exact revision before processing another distinct candidate for the same candle; restart alone never promotes or quarantines it.
+Si le traitement est interrompu, la révision en attente persistée reste `pending_confirmation` après redémarrage. La reprise retente/réconcilie cette révision exacte avant de traiter une autre candidate distincte pour la même bougie ; le redémarrage seul ne la promeut ni ne la met en quarantaine.
 
-### Revision temporal semantics
+### Sémantique temporelle des révisions
 
-Two notions must not be conflated:
+Trois notions ne doivent pas être confondues :
 
-- `available_at = end_time`: market-time availability of the completed candle in the reconstructed closed-bar model;
-- `CandleRevision.observed_at`: when BTC Analytics first observed a particular revision candidate;
-- `CandleRevision.accepted_at`: when validation/confirmation completed successfully and that revision became accepted canonical state.
+- `available_at = end_time` : disponibilité en temps de marché de la bougie terminée dans le modèle reconstruit à bougies clôturées (`closed-bar`) ;
+- `CandleRevision.observed_at` : instant où BTC Analytics a observé pour la première fois une candidate de révision particulière ;
+- `CandleRevision.accepted_at` : instant où la validation/confirmation a réussi et où cette révision est devenue l'état canonique accepté.
 
-For every accepted revision, `observed_at <= accepted_at`. Pending and quarantined revisions have no `accepted_at`.
+Pour toute révision acceptée, `observed_at <= accepted_at`. Les révisions en attente et `quarantined` n'ont pas d'`accepted_at`.
 
-A correction discovered later is never claimed to have been **system-observed** or **accepted** at the original `end_time`.
+Une correction découverte plus tard n'est jamais présentée comme ayant été **observée par le système** ou **acceptée** à l'`end_time` historique d'origine.
 
-## Dataset knowledge modes
+## Modes de connaissance du jeu de données
 
 ### `reconstructed_latest`
 
-Default mode for historical analytical research.
+Mode par défaut pour la recherche analytique historique.
 
-The snapshot uses the accepted current revision for each candle at snapshot creation.
+Le snapshot (`DatasetSnapshot`) utilise la révision courante acceptée de chaque bougie au moment de sa création.
 
-Causal feature/event sequencing is anchored to candle `end_time`, but the run must be described as a **reconstructed-latest historical analysis**. It must not claim that later provider corrections were actually known to BTC Analytics or a market participant at the original historical T.
+Le séquençage causal des features/événements est ancré sur l'`end_time` des bougies, mais l'exécution doit être décrite comme une **analyse historique `reconstructed_latest`**. Il ne doit pas prétendre que des corrections ultérieures du fournisseur étaient réellement connues de BTC Analytics ou d'un acteur de marché au T historique d'origine.
 
-This mode is appropriate for “analyse the best currently available reconstruction of history”.
+Ce mode convient à la question : « analyser la meilleure reconstruction de l'histoire actuellement disponible ».
 
 ### `observed_point_in_time`
 
-Strict replay mode.
+Mode strict de replay.
 
-A candle revision may influence an anchor T only if it had already become accepted canonical state no later than T.
+Une révision de bougie ne peut influencer un ancrage T que si elle était déjà devenue l'état canonique accepté au plus tard à T.
 
-For a given candle, point-in-time replay selects the accepted revision with the greatest `accepted_at` satisfying:
+Pour une bougie donnée, le relecture point-in-time (`PIT`) sélectionne la révision acceptée ayant le plus grand `accepted_at` satisfaisant :
 
 ```text
 accepted_at <= T
 ```
 
-`observed_at <= T` alone is insufficient: a `pending_confirmation` candidate that had not yet passed confirmation at T cannot influence the replay. Pending and quarantined revisions are never eligible because they have no `accepted_at`.
+`observed_at <= T` seul est insuffisant : une candidate `pending_confirmation` qui n'avait pas encore passé la confirmation à T ne peut pas influencer le replay. Les révisions en attente et `quarantined` ne sont jamais éligibles car elles n'ont pas d'`accepted_at`.
 
-Example: if a candidate is observed at 10:00 and accepted at 10:05, replay at 10:02 uses the previously accepted revision; replay at or after 10:05 may use the new accepted revision.
+Exemple : si une candidate est observée à 10:00 et acceptée à 10:05, le replay à 10:02 utilise la révision précédemment acceptée ; le replay à 10:05 ou après peut utiliser la nouvelle révision acceptée.
 
-This mode is only valid for periods with sufficient continuous observation/revision provenance. Historical backfill predating BTC Analytics observation coverage cannot be silently treated as point-in-time observed history.
+Ce mode n'est valide que pour les périodes disposant d'une provenance continue suffisante d'observation/révision. Un backfill historique antérieur à la couverture d'observation de BTC Analytics ne peut pas être silencieusement traité comme un historique observé point-in-time.
 
-P0 defines the semantics; P1 does not need to implement a full live point-in-time replay engine unless explicitly scheduled.
+P0 définit la sémantique ; P1 n'a pas à implémenter un moteur complet de relecture point-in-time (`PIT`) live sauf si cela est explicitement planifié.
 
-## Parquet snapshots
+## Snapshots Parquet
 
-Parquet snapshots are immutable derived datasets for reproducible analytics/research, not a second mutable authority.
+Les snapshots Parquet sont des datasets dérivés immuables pour l'analytique/recherche reproductible, pas une seconde autorité mutable.
 
-Each DatasetSnapshot freezes:
+Chaque DatasetSnapshot fige :
 
-- candle identities;
-- exact accepted revision identifiers;
-- knowledge mode;
-- gaps;
-- logical manifest/content hashes.
+- les identités de bougies ;
+- les identifiants exacts de révisions acceptées ;
+- le knowledge mode ;
+- les gaps ;
+- les hashes logiques de manifeste/contenu.
 
-A later PostgreSQL candle correction never modifies an existing snapshot.
+Une correction ultérieure de bougie PostgreSQL ne modifie jamais un snapshot existant.
 
 ## Idempotence
 
-Repeated fetches that normalize to the same canonical candle create no new semantic state.
+Des récupérations répétées qui se normalisent vers la même bougie canonique ne créent aucun nouvel état sémantique.
 
-## Cross-check P1
+## Vérification croisée P1
 
-A bounded fixture/range compares CCXT Binance OHLCV with Binance-native kline data for timestamp/OHLC/base volume after normalization.
+Une fixture/plage bornée compare les OHLCV Binance via CCXT aux klines natives Binance pour timestamp/OHLC/base volume après normalisation.
 
-The same native path is used as confirmation only when a changed historical observation requires revision validation.
+Le même chemin natif est utilisé comme confirmation uniquement lorsqu'une observation historique modifiée nécessite la validation d'une révision.
 
-## Real-time
+## Temps réel
 
-Out of P1. WebSocket/open-candle handling requires a later explicit intrabar/live contract.
+Hors périmètre P1. La gestion WebSocket/des bougies ouvertes requiert un futur contrat explicite intrabar/live.

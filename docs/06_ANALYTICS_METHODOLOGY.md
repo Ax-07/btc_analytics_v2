@@ -1,34 +1,34 @@
-# 06 — Analytics Methodology
+# 06 — Méthodologie analytique
 
 ## Hiérarchie
 
 ```text
 OHLCV
-  -> Primitive Features
-  -> Market Structure
-  -> Events
-  -> Contexts
+  -> Features primitives
+  -> Structure de marché
+  -> Événements
+  -> Contextes
   -> Occurrences
-  -> Forward Outcomes
+  -> Outcomes futurs
 ```
 
-## Features initiales
+## Caractéristiques initiales (`features`)
 
 ### Prix
 
-returns, range, gaps, position dans range.
+rendements, range, gaps, position dans le range.
 
 ### Volatilité
 
-true range, ATR, realized volatility, expansion/compression.
+true range, ATR, volatilité réalisée, expansion/compression.
 
 ### Momentum
 
 RSI, ROC, MACD seulement si justifié.
 
-### Trend
+### Tendance
 
-slope, ADX, structure.
+pente, ADX, structure.
 
 ### Volume
 
@@ -36,15 +36,15 @@ volume brut, normalisé, changements relatifs.
 
 ### Structure
 
-extrema, prominence, swings, HH/HL/LH/LL, amplitude ATR, duration, retracement, slope, compression/expansion.
+extrema, prominence, swings, HH/HL/LH/LL, amplitude ATR, durée, retracement, pente, compression/expansion.
 
-## Events
+## Événements
 
 Causaux, versionnés, timestampés, explicables, testables.
 
-## Candlestick patterns
+## Configurations de chandeliers
 
-Shortlist à étudier :
+Liste initiale à étudier :
 
 - Doji
 - Hammer
@@ -59,16 +59,16 @@ Shortlist à étudier :
 
 Ils sont des événements, jamais des recommandations.
 
-## Chart patterns
+## Figures chartistes
 
-Optionnels. Une figure ne devient canonique que si sa définition est objective, causale, inspectable, stable et apporte une information supplémentaire mesurable.
+Optionnelles. Une figure ne devient canonique que si sa définition est objective, causale, inspectable, stable et apporte une information supplémentaire mesurable.
 
 ## Mesure d'utilité
 
 - nombre d'occurrences
 - stabilité temporelle
 - distribution conditionnelle des outcomes
-- différence vs baseline
+- différence par rapport à la baseline
 - robustesse multi-timeframe
 - sensibilité aux paramètres
 - robustesse walk-forward

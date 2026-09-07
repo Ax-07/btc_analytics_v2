@@ -1,10 +1,10 @@
-# 15 — Temporal Conventions
+# 15 — Conventions temporelles
 
-This document is the canonical temporal coordinate contract for P0.
+Ce document est le contrat canonique des coordonnées temporelles pour P0.
 
-## Candle coordinates
+## Coordonnées d'une bougie
 
-For timeframe duration `Δ`:
+Pour une durée de timeframe `Δ` :
 
 ```text
 open_time = t
@@ -13,71 +13,70 @@ interval  = [t, t + Δ)
 available_at = end_time
 ```
 
-All canonical timestamps are UTC.
+Tous les timestamps canoniques sont en UTC.
 
-Provider-specific close timestamps that use inclusive final milliseconds are normalized and never redefine the canonical interval.
+Les timestamps de clôture propres au fournisseur utilisant une dernière milliseconde inclusive sont normalisés et ne redéfinissent jamais l'intervalle canonique.
 
-## Closed-bar analytical model
+## Modèle analytique à bougies clôturées (`closed-bar`)
 
-Initial V2 analytics use only complete candles. `available_at=end_time` expresses market-time historical availability of the complete OHLCV bar.
+Les analyses initiales de la V2 utilisent uniquement des bougies complètes. `available_at=end_time` exprime la disponibilité historique en temps de marché de la barre OHLCV complète.
 
-`ingested_at` records when BTC Analytics observed/stored a version and is not used to shift historical analytical anchors.
+`ingested_at` enregistre quand BTC Analytics a observé/stocké une version et n'est pas utilisé pour déplacer les ancrages analytiques historiques.
 
-A future real-time/intrabar subsystem may additionally model system-observation latency, but must not change P0 historical semantics retroactively.
+Un futur sous-système temps réel/intrabar peut en plus modéliser la latence d'observation par le système, mais ne doit pas modifier rétroactivement la sémantique historique P0.
 
-## Derived artifact timing
+## Temporalité des artefacts dérivés
 
-### Feature on candle C
+### Caractéristique (`Feature`) sur une bougie C
 
-- `event_time = C.end_time` unless the definition documents a physical-time alternative;
-- `known_at = C.end_time` if all required inputs are available by then.
+- `event_time = C.end_time` sauf si la définition documente une autre attribution en temps physique ;
+- `known_at = C.end_time` si toutes les entrées requises sont disponibles à cet instant.
 
-### Confirmed structural point
+### Point structurel confirmé
 
-A pivot may have:
+Un pivot peut avoir :
 
 ```text
 physical_time = candle_100.end_time
 known_at      = candle_103.end_time
 ```
 
-The point belongs physically to 100 but is not eligible for occurrence selection before 103.
+Le point appartient physiquement à 100 mais n'est pas éligible à la sélection d'occurrence avant 103.
 
-### Multi-bar event
+### Événement multi-barres
 
-The definition must state:
+La définition doit préciser :
 
-- physical/event attribution rule;
-- last required evidence candle;
-- `known_at = end_time` of that last required candle.
+- la règle d'attribution physique/de l'événement ;
+- la dernière bougie de preuve requise ;
+- `known_at = end_time` de cette dernière bougie requise.
 
-## Joins
+## Jointures
 
-A causal join at anchor T may include only records with `known_at <= T`.
+Une jointure causale à l'ancrage T peut inclure uniquement des enregistrements avec `known_at <= T`.
 
-Joining a structural point by physical time while ignoring its later `known_at` is a causality violation.
+Joindre un point structurel par son temps physique tout en ignorant son `known_at` ultérieur constitue une violation de causalité.
 
+## Révisions de bougies et affirmations historiques
 
-## Candle revisions and historical claims
+`available_at=end_time` appartient au modèle reconstructed closed-bar en temps de marché.
 
-`available_at=end_time` belongs to the reconstructed closed-bar market-time model.
+Chaque bougie canonique possède une lignée de révisions. Chaque révision enregistre `observed_at` ; toute révision qui devient acceptée enregistre en plus `accepted_at`.
 
-Every canonical candle has a revision lineage. Each revision records `observed_at`; every revision that becomes accepted additionally records `accepted_at`.
-
-For accepted revisions:
+Pour les révisions acceptées :
 
 ```text
 observed_at <= accepted_at
 ```
 
-Therefore:
+Par conséquent :
 
-- `reconstructed_latest` analyses may use the latest accepted revision while anchoring analytical bar sequencing at `end_time`, but must not claim that a later correction was actually known or accepted at historical T;
-- `observed_point_in_time` analyses may use only an accepted revision whose `accepted_at <= T`;
-- `observed_at <= T` alone is insufficient when the candidate had not yet been accepted by T;
-- for a given candle, PIT selects the accepted revision with the greatest `accepted_at <= T`;
-- quarantined revisions have no `accepted_at` and are never PIT-eligible.
+- les analyses `reconstructed_latest` peuvent utiliser la dernière révision acceptée tout en ancrant le séquençage analytique des barres sur `end_time`, mais ne doivent pas prétendre qu'une correction ultérieure était réellement connue ou acceptée au T historique ;
+- les analyses `observed_point_in_time` peuvent utiliser uniquement une révision acceptée dont `accepted_at <= T` ;
+- `observed_at <= T` seul est insuffisant lorsque la candidate n'avait pas encore été acceptée à T ;
+- pour une bougie donnée, le PIT sélectionne la révision acceptée ayant le plus grand `accepted_at <= T` ;
+- les révisions quarantined n'ont pas d'`accepted_at` et ne sont jamais éligibles au PIT.
 
-Example: a correction observed at 10:00 and accepted at 10:05 cannot influence replay at 10:02; it becomes eligible at 10:05.
+Exemple : une correction observée à 10:00 et acceptée à 10:05 ne peut pas influencer le replay à 10:02 ; elle devient éligible à 10:05.
 
-Historical periods without sufficient observation **and acceptance** provenance cannot be labeled `observed_point_in_time`. Historical backfills created later are analyzed with `reconstructed_latest` unless genuine point-in-time revision provenance exists.
+Les périodes historiques sans provenance suffisante d'**observation et d'acceptation** ne peuvent pas être étiquetées `observed_point_in_time`. Les backfills historiques créés ultérieurement sont analysés avec `reconstructed_latest`, sauf s'il existe une véritable provenance point-in-time des révisions.

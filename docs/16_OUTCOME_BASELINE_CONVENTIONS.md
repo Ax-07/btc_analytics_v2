@@ -1,28 +1,28 @@
-# 16 — Outcome & Baseline Conventions
+# 16 — Conventions des résultats (`outcomes`) et des populations de référence (`baselines`)
 
-## Anchor
+## Ancrage
 
-Initial canonical occurrences are closed-candle anchored.
+Les occurrences canoniques initiales sont ancrées sur des bougies clôturées.
 
-`Occurrence.known_at` corresponds to the `end_time` of an anchor candle A.
+`Occurrence.known_at` correspond à l'`end_time` d'une bougie d'ancrage A.
 
-Default reference price:
+Prix de référence par défaut :
 
 ```text
 P0 = close(A)
 ```
 
-The anchor candle itself is excluded from future excursion windows because its high/low occurred partly or entirely before the occurrence became known.
+La bougie d'ancrage elle-même est exclue des fenêtres d'excursion future car son high/low s'est produit partiellement ou entièrement avant que l'occurrence ne devienne connue.
 
 ## Horizon H
 
-Horizon `H` consists of the next H complete expected candles after A:
+L'horizon `H` est constitué des H prochaines bougies complètes attendues après A :
 
 ```text
 A+1, A+2, ..., A+H
 ```
 
-## Forward close return
+## Rendement futur de clôture
 
 ```text
 return_H = close(A+H) / P0 - 1
@@ -34,7 +34,7 @@ return_H = close(A+H) / P0 - 1
 MFE_H = max(0, max(high(A+i) / P0 - 1)), i=1..H
 ```
 
-Canonical MFE is therefore non-negative. If price never trades above P0 during the horizon, MFE is `0`.
+La MFE canonique est donc non négative. Si le prix ne se négocie jamais au-dessus de P0 pendant l'horizon, MFE vaut `0`.
 
 ## MAE
 
@@ -42,44 +42,43 @@ Canonical MFE is therefore non-negative. If price never trades above P0 during t
 MAE_H = min(0, min(low(A+i) / P0 - 1)), i=1..H
 ```
 
-Canonical MAE is therefore non-positive. If price never trades below P0 during the horizon, MAE is `0`.
+La MAE canonique est donc non positive. Si le prix ne se négocie jamais sous P0 pendant l'horizon, MAE vaut `0`.
 
-## Missing future
+## Futur manquant
 
-If the expected sequence A+1..A+H contains:
+Si la séquence attendue A+1..A+H contient :
 
-- a data gap -> `incomplete_gap`;
-- end of available dataset -> `incomplete_end_of_dataset`.
+- un gap de données -> `incomplete_gap` ;
+- la fin du dataset disponible -> `incomplete_end_of_dataset`.
 
-No interpolation or shortening is allowed for a result labeled complete.
+Aucune interpolation ni réduction de l'horizon n'est autorisée pour un résultat étiqueté complete.
 
-## Metric definitions
+## Définitions de métriques
 
-Future volatility and any additional metric require their own versioned OutcomeDefinition before canonical use.
+La volatilité future et toute métrique supplémentaire exigent leur propre OutcomeDefinition versionnée avant utilisation canonique.
 
-## BaselineDefinition
+## `BaselineDefinition` — définition de population de référence
 
-Every comparative experiment stores an explicit baseline.
+Chaque expérience comparative stocke une population de référence explicite (`BaselineDefinition`).
 
-Default candidate baseline population:
+Population de référence candidate par défaut :
 
-- same DatasetSnapshot;
-- same market/timeframe/date range;
-- all eligible closed anchor candles;
-- same gap/completeness rules;
-- same OutcomeDefinitions;
-- no condition/event filter unless explicitly declared.
+- même DatasetSnapshot ;
+- même market/timeframe/plage de dates ;
+- toutes les bougies d'ancrage clôturées éligibles ;
+- mêmes règles de gaps/complétude ;
+- mêmes OutcomeDefinitions ;
+- aucun filtre de condition/événement sauf déclaration explicite.
 
-A context-matched or regime-matched baseline is allowed only as a separate versioned BaselineDefinition.
+Une population de référence appariée par contexte ou régime est autorisée uniquement comme BaselineDefinition distincte et versionnée.
 
+## Cohérence des révisions de dataset
 
-## Dataset revision consistency
+Les échantillons conditionnels et leur BaselineDefinition doivent utiliser le même DatasetSnapshot et donc les mêmes :
 
-Conditional samples and their BaselineDefinition must use the same DatasetSnapshot and therefore the same:
+- knowledge mode ;
+- ensemble de révisions de bougies ;
+- état des gaps ;
+- couverture temporelle.
 
-- knowledge mode;
-- candle revision set;
-- gap state;
-- temporal coverage.
-
-A comparison between different snapshot revisions is a separate experiment/comparison dimension and must never be hidden inside a baseline.
+Une comparaison entre différentes révisions de snapshots constitue une dimension distincte d'expérience/comparaison et ne doit jamais être masquée à l'intérieur d'une population de référence.

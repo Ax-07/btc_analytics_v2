@@ -1,10 +1,10 @@
-# P0 — Start Here
+# P0 — Commencer ici
 
-## Goal
+## Objectif
 
-P0 turns the V2 vision into a development contract before production code.
+P0 transforme la vision de la V2 en contrat de développement avant l'écriture de code de production.
 
-## Required reading
+## Lecture obligatoire
 
 1. `P0_AUDIT_RESOLUTION.md`
 2. `docs/00_PROJECT_CHARTER.md`
@@ -19,26 +19,26 @@ P0 turns the V2 vision into a development contract before production code.
 11. `docs/10_DECISIONS.md`
 12. `docs/11_ROADMAP.md`
 
-## P0 validation criteria
+## Critères de validation de P0
 
-P0 is validated only when:
+P0 n'est validé que lorsque :
 
-- project scope and non-scope are explicit;
-- temporal coordinates are unambiguous;
-- `features/`, `outcomes/` and `research/` boundaries are stable;
-- Market/Candle/Event/Occurrence/Context/Outcome/Experiment identities are stable enough for independent implementations to agree;
-- outcome/baseline conventions are explicit;
-- market-data gap/revision/native-timeframe policies are explicit;
-- dependency roles are documented;
-- Decision Log D-001 through D-020 is explicitly approved;
-- no blocking question remains.
+- le périmètre du projet et le hors-périmètre sont explicites ;
+- les coordonnées temporelles sont sans ambiguïté ;
+- les frontières de `features/`, `outcomes/` et `research/` sont stables ;
+- les identités Market/Candle/Event/Occurrence/Context/Outcome/Experiment sont suffisamment stables pour que des implémentations indépendantes convergent ;
+- les conventions d'outcome et de baseline sont explicites ;
+- les politiques de gaps, révisions et timeframes natifs des données de marché sont explicites ;
+- le rôle des dépendances est documenté ;
+- le journal de décisions D-001 à D-020 est explicitement approuvé ;
+- aucune question bloquante ne subsiste.
 
-## Validation status
+## Statut de validation
 
 `P0 — VALIDATED`
 
-Final v7 audits independently concluded `P0 — VALIDATION READY`, and D-001 through D-020 were explicitly approved by the user on 2026-09-06.
+Les audits finaux indépendants de la v7 ont conclu `P0 — VALIDATION READY`, et D-001 à D-020 ont été explicitement approuvées par l'utilisateur le 6 septembre 2026.
 
-## Rule
+## Règle
 
-P1 is authorized to begin from this validated P0 contract. Any semantic change to a validated P0 decision requires an explicit versioned follow-up decision; it must not silently rewrite P0 history.
+P1 est autorisé à démarrer à partir de ce contrat P0 validé. Toute modification sémantique d'une décision P0 validée exige une nouvelle décision explicite et versionnée ; elle ne doit jamais réécrire silencieusement l'historique de P0.

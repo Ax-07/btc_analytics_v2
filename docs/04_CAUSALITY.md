@@ -1,72 +1,72 @@
-# 04 — Causality Contract
+# 04 — Contrat de causalité
 
-## Absolute rule
+## Règle absolue
 
-If BTC Analytics says an artifact is known at T, no information after T may have contributed to it.
+Si BTC Analytics affirme qu'un artefact est connu à T, aucune information postérieure à T ne peut avoir contribué à cet artefact.
 
-## Initial cadence
+## Cadence initiale
 
-P0–P8 canonical analytics operate on **closed candles**.
+Les analyses canoniques P0–P8 fonctionnent sur des **bougies clôturées**.
 
-Derived artifacts therefore become known on canonical candle boundaries unless a future milestone defines an explicit intrabar contract.
+Les artefacts dérivés deviennent donc connus sur les frontières canoniques de bougies, sauf si un futur jalon définit explicitement un contrat intrabar.
 
-## Time coordinates
+## Coordonnées temporelles
 
-- candle `open_time`: inclusive start;
-- candle `end_time`: exclusive end;
-- candle `available_at`: `end_time` in historical closed-bar semantics;
-- derived `event_time`/`physical_time`: where the phenomenon belongs;
-- derived `known_at`: earliest canonical time at which all required evidence is available;
-- `ingested_at`: system observation time, not a substitute for analytical `known_at`.
+- `open_time` de la bougie : début inclusif ;
+- `end_time` de la bougie : fin exclusive ;
+- `available_at` de la bougie : `end_time` dans la sémantique historique closed-bar ;
+- `event_time`/`physical_time` dérivé : instant auquel appartient physiquement le phénomène ;
+- `known_at` dérivé : premier instant canonique auquel toutes les preuves requises sont disponibles ;
+- `ingested_at` : instant d'observation par le système, pas un substitut à l'`known_at` analytique.
 
-## Layer rules
+## Règles par couche
 
 ### market_data
 
-Open/provider-in-progress bars are not eligible for canonical analytical computation.
+Les barres ouvertes ou encore en cours côté fournisseur ne sont pas éligibles au calcul analytique canonique.
 
 ### features
 
-Strictly causal. Forbidden without an explicit delayed `known_at` formulation:
+Strictement causal. Interdit sans formulation explicite avec `known_at` retardé :
 
-- `shift(-1)`;
-- centered windows;
-- global-fit smoothing;
-- full-series parameter fitting;
-- future-confirmed extrema assigned retroactively to physical time.
+- `shift(-1)` ;
+- fenêtres centrées ;
+- lissage ajusté sur la série complète ;
+- ajustement global de paramètres sur la série complète ;
+- extrema confirmés par le futur affectés rétroactivement à leur temps physique.
 
 ### structure
 
-May refer to a past physical point, but confirmation latency must be represented by `known_at`.
+Peut référencer un point physique passé, mais la latence de confirmation doit être représentée par `known_at`.
 
 ### events / contexts / occurrences
 
-`known_at` equals or exceeds every required input's `known_at`.
+`known_at` est supérieur ou égal à chaque `known_at` d'entrée requis.
 
 ### outcomes
 
-Future use is allowed only after occurrence selection is frozen.
+L'utilisation du futur est autorisée uniquement après que la sélection de l'occurrence a été figée.
 
 ### research
 
-Look-ahead/offline methods are permitted only when explicitly labeled research and cannot be promoted without a causal production contract.
+Les méthodes look-ahead/offline sont autorisées uniquement lorsqu'elles sont explicitement étiquetées comme recherche et ne peuvent pas être promues sans contrat causal de production.
 
-## Mandatory prefix-invariance testing
+## Tests obligatoires d'invariance par préfixe
 
-Applies to every artifact declared known at T:
+Ils s'appliquent à tout artefact déclaré connu à T :
 
-- FeatureValue;
-- StructuralPoint;
-- StructuralSegment;
-- Event;
-- ContextSnapshot;
-- derived Occurrence.
+- FeatureValue ;
+- StructuralPoint ;
+- StructuralSegment ;
+- Event ;
+- ContextSnapshot ;
+- Occurrence dérivée.
 
-Test protocol:
+Protocole de test :
 
-1. compute on the full series;
-2. compute on historical prefixes ending at multiple T;
-3. compare artifacts whose `known_at <= T`;
-4. adding future bars must not alter their canonical identity/value/state.
+1. calculer sur la série complète ;
+2. calculer sur plusieurs préfixes historiques se terminant à différents T ;
+3. comparer les artefacts dont `known_at <= T` ;
+4. l'ajout de barres futures ne doit pas modifier leur identité, valeur ou état canonique.
 
-Any legitimate later revision must be modeled as a new explicitly timestamped state/version, not silent retroactive mutation.
+Toute révision ultérieure légitime doit être modélisée comme un nouvel état/une nouvelle version explicitement timestampée, jamais comme une mutation rétroactive silencieuse.

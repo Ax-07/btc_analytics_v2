@@ -1,4 +1,4 @@
-# Lessons from BTC Analytics V1
+# Leçons de BTC Analytics V1
 
 La V1 ne doit pas être considérée comme un échec. Elle a servi de prototype permettant d'identifier des invariants importants pour la V2.
 
@@ -10,7 +10,7 @@ Un phénomène physique peut appartenir à une bougie T sans être connaissable 
 
 La V2 doit séparer `event_time` / `pivot_time` du moment `confirmed_at` / `known_at`.
 
-### Forward Analysis séparé de la détection
+### Analyse prospective séparée de la détection
 
 La détection ne doit jamais utiliser le futur. Les outcomes futurs peuvent utiliser le futur uniquement après qu'une occurrence a été figée comme connue à T.
 
@@ -22,17 +22,17 @@ Le frontend ne recalcule pas la logique analytique.
 
 Une métrique ou un score ne suffit pas à valider une représentation structurelle.
 
-### Les chart patterns sont subjectifs
+### Les figures chartistes sont subjectives
 
-La V2 privilégie swings, amplitudes, durées, retracements, pentes, compression/expansion et HH/HL/LH/LL. Les chart patterns deviennent optionnels.
+La V2 privilégie les swings, amplitudes, durées, retracements, pentes, compressions/expansions et HH/HL/LH/LL. Les figures chartistes deviennent optionnelles.
 
 ## Ce qui doit être évité
 
-- introduire une feature parce qu'elle est populaire en analyse technique ;
+- introduire une feature simplement parce qu'elle est populaire en analyse technique ;
 - calibrer des seuils avant de prouver l'utilité d'une représentation ;
 - mélanger code de recherche et code de production ;
 - laisser un fournisseur de données imposer ses objets au domaine ;
-- ajouter trop tôt des couches UI ou abstractions sophistiquées ;
+- ajouter trop tôt des couches UI ou des abstractions sophistiquées ;
 - optimiser avant profiling ;
 - utiliser une méthode offline comme si elle était causale ;
 - transformer le projet en moteur de stratégie/backtest.

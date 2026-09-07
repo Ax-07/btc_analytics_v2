@@ -1,19 +1,19 @@
-# 14 — Observability
+# 14 — Observabilité
 
 ## Minimum
 
-Logs structurés avec component, operation, market, timeframe, run_id, duration, row counts et contexte d'erreur.
+Logs structurés avec composant, opération, market, timeframe, run_id, durée, nombres de lignes et contexte d'erreur.
 
-## Data quality metrics
+## Métriques de qualité des données
 
-candles fetched, duplicates rejected, gaps detected, invalid candles, latest closed candle, ingestion lag.
+bougies récupérées, doublons rejetés, gaps détectés, bougies invalides, dernière bougie clôturée, latence d'ingestion.
 
-## Analytics metrics
+## Métriques analytiques
 
-feature rows, occurrences, experiment duration, parameter combinations, failures.
+lignes de features, occurrences, durée des expériences, combinaisons de paramètres, échecs.
 
 ## Reproductibilité
 
-Chaque batch significatif doit être relié à code version, config, dataset et timestamps.
+Chaque batch significatif doit être relié à la version du code, la configuration, le dataset et les timestamps.
 
-Commencer simple ; ajouter OpenTelemetry/Prometheus uniquement en réponse à un besoin réel.
+Commencer simplement ; ajouter OpenTelemetry/Prometheus uniquement en réponse à un besoin réel.

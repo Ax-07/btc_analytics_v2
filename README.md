@@ -8,7 +8,7 @@ Le projet repart volontairement de zéro au niveau du code afin d'éviter d'hér
 
 Transformer des données de marché en primitives causales, structures, événements et contextes mesurables, puis étudier objectivement ce qui s'est produit après leurs occurrences historiques.
 
-BTC Analytics V2 n'est pas un bot de trading, un moteur d'exécution, un gestionnaire de portefeuille ou un système de recommandations buy/sell.
+BTC Analytics V2 n'est pas un bot de trading, un moteur d'exécution, un gestionnaire de portefeuille ni un système de recommandations d'achat/vente.
 
 ## Principes
 
@@ -17,8 +17,8 @@ BTC Analytics V2 n'est pas un bot de trading, un moteur d'exécution, un gestion
 3. Toute hypothèse analytique doit pouvoir être mesurée.
 4. Séparation stricte entre production et recherche.
 5. Les dépendances externes fournissent des briques ; l'intelligence métier reste développée dans BTC Analytics.
-6. Les chart patterns sont optionnels et ne sont pas une fondation du projet.
-7. Les patterns de chandeliers sont traités comme des événements analytiques, jamais comme des signaux de trading.
+6. Les figures chartistes sont optionnelles et ne constituent pas une fondation du projet.
+7. Les configurations de chandeliers sont traitées comme des événements analytiques, jamais comme des signaux de trading.
 
 ## Point de départ
 
@@ -41,4 +41,4 @@ En cas de contradiction :
 3. `docs/00_PROJECT_CHARTER.md`
 4. `README.md`
 
-P0 a été explicitement validé le 6 septembre 2026 après deux audits finaux indépendants de la v7 et l’approbation utilisateur en bloc de D-001 à D-020. P1 peut désormais commencer en respectant strictement les contrats P0 validés.
+P0 a été explicitement validé le 6 septembre 2026 après deux audits finaux indépendants de la v7 et l'approbation utilisateur en bloc de D-001 à D-020. P1 peut désormais commencer en respectant strictement les contrats P0 validés.

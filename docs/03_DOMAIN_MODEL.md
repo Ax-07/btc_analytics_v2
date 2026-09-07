@@ -1,66 +1,66 @@
-# 03 — Domain Model
+# 03 — Modèle de domaine
 
-## Shared identity primitives
+## Primitives d'identité partagées
 
-### Canonical parameter representation
+### Représentation canonique des paramètres
 
-Every canonical analytical definition owns a parameter schema.
+Chaque définition analytique canonique possède un schéma de paramètres.
 
-Before identity calculation:
+Avant le calcul d'identité :
 
-- all schema defaults are materialized explicitly;
-- object member names and enum/string values use their canonical schema spelling;
-- unordered collections are sorted according to their definition-specific schema rule before serialization;
-- timestamps, when parameters, use integer Unix epoch milliseconds UTC;
-- non-finite numbers (`NaN`, `+Inf`, `-Inf`) are forbidden;
-- exact decimal semantics must be represented as normalized decimal strings, not binary floating-point values.
+- toutes les valeurs par défaut du schéma sont matérialisées explicitement ;
+- les noms des membres d'objet et les valeurs d'enum/string utilisent l'orthographe canonique de leur schéma ;
+- les collections non ordonnées sont triées selon la règle propre au schéma de leur définition avant sérialisation ;
+- les timestamps, lorsqu'ils sont des paramètres, utilisent des millisecondes Unix UTC entières ;
+- les nombres non finis (`NaN`, `+Inf`, `-Inf`) sont interdits ;
+- les sémantiques décimales exactes doivent être représentées par des chaînes décimales normalisées, et non par des nombres flottants binaires.
 
-Canonical parameter bytes are the UTF-8 bytes of the parameter object serialized with **RFC 8785 JSON Canonicalization Scheme (JCS)**.
+Les octets canoniques des paramètres sont les octets UTF-8 de l'objet de paramètres sérialisé avec le **JSON Canonicalization Scheme (JCS) RFC 8785**.
 
-Normalized decimal strings use:
+Les chaînes décimales normalisées utilisent :
 
-- no leading `+`;
-- `-0` normalized to `0`;
-- no unnecessary leading integer zeros;
-- no trailing fractional zeros;
-- no decimal point when the fractional part is empty;
-- base-10 plain notation unless a definition explicitly versions another representation.
+- aucun `+` initial ;
+- `-0` normalisé en `0` ;
+- aucun zéro entier initial inutile ;
+- aucun zéro fractionnaire final inutile ;
+- aucun point décimal lorsque la partie fractionnaire est vide ;
+- une notation décimale en base 10 sans exposant, sauf si une définition versionnée spécifie explicitement une autre représentation.
 
-Examples:
+Exemples :
 
 ```text
-"001.2300" -> invalid input form; normalized semantic value -> "1.23"
+"001.2300" -> forme d'entrée invalide ; valeur sémantique normalisée -> "1.23"
 "-0.000"   -> "0"
 "2.500"    -> "2.5"
 ```
 
 ### DefinitionIdentity
 
-Every canonical analytical definition has:
+Chaque définition analytique canonique possède :
 
-- `definition_key`: stable namespaced key;
-- `definition_version`: changes whenever semantics change;
-- `parameters`: normalized canonical parameter object;
+- `definition_key` : clé namespacée stable ;
+- `definition_version` : change dès que la sémantique change ;
+- `parameters` : objet de paramètres canoniques normalisés ;
 - `parameter_fingerprint`.
 
-`parameter_fingerprint` is exactly:
+`parameter_fingerprint` vaut exactement :
 
 ```text
 "sha256:" + lowercase_hex(SHA-256(JCS(parameters)))
 ```
 
-The hash covers the normalized parameters only. Definition key/version remain explicit identity fields.
+Le hash couvre uniquement les paramètres normalisés. La clé et la version de définition restent des champs d'identité explicites.
 
 ### Provenance
 
-Canonical derived artifacts must be traceable to:
+Les artefacts dérivés canoniques doivent être traçables jusqu'à :
 
-- market;
-- timeframe;
-- source data identity or DatasetSnapshot when applicable;
-- definition key/version;
-- parameter fingerprint;
-- computation software revision/run when material.
+- market ;
+- timeframe ;
+- l'identité des données source ou le DatasetSnapshot lorsque pertinent ;
+- la clé/version de définition ;
+- le fingerprint des paramètres ;
+- la révision logicielle/le run de calcul lorsque cela est matériel.
 
 ## Market
 
@@ -70,11 +70,11 @@ Canonical derived artifacts must be traceable to:
 - market_type
 - canonical_symbol
 
-`canonical_symbol` is a BTC Analytics domain identifier and is independent from CCXT/provider notation.
+`canonical_symbol` est un identifiant de domaine BTC Analytics indépendant de la notation CCXT/fournisseur.
 
 ## Candle
 
-Canonical closed OHLCV bar:
+Bougie OHLCV clôturée canonique :
 
 - market
 - timeframe
@@ -85,87 +85,87 @@ Canonical closed OHLCV bar:
 - low
 - close
 - `base_volume`
-- optional `quote_volume`
-- optional `trade_count`
+- `quote_volume` optionnel
+- `trade_count` optionnel
 - source
 - source_symbol
 - `available_at`
 - `ingested_at`
-- current accepted revision metadata
+- métadonnées de la révision courante acceptée
 
-Identity:
+Identité :
 
 ```text
 (market, timeframe, open_time)
 ```
 
-The canonical interval is `[open_time, end_time)` and `available_at = end_time` in the initial reconstructed closed-candle analytical model.
+L'intervalle canonique est `[open_time, end_time)` et `available_at = end_time` dans le modèle analytique initial de bougies clôturées reconstruites.
 
 ## CandleRevision
 
-Every canonical candle has an explicit append-only revision lineage, including its first accepted observation and every later distinct observation.
+Chaque bougie canonique possède une lignée de révisions explicite et append-only, comprenant sa première observation acceptée et chaque observation distincte ultérieure.
 
-Minimum fields:
+Champs minimaux :
 
-- candle identity `(market, timeframe, open_time)`;
-- monotonically increasing local `revision_seq`;
-- normalized OHLCV values;
-- `observed_at`;
-- optional `accepted_at`;
-- `revision_status`: `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined`;
-- primary provider provenance;
-- confirmation provenance when required;
-- before/after logical value fingerprints;
-- reason/audit metadata.
+- identité de la bougie `(market, timeframe, open_time)` ;
+- `revision_seq` local croissant de manière monotone ;
+- valeurs OHLCV normalisées ;
+- `observed_at` ;
+- `accepted_at` optionnel ;
+- `revision_status` : `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined` ;
+- provenance du fournisseur primaire ;
+- provenance de confirmation lorsque nécessaire ;
+- fingerprints logiques avant/après des valeurs ;
+- motif/métadonnées d'audit.
 
-The stable exact local revision reference is:
+La référence locale exacte et stable d'une révision est :
 
 ```text
 (market, timeframe, open_time, revision_seq)
 ```
 
-### Initial accepted revision
+### Première révision acceptée
 
-The first valid observation of a previously unknown closed candle creates the first revision immediately:
+La première observation valide d'une bougie clôturée jusque-là inconnue crée immédiatement la première révision :
 
-- `revision_seq = 1`;
-- `observed_at` = earliest time BTC Analytics observed that normalized candle;
-- `accepted_at` = instant canonical validation succeeds;
+- `revision_seq = 1` ;
+- `observed_at` = premier instant auquel BTC Analytics a observé cette bougie normalisée ;
+- `accepted_at` = instant où la validation canonique réussit ;
 - `revision_status = accepted_current`.
 
-Initial acceptance does not require a per-candle same-venue native confirmation. Provider-path correctness is validated separately by the bounded P1 CCXT-vs-native fixture.
+L'acceptation initiale ne requiert pas de confirmation native individuelle sur la même venue pour chaque bougie. La correction du chemin fournisseur est validée séparément par la fixture P1 bornée CCXT-vs-native.
 
-### Later distinct observations
+### Observations distinctes ultérieures
 
-Every later observation that differs from the current accepted logical values creates a new revision candidate and receives the next monotonically increasing `revision_seq` **at candidate creation time**. Sequence numbers are never reused.
+Toute observation ultérieure qui diffère des valeurs logiques de la révision courante acceptée crée une nouvelle candidate de révision et reçoit le prochain `revision_seq` croissant **au moment de la création de la candidate**. Les numéros de séquence ne sont jamais réutilisés.
 
-The newly created candidate is persisted with `revision_status = pending_confirmation`, has `observed_at`, and has no `accepted_at`. A `pending_confirmation` revision is never PIT-eligible.
+La nouvelle candidate est persistée avec `revision_status = pending_confirmation`, possède `observed_at` et n'a pas d'`accepted_at`. Une révision `pending_confirmation` n'est jamais éligible au PIT.
 
-For a given candle lineage, at most one unresolved `pending_confirmation` revision may exist at a time. Processing of another distinct candidate for that candle is serialized until the pending revision resolves. A same-value re-observation matching the pending candidate is idempotent and creates no additional revision. This prevents confirmation outcomes from being applied out of revision order.
+Pour une lignée de bougie donnée, au plus une révision `pending_confirmation` non résolue peut exister à la fois. Le traitement d'une autre candidate distincte pour cette bougie est sérialisé jusqu'à résolution de la révision en attente. Une réobservation de mêmes valeurs correspondant à la candidate en attente est idempotente et ne crée aucune révision supplémentaire. Cela empêche l'application des résultats de confirmation hors ordre de révision.
 
-If native confirmation succeeds, the **same** pending revision transitions to `accepted_current`: promotion never renumbers it, records `accepted_at`, and marks the previous current accepted revision `accepted_superseded`. If confirmation disagrees, is unavailable, or validation fails, the same pending revision transitions to `quarantined`, retains its allocated `revision_seq`, and keeps `accepted_at` absent.
+Si la confirmation native réussit, la **même** révision en attente passe à `accepted_current` : la promotion ne la renumérote jamais, enregistre `accepted_at` et marque la précédente révision courante acceptée comme `accepted_superseded`. Si la confirmation est en désaccord, indisponible ou si la validation échoue, la même révision en attente passe à `quarantined`, conserve son `revision_seq` alloué et garde `accepted_at` absent.
 
-An interruption/restart does not infer a terminal status: an unresolved pending revision remains `pending_confirmation`, remains PIT-ineligible, and must be retried/reconciled before another distinct candidate for the same candle is processed.
+Une interruption ou un redémarrage n'infère aucun statut terminal : une révision en attente non résolue reste `pending_confirmation`, reste non éligible au PIT et doit être retentée/réconciliée avant le traitement d'une autre candidate distincte pour la même bougie.
 
-A same-value re-observation of the current accepted revision is idempotent and creates no new semantic revision when no conflicting pending candidate exists.
+Une réobservation de mêmes valeurs que la révision courante acceptée est idempotente et ne crée aucun nouvel état sémantique de révision lorsqu'aucune candidate en attente conflictuelle n'existe.
 
-A later revision never mutates an immutable DatasetSnapshot.
+Une révision ultérieure ne modifie jamais un DatasetSnapshot immuable.
 
-`observed_at` is the earliest time BTC Analytics observed that revision. A correction observed later must never be represented as having been actually observed by the system at the historical candle `end_time`.
+`observed_at` est le premier instant auquel BTC Analytics a observé cette révision. Une correction observée plus tard ne doit jamais être représentée comme ayant réellement été observée par le système à l'`end_time` historique de la bougie.
 
-`accepted_at` is the instant at which required validation/confirmation succeeds and the revision becomes accepted canonical state. It is present only for revisions that have been accepted at least once (`accepted_current` or `accepted_superseded`). A quarantined revision has no `accepted_at`.
+`accepted_at` est l'instant auquel la validation/confirmation requise réussit et où la révision devient l'état canonique accepté. Il est présent uniquement pour les révisions qui ont été acceptées au moins une fois (`accepted_current` ou `accepted_superseded`). Une révision mise en quarantaine n'a pas d'`accepted_at`.
 
-For every accepted revision:
+Pour chaque révision acceptée :
 
 ```text
 observed_at <= accepted_at
 ```
 
-`accepted_at` is temporal provenance. It does not participate in Candle identity, DefinitionIdentity, `occurrence_key`, or any other semantic identity unless a future versioned contract explicitly says otherwise.
+`accepted_at` est une provenance temporelle. Il ne participe pas à l'identité de Candle, DefinitionIdentity, `occurrence_key` ni à aucune autre identité sémantique, sauf si un futur contrat versionné le prévoit explicitement.
 
 ## FeatureDefinition / FeatureValue
 
-A FeatureValue includes definition identity, market/timeframe, `event_time`, `known_at`, values and provenance.
+Un FeatureValue inclut l'identité de définition, market/timeframe, `event_time`, `known_at`, les valeurs et la provenance.
 
 ## StructuralPoint
 
@@ -173,56 +173,56 @@ A FeatureValue includes definition identity, market/timeframe, `event_time`, `kn
 - `known_at`
 - price
 - kind
-- definition identity
-- metrics
+- identité de définition
+- métriques
 - provenance
 
-`physical_time < known_at` is valid for confirmed historical structure.
+`physical_time < known_at` est valide pour une structure historique confirmée.
 
 ## StructuralSegment
 
-Links structural points and records direction, return, ATR-normalized amplitude, duration, slope, velocity and retracement relationships.
+Relie des points structurels et enregistre direction, rendement, amplitude normalisée par ATR, durée, pente, vélocité et relations de retracement.
 
-Its `known_at` cannot precede the latest required input `known_at`.
+Son `known_at` ne peut pas précéder le `known_at` le plus tardif parmi les entrées requises.
 
 ## EventDefinition / Event
 
-An Event is a versioned causal occurrence with:
+Un Event est une occurrence causale versionnée avec :
 
-- definition identity;
-- `event_time`;
-- `known_at`;
-- evidence/values;
-- deterministic `instance_discriminator`;
+- identité de définition ;
+- `event_time` ;
+- `known_at` ;
+- preuves/valeurs ;
+- `instance_discriminator` déterministe ;
 - provenance.
 
-For a given DefinitionIdentity, market, timeframe and anchor candle, the default rule is at most one canonical event with `instance_discriminator = "0"`.
+Pour une DefinitionIdentity, un market, un timeframe et une bougie d'ancrage donnés, la règle par défaut est au plus un événement canonique avec `instance_discriminator = "0"`.
 
-If a definition can emit multiple distinct canonical events for the same anchor, its versioned schema must define a deterministic non-empty `instance_discriminator`.
+Si une définition peut émettre plusieurs événements canoniques distincts pour le même ancrage, son schéma versionné doit définir un `instance_discriminator` déterministe et non vide.
 
 ## ContextDefinition / ContextSnapshot
 
-A ContextSnapshot is a causal state evaluated at an anchor candle using only artifacts whose `known_at <= anchor.end_time`.
+Un ContextSnapshot est un état causal évalué sur une bougie d'ancrage en utilisant uniquement des artefacts dont `known_at <= anchor.end_time`.
 
 ## Occurrence
 
-The central historical analysis unit.
+Unité centrale de l'analyse historique.
 
-Minimum fields:
+Champs minimaux :
 
-- deterministic `occurrence_key`;
-- definition identity;
-- market/timeframe;
-- `event_time` when physically meaningful;
-- `known_at`;
-- anchor candle identity;
-- `instance_discriminator`;
-- context reference/snapshot when used;
-- provenance/input references.
+- `occurrence_key` déterministe ;
+- identité de définition ;
+- market/timeframe ;
+- `event_time` lorsqu'il a un sens physique ;
+- `known_at` ;
+- identité de la bougie d'ancrage ;
+- `instance_discriminator` ;
+- référence/snapshot de contexte lorsque utilisé ;
+- provenance/références d'entrées.
 
-### Occurrence key payload
+### Payload de la clé d'occurrence
 
-The exact v1 identity payload is:
+Le payload exact d'identité v1 est :
 
 ```json
 {
@@ -238,96 +238,96 @@ The exact v1 identity payload is:
 }
 ```
 
-Rules:
+Règles :
 
-- timestamps are integer Unix epoch milliseconds UTC;
-- `event_time_ms` is the canonical physical/event attribution time; if the definition has no distinct physical attribution, it equals the anchor candle `end_time`;
-- `instance_discriminator` defaults to `"0"`;
-- context is **not** part of occurrence identity; contexts are attached analytical state and may be used for slicing without duplicating the occurrence;
-- DatasetSnapshot is provenance, not occurrence identity, so the same semantic occurrence can be compared across snapshots/revisions.
+- les timestamps sont des millisecondes Unix UTC entières ;
+- `event_time_ms` est le temps canonique d'attribution physique/de l'événement ; si la définition n'a pas d'attribution physique distincte, il est égal à l'`end_time` de la bougie d'ancrage ;
+- `instance_discriminator` vaut par défaut `"0"` ;
+- le contexte ne fait **pas** partie de l'identité de l'occurrence ; les contextes sont un état analytique attaché et peuvent servir au découpage sans dupliquer l'occurrence ;
+- DatasetSnapshot est une provenance, pas une identité d'occurrence, de sorte qu'une même occurrence sémantique peut être comparée entre snapshots/révisions.
 
-`occurrence_key` is exactly:
+`occurrence_key` vaut exactement :
 
 ```text
 "sha256:" + lowercase_hex(SHA-256(JCS(occurrence_key_payload)))
 ```
 
-Database insertion order, surrogate IDs and computation run IDs never participate in the key.
+L'ordre d'insertion en base, les identifiants de substitution et les identifiants de run de calcul ne participent jamais à la clé.
 
 ## OutcomeDefinition
 
-Defines:
+Définit :
 
-- metric key/version;
-- horizon in bars;
-- reference-price convention;
-- future-window convention;
-- gap policy;
-- metric-specific parameters.
+- clé/version de métrique ;
+- horizon en barres ;
+- convention de prix de référence ;
+- convention de fenêtre future ;
+- politique de gaps ;
+- paramètres spécifiques à la métrique.
 
-OutcomeDefinition parameter identity follows the same JCS/SHA-256 rule.
+L'identité des paramètres d'OutcomeDefinition suit la même règle JCS/SHA-256.
 
 ## Outcome
 
-Attached to an Occurrence and OutcomeDefinition.
+Attaché à une Occurrence et une OutcomeDefinition.
 
-Outcome never changes the original occurrence and may be `complete`, `incomplete_gap` or `incomplete_end_of_dataset`.
+Un Outcome ne modifie jamais l'occurrence d'origine et peut être `complete`, `incomplete_gap` ou `incomplete_end_of_dataset`.
 
 ## BaselineDefinition
 
-Every experiment comparing conditional distributions must explicitly define its baseline population:
+Chaque expérience comparant des distributions conditionnelles doit définir explicitement sa population de baseline :
 
-- market/timeframe;
-- historical range;
-- eligible anchor policy;
-- context filter if any;
-- same outcome/gap conventions;
-- sampling policy/version.
+- market/timeframe ;
+- plage historique ;
+- politique d'ancrages éligibles ;
+- filtre de contexte le cas échéant ;
+- mêmes conventions d'outcomes/gaps ;
+- politique/version d'échantillonnage.
 
-BaselineDefinition identity follows the same DefinitionIdentity parameter canonicalization rules.
+L'identité de BaselineDefinition suit les mêmes règles de canonicalisation des paramètres que DefinitionIdentity.
 
 ## DatasetSnapshot
 
-Immutable experiment input identity containing at minimum:
+Identité immuable d'entrée d'expérience contenant au minimum :
 
-- `snapshot_id`;
-- source market/timeframes;
-- temporal coverage;
-- creation time;
-- `knowledge_mode`;
-- manifest/content hashes;
-- gap summary;
-- exact accepted CandleRevision references included in the snapshot.
+- `snapshot_id` ;
+- markets/timeframes sources ;
+- couverture temporelle ;
+- instant de création ;
+- `knowledge_mode` ;
+- hashes de manifeste/contenu ;
+- résumé des gaps ;
+- références exactes des CandleRevision acceptées incluses dans le snapshot.
 
-Initial `knowledge_mode` values:
+Valeurs initiales de `knowledge_mode` :
 
-- `reconstructed_latest`;
-- `observed_point_in_time` when sufficient observation/revision history exists.
+- `reconstructed_latest` ;
+- `observed_point_in_time` lorsqu'un historique suffisant d'observation/révision existe.
 
-The snapshot identity payload excludes creation time and includes:
+Le payload d'identité du snapshot exclut l'instant de création et inclut :
 
-- snapshot schema/version;
-- market/timeframes;
-- temporal coverage;
-- knowledge mode;
-- logical manifest hash of included candle identities + accepted revision identifiers.
+- schéma/version du snapshot ;
+- markets/timeframes ;
+- couverture temporelle ;
+- knowledge mode ;
+- hash logique du manifeste des identités de bougies + identifiants de révisions acceptées incluses.
 
-`snapshot_id` is:
+`snapshot_id` vaut :
 
 ```text
 "sha256:" + lowercase_hex(SHA-256(JCS(snapshot_identity_payload)))
 ```
 
-Parquet is the initial physical format for immutable analytical snapshots. Physical Parquet byte layout is not used as the sole logical identity because different writers may encode equivalent logical data differently.
+Parquet est le format physique initial des snapshots analytiques immuables. La disposition physique des octets Parquet n'est pas utilisée comme seule identité logique, car différents writers peuvent encoder différemment des données logiquement équivalentes.
 
 ## ExperimentDefinition / ExperimentRun
 
-A run freezes:
+Un run fige :
 
-- DatasetSnapshot;
-- analytical definition versions;
-- parameter grid;
-- OutcomeDefinitions;
-- BaselineDefinition;
-- split policy;
-- software/config revision.
+- DatasetSnapshot ;
+- versions des définitions analytiques ;
+- grille de paramètres ;
+- OutcomeDefinitions ;
+- BaselineDefinition ;
+- politique de split ;
+- révision logicielle/configuration.

@@ -1,12 +1,13 @@
-# BTC Analytics V2 — P0 Canonical v7
+# BTC Analytics V2 — P0 Canonique v7
 
 > Source maître consolidée validée pour BTC Analytics V2.
-> `P0 — VALIDATED` — D-001 à D-020 approuvées explicitement par l’utilisateur le 6 septembre 2026 après deux audits finaux indépendants `P0 — VALIDATION READY`.
+> `P0 — VALIDATED` — D-001 à D-020 approuvées explicitement par l'utilisateur le 6 septembre 2026 après deux audits finaux indépendants `P0 — VALIDATION READY`.
+> La présente version française est une traduction documentaire non sémantique ; le tag `p0-foundation-v7` conserve l'historique exact validé.
 
 
 ---
 
-## SOURCE FILE: `README.md`
+## FICHIER SOURCE : `README.md`
 
 # BTC Analytics V2
 
@@ -18,7 +19,7 @@ Le projet repart volontairement de zéro au niveau du code afin d'éviter d'hér
 
 Transformer des données de marché en primitives causales, structures, événements et contextes mesurables, puis étudier objectivement ce qui s'est produit après leurs occurrences historiques.
 
-BTC Analytics V2 n'est pas un bot de trading, un moteur d'exécution, un gestionnaire de portefeuille ou un système de recommandations buy/sell.
+BTC Analytics V2 n'est pas un bot de trading, un moteur d'exécution, un gestionnaire de portefeuille ni un système de recommandations d'achat/vente.
 
 ## Principes
 
@@ -27,8 +28,8 @@ BTC Analytics V2 n'est pas un bot de trading, un moteur d'exécution, un gestion
 3. Toute hypothèse analytique doit pouvoir être mesurée.
 4. Séparation stricte entre production et recherche.
 5. Les dépendances externes fournissent des briques ; l'intelligence métier reste développée dans BTC Analytics.
-6. Les chart patterns sont optionnels et ne sont pas une fondation du projet.
-7. Les patterns de chandeliers sont traités comme des événements analytiques, jamais comme des signaux de trading.
+6. Les figures chartistes sont optionnelles et ne constituent pas une fondation du projet.
+7. Les configurations de chandeliers sont traitées comme des événements analytiques, jamais comme des signaux de trading.
 
 ## Point de départ
 
@@ -51,20 +52,20 @@ En cas de contradiction :
 3. `docs/00_PROJECT_CHARTER.md`
 4. `README.md`
 
-P0 a été explicitement validé le 6 septembre 2026 après deux audits finaux indépendants de la v7 et l’approbation utilisateur en bloc de D-001 à D-020. P1 peut désormais commencer en respectant strictement les contrats P0 validés.
+P0 a été explicitement validé le 6 septembre 2026 après deux audits finaux indépendants de la v7 et l'approbation utilisateur en bloc de D-001 à D-020. P1 peut désormais commencer en respectant strictement les contrats P0 validés.
 
 
 ---
 
-## SOURCE FILE: `P0_START_HERE.md`
+## FICHIER SOURCE : `P0_START_HERE.md`
 
-# P0 — Start Here
+# P0 — Commencer ici
 
-## Goal
+## Objectif
 
-P0 turns the V2 vision into a development contract before production code.
+P0 transforme la vision de la V2 en contrat de développement avant l'écriture de code de production.
 
-## Required reading
+## Lecture obligatoire
 
 1. `P0_AUDIT_RESOLUTION.md`
 2. `docs/00_PROJECT_CHARTER.md`
@@ -79,36 +80,36 @@ P0 turns the V2 vision into a development contract before production code.
 11. `docs/10_DECISIONS.md`
 12. `docs/11_ROADMAP.md`
 
-## P0 validation criteria
+## Critères de validation de P0
 
-P0 is validated only when:
+P0 n'est validé que lorsque :
 
-- project scope and non-scope are explicit;
-- temporal coordinates are unambiguous;
-- `features/`, `outcomes/` and `research/` boundaries are stable;
-- Market/Candle/Event/Occurrence/Context/Outcome/Experiment identities are stable enough for independent implementations to agree;
-- outcome/baseline conventions are explicit;
-- market-data gap/revision/native-timeframe policies are explicit;
-- dependency roles are documented;
-- Decision Log D-001 through D-020 is explicitly approved;
-- no blocking question remains.
+- le périmètre du projet et le hors-périmètre sont explicites ;
+- les coordonnées temporelles sont sans ambiguïté ;
+- les frontières de `features/`, `outcomes/` et `research/` sont stables ;
+- les identités Market/Candle/Event/Occurrence/Context/Outcome/Experiment sont suffisamment stables pour que des implémentations indépendantes convergent ;
+- les conventions d'outcome et de baseline sont explicites ;
+- les politiques de gaps, révisions et timeframes natifs des données de marché sont explicites ;
+- le rôle des dépendances est documenté ;
+- le journal de décisions D-001 à D-020 est explicitement approuvé ;
+- aucune question bloquante ne subsiste.
 
-## Validation status
+## Statut de validation
 
 `P0 — VALIDATED`
 
-Final v7 audits independently concluded `P0 — VALIDATION READY`, and D-001 through D-020 were explicitly approved by the user on 2026-09-06.
+Les audits finaux indépendants de la v7 ont conclu `P0 — VALIDATION READY`, et D-001 à D-020 ont été explicitement approuvées par l'utilisateur le 6 septembre 2026.
 
-## Rule
+## Règle
 
-P1 is authorized to begin from this validated P0 contract. Any semantic change to a validated P0 decision requires an explicit versioned follow-up decision; it must not silently rewrite P0 history.
+P1 est autorisé à démarrer à partir de ce contrat P0 validé. Toute modification sémantique d'une décision P0 validée exige une nouvelle décision explicite et versionnée ; elle ne doit jamais réécrire silencieusement l'historique de P0.
 
 
 ---
 
-## SOURCE FILE: `CURRENT_STATE.md`
+## FICHIER SOURCE : `CURRENT_STATE.md`
 
-# Current State
+# État courant
 
 ## Projet
 
@@ -116,24 +117,24 @@ BTC Analytics V2
 
 ## Phase
 
-P0 — Foundation / documentation
+P0 — Fondation / documentation
 
 ## Statut
 
 `P0 — VALIDATED`
 
-La v7 ferme le dernier blocage identifié lors de l’audit indépendant de la v6 : une `CandleRevision` candidate existait entre sa création et sa confirmation native, mais `revision_status` ne possédait aucun état représentant cette phase intermédiaire.
+La v7 ferme le dernier blocage identifié lors de l'audit indépendant de la v6 : une candidate `CandleRevision` existait entre sa création et sa confirmation native, mais `revision_status` ne possédait aucun état représentant cette phase intermédiaire.
 
 Le contrat définit désormais `pending_confirmation` :
 
 - la candidate reçoit son `revision_seq` et son `observed_at` dès sa création ;
-- elle reste sans `accepted_at` et n’est jamais PIT-éligible tant que la confirmation n’a pas réussi ;
-- confirmation réussie -> `accepted_current` et l’ancienne current devient `accepted_superseded` ;
+- elle reste sans `accepted_at` et n'est jamais éligible au PIT tant que la confirmation n'a pas réussi ;
+- confirmation réussie -> `accepted_current` et l'ancienne révision courante devient `accepted_superseded` ;
 - désaccord, indisponibilité ou échec de validation -> `quarantined` ;
-- une seule candidate `pending_confirmation` est autorisée à la fois par lignée de candle afin de sérialiser les transitions et empêcher les acceptations hors ordre ;
-- après interruption, une candidate pending reste durablement pending jusqu’à reprise/résolution et n’est jamais assimilée à une révision acceptée.
+- une seule candidate `pending_confirmation` est autorisée à la fois par lignée de bougie afin de sérialiser les transitions et d'empêcher les acceptations hors ordre ;
+- après interruption, une candidate en attente reste durablement en attente jusqu'à reprise/résolution et n'est jamais assimilée à une révision acceptée.
 
-Les deux audits finaux indépendants de la v7 ont conclu `P0 — VALIDATION READY`. Le 6 septembre 2026, l’utilisateur a explicitement approuvé D-001 à D-020 en bloc. Le gate P0 est donc satisfait et P1 est autorisé à démarrer à partir de ces contrats validés.
+Les deux audits finaux indépendants de la v7 ont conclu `P0 — VALIDATION READY`. Le 6 septembre 2026, l'utilisateur a explicitement approuvé D-001 à D-020 en bloc. Le critère de passage P0 est donc satisfait et P1 est autorisé à démarrer à partir de ces contrats validés.
 
 ## Source canonique ChatGPT recommandée
 
@@ -141,18 +142,18 @@ Utiliser en priorité le fichier unique :
 
 `BTC_ANALYTICS_V2_P0_CANONICAL_v7.md`
 
-Ne pas conserver simultanément un ancien master P0 dans les sources actives du projet ChatGPT.
+Ne pas conserver simultanément un ancien document maître P0 dans les sources actives du projet ChatGPT.
 
 ## Prochaine étape
 
-Figer le jalon Git P0 validé, puis démarrer **P1 — Market Data** dans une nouvelle discussion sans modifier rétroactivement les décisions P0 validées.
+Figer le jalon Git P0 validé, puis démarrer **P1 — Données de marché** dans une nouvelle discussion sans modifier rétroactivement les décisions P0 validées.
 
 
 ---
 
-## SOURCE FILE: `LESSONS_FROM_V1.md`
+## FICHIER SOURCE : `LESSONS_FROM_V1.md`
 
-# Lessons from BTC Analytics V1
+# Leçons de BTC Analytics V1
 
 La V1 ne doit pas être considérée comme un échec. Elle a servi de prototype permettant d'identifier des invariants importants pour la V2.
 
@@ -164,7 +165,7 @@ Un phénomène physique peut appartenir à une bougie T sans être connaissable 
 
 La V2 doit séparer `event_time` / `pivot_time` du moment `confirmed_at` / `known_at`.
 
-### Forward Analysis séparé de la détection
+### Analyse prospective séparée de la détection
 
 La détection ne doit jamais utiliser le futur. Les outcomes futurs peuvent utiliser le futur uniquement après qu'une occurrence a été figée comme connue à T.
 
@@ -176,17 +177,17 @@ Le frontend ne recalcule pas la logique analytique.
 
 Une métrique ou un score ne suffit pas à valider une représentation structurelle.
 
-### Les chart patterns sont subjectifs
+### Les figures chartistes sont subjectives
 
-La V2 privilégie swings, amplitudes, durées, retracements, pentes, compression/expansion et HH/HL/LH/LL. Les chart patterns deviennent optionnels.
+La V2 privilégie les swings, amplitudes, durées, retracements, pentes, compressions/expansions et HH/HL/LH/LL. Les figures chartistes deviennent optionnelles.
 
 ## Ce qui doit être évité
 
-- introduire une feature parce qu'elle est populaire en analyse technique ;
+- introduire une feature simplement parce qu'elle est populaire en analyse technique ;
 - calibrer des seuils avant de prouver l'utilité d'une représentation ;
 - mélanger code de recherche et code de production ;
 - laisser un fournisseur de données imposer ses objets au domaine ;
-- ajouter trop tôt des couches UI ou abstractions sophistiquées ;
+- ajouter trop tôt des couches UI ou des abstractions sophistiquées ;
 - optimiser avant profiling ;
 - utiliser une méthode offline comme si elle était causale ;
 - transformer le projet en moteur de stratégie/backtest.
@@ -200,130 +201,130 @@ La V1 peut être consultée pour comparer les résultats, pas comme base de code
 
 ---
 
-## SOURCE FILE: `P0_AUDIT_RESOLUTION.md`
+## FICHIER SOURCE : `P0_AUDIT_RESOLUTION.md`
 
-# P0 Audit Resolution — Consolidated v7
+# Résolution de l'audit P0 — Consolidée v7
 
-## Status
+## Statut
 
 `P0 — VALIDATED`
 
-This revision closes the final blocker reported by the independent v6 audit. Two independent final v7 audits subsequently concluded `P0 — VALIDATION READY`. On 2026-09-06, the user explicitly approved D-001 through D-020 in block. P0 is therefore validated and P1 is authorized to begin from these frozen contracts.
+Cette révision ferme le dernier blocage signalé par l'audit indépendant de la v6. Deux audits finaux indépendants de la v7 ont ensuite conclu `P0 — VALIDATION READY`. Le 6 septembre 2026, l'utilisateur a explicitement approuvé D-001 à D-020 en bloc. P0 est donc validé et P1 est autorisé à démarrer à partir de ces contrats figés.
 
-## Previously resolved v6 blockers
+## Blocages v6 précédemment résolus
 
-The v6 candidate already closed:
+La candidate v6 avait déjà fermé :
 
-- the stale `observed_at <= T` point-in-time rule in Temporal Conventions, replacing it with the canonical `accepted_at <= T` rule;
-- the initial accepted `CandleRevision` lifecycle, including `revision_seq = 1`, stable local revision references and monotonic sequence allocation at candidate creation.
+- la règle point-in-time obsolète `observed_at <= T` dans les conventions temporelles, remplacée par la règle canonique `accepted_at <= T` ;
+- le cycle de vie de la première `CandleRevision` acceptée, notamment `revision_seq = 1`, les références locales stables de révision et l'allocation monotone de séquence à la création d'une candidate.
 
-Those contracts remain unchanged.
+Ces contrats restent inchangés.
 
-## Blocker R6 — unresolved revision candidate state
+## Blocage R6 — état non résolu d'une candidate de révision
 
-The v6 model created a distinct revision candidate and allocated its `revision_seq` before same-venue native confirmation, but the allowed `revision_status` values were only `accepted_current`, `accepted_superseded`, and `quarantined`. No status represented the real interval between candidate creation and confirmation resolution.
+Le modèle v6 créait une candidate de révision distincte et allouait son `revision_seq` avant la confirmation native de la même venue, mais les valeurs autorisées de `revision_status` étaient uniquement `accepted_current`, `accepted_superseded` et `quarantined`. Aucun statut ne représentait l'intervalle réel entre la création de la candidate et la résolution de la confirmation.
 
-Resolved candidate contract in v7:
+Contrat de candidate résolu en v7 :
 
-- `revision_status` additionally includes `pending_confirmation`;
-- a later distinct observation of an already accepted candle creates a durable `pending_confirmation` revision with the next `revision_seq`, `observed_at`, and no `accepted_at`;
-- `pending_confirmation` is never eligible for `observed_point_in_time`;
-- successful native confirmation transitions that same revision to `accepted_current`, records `accepted_at`, and moves the previous current accepted revision to `accepted_superseded`;
-- disagreement, unavailable confirmation, or validation failure transitions the same revision to `quarantined`, retaining its sequence and leaving `accepted_at` absent;
-- promotion/quarantine never renumbers the revision;
-- at most one unresolved `pending_confirmation` revision may exist for a candle lineage at a time; processing of another distinct candidate for that candle is serialized until the pending revision resolves;
-- a same-value observation matching the pending candidate is idempotent and does not allocate another sequence;
-- after interruption/restart, an unresolved pending revision remains pending and PIT-ineligible until confirmation is retried/resolved; it is never silently treated as accepted or quarantined.
+- `revision_status` inclut en plus `pending_confirmation` ;
+- une observation ultérieure distincte d'une bougie déjà acceptée crée une révision durable `pending_confirmation` avec le prochain `revision_seq`, `observed_at` et sans `accepted_at` ;
+- `pending_confirmation` n'est jamais éligible à `observed_point_in_time` ;
+- une confirmation native réussie fait passer cette même révision à `accepted_current`, enregistre `accepted_at` et fait passer l'ancienne révision courante acceptée à `accepted_superseded` ;
+- un désaccord, une confirmation indisponible ou un échec de validation fait passer cette même révision à `quarantined`, en conservant sa séquence et sans renseigner `accepted_at` ;
+- une promotion ou une mise en quarantaine ne renumérote jamais la révision ;
+- au plus une révision `pending_confirmation` non résolue peut exister à la fois pour une lignée de bougie ; le traitement d'une autre candidate distincte pour cette bougie est sérialisé jusqu'à résolution de la révision en attente ;
+- une observation de mêmes valeurs correspondant à la candidate en attente est idempotente et n'alloue pas une nouvelle séquence ;
+- après interruption/redémarrage, une révision en attente non résolue reste pending et non éligible au PIT jusqu'à ce que la confirmation soit retentée/résolue ; elle n'est jamais silencieusement considérée comme acceptée ou quarantined.
 
-## Decision update
+## Mise à jour de décision
 
-D-020 now explicitly includes the `pending_confirmation` state, its PIT ineligibility and serialized per-candle transition rule.
+D-020 inclut désormais explicitement l'état `pending_confirmation`, sa non-éligibilité au PIT et la règle de sérialisation des transitions par candle.
 
-## Tests added to the contract
+## Tests ajoutés au contrat
 
-Data revision tests must additionally verify:
+Les tests de révision de données doivent en plus vérifier :
 
-- a changed observation is persisted as `pending_confirmation` before confirmation returns;
-- pending revision has `observed_at`, no `accepted_at`, and is never PIT-eligible;
-- successful confirmation transitions the same revision/sequence to `accepted_current`;
-- failed/unavailable confirmation transitions the same revision/sequence to `quarantined`;
-- same-value re-observation of a pending candidate is idempotent;
-- a candle cannot have two unresolved pending candidates and confirmation outcomes cannot be applied out of order;
-- restart/recovery preserves pending state and does not imply acceptance.
+- qu'une observation modifiée est persistée comme `pending_confirmation` avant le retour de la confirmation ;
+- qu'une révision en attente possède `observed_at`, n'a pas d'`accepted_at` et n'est jamais éligible au PIT ;
+- qu'une confirmation réussie fait passer la même révision/séquence à `accepted_current` ;
+- qu'une confirmation échouée ou indisponible fait passer la même révision/séquence à `quarantined` ;
+- qu'une réobservation de mêmes valeurs d'une candidate en attente est idempotente ;
+- qu'une bougie ne peut pas avoir deux candidates en attente non résolues et que les résultats de confirmation ne peuvent pas être appliqués hors ordre ;
+- qu'un redémarrage/recovery conserve l'état pending sans impliquer une acceptation.
 
-## Gate — satisfied
+## Critère de validation — satisfait
 
-- Final independent audit A: `P0 — VALIDATION READY`.
-- Final independent audit B: `P0 — VALIDATION READY`.
-- User approval: D-001 through D-020 explicitly approved in block on 2026-09-06.
+- Audit final indépendant A : `P0 — VALIDATION READY`.
+- Audit final indépendant B : `P0 — VALIDATION READY`.
+- Approbation utilisateur : D-001 à D-020 explicitement approuvées en bloc le 6 septembre 2026.
 
-Result: `P0 — VALIDATED`. P1 may begin, but validated P0 decisions are append-only historical contracts and must not be silently rewritten.
+Résultat : `P0 — VALIDATED`. P1 peut démarrer, mais les décisions P0 validées sont des contrats historiques à ajouts uniquement (append-only) et ne doivent jamais être réécrites silencieusement.
 
 
 ---
 
-## SOURCE FILE: `SOURCE_INTEGRITY.md`
+## FICHIER SOURCE : `SOURCE_INTEGRITY.md`
 
-# Source Integrity — P0 v7
+# Intégrité des sources — P0 v7
 
-## Validation state
+## État de validation
 
 `P0 — VALIDATED`
 
-Two independent final v7 audits concluded `P0 — VALIDATION READY`, and the user explicitly approved D-001 through D-020 in block on 2026-09-06. The v7 semantic contracts are frozen as the validated P0 baseline.
+Deux audits finaux indépendants de la v7 ont conclu `P0 — VALIDATION READY`, et l'utilisateur a explicitement approuvé D-001 à D-020 en bloc le 6 septembre 2026. Les contrats sémantiques v7 sont figés comme référence P0 validée.
 
-## Canonical ChatGPT source
+## Source canonique ChatGPT
 
-Use a single source file:
+Utiliser un seul fichier source :
 
 `BTC_ANALYTICS_V2_P0_CANONICAL_v7.md`
 
-Do not keep earlier P0 master files simultaneously in the same project sources.
+Ne pas conserver simultanément d'anciens fichiers maîtres P0 dans les mêmes sources de projet.
 
-## Required v7 markers
+## Marqueurs v7 obligatoires
 
-The canonical v7 source must contain all of the following:
+La source canonique v7 doit contenir tous les éléments suivants :
 
-- Decision Log D-001 through D-020;
-- `RFC 8785` and `parameter_fingerprint`;
-- exact `occurrence-key.v1` payload;
-- `DatasetSnapshot` with `knowledge_mode`;
-- `CandleRevision` model;
-- initial accepted revision with `revision_seq = 1`;
-- stable exact revision reference `(market, timeframe, open_time, revision_seq)`;
-- subsequent distinct observations allocate the next `revision_seq` at candidate creation;
-- `revision_status` includes `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined`;
-- pending candidates have `observed_at`, no `accepted_at`, and are never PIT-eligible;
-- at most one unresolved pending candidate per candle lineage;
-- pending confirmation survives interruption/restart without implying acceptance;
-- quarantined candidates retain their allocated sequence and have no `accepted_at`;
-- `observed_at`;
-- `accepted_at`;
-- invariant `observed_at <= accepted_at` for accepted revisions;
-- `revision acceptance policy v1`;
-- `reconstructed_latest`;
-- `observed_point_in_time`;
-- PIT eligibility rule `accepted_at <= T`;
-- `observed_at <= T` alone is insufficient for PIT;
-- quarantined revisions are never PIT-eligible;
-- same-venue native confirmation for changed accepted candles and no cross-exchange replacement;
-- initial ingestion does not require per-candle native confirmation;
-- Pyright;
-- Basic Contexts in P5;
-- Advanced Contexts & Regimes in P8;
-- PostgreSQL current canonical authority;
-- immutable Parquet snapshots;
-- generalized prefix-invariance tests;
-- data-revision tests covering initial revision, pending confirmation, observation-before-acceptance, quarantine and recovery.
+- le journal de décisions D-001 à D-020 ;
+- `RFC 8785` et `parameter_fingerprint` ;
+- le payload exact `occurrence-key.v1` ;
+- `DatasetSnapshot` avec `knowledge_mode` ;
+- le modèle `CandleRevision` ;
+- la première révision acceptée avec `revision_seq = 1` ;
+- la référence exacte et stable de révision `(market, timeframe, open_time, revision_seq)` ;
+- les observations distinctes ultérieures allouent le prochain `revision_seq` lors de la création de la candidate ;
+- `revision_status` inclut `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined` ;
+- les candidates en attente possèdent `observed_at`, n'ont pas d'`accepted_at` et ne sont jamais éligibles au PIT ;
+- au plus une candidate en attente non résolue par lignée de bougie ;
+- une confirmation en attente survit à une interruption/redémarrage sans impliquer une acceptation ;
+- les candidates mises en quarantaine conservent leur séquence allouée et n'ont pas d'`accepted_at` ;
+- `observed_at` ;
+- `accepted_at` ;
+- l'invariant `observed_at <= accepted_at` pour les révisions acceptées ;
+- `revision acceptance policy v1` ;
+- `reconstructed_latest` ;
+- `observed_point_in_time` ;
+- la règle d'éligibilité PIT `accepted_at <= T` ;
+- `observed_at <= T` seul est insuffisant pour le PIT ;
+- les révisions mises en quarantaine ne sont jamais éligibles au PIT ;
+- confirmation native sur la même venue pour les candles acceptées modifiées et absence de remplacement cross-exchange ;
+- l'ingestion initiale ne requiert pas de confirmation native candle par candle ;
+- Pyright ;
+- les contextes basiques en P5 ;
+- les contextes avancés et régimes en P8 ;
+- PostgreSQL comme autorité canonique courante ;
+- snapshots Parquet immuables ;
+- tests généralisés d'invariance par préfixe ;
+- tests de révision de données couvrant la révision initiale, la confirmation en attente, l'observation avant acceptation, la quarantaine et la reprise.
 
-If an audit reports that these markers are absent, it is not reading the canonical v7 source.
+Si un audit affirme que ces marqueurs sont absents, il ne lit pas la source canonique v7.
 
 
 ---
 
-## SOURCE FILE: `docs/00_PROJECT_CHARTER.md`
+## FICHIER SOURCE : `docs/00_PROJECT_CHARTER.md`
 
-# 00 — Project Charter
+# 00 — Charte du projet
 
 ## Vision
 
@@ -341,20 +342,20 @@ V2 n'est pas :
 
 - un bot de trading ;
 - un moteur d'ordres ;
-- un système buy/sell ;
+- un système d'achat/vente ;
 - un gestionnaire de portefeuille ;
 - une plateforme de copy trading ;
 - un optimiseur de stratégie ;
 - une plateforme ML par défaut.
 
-## Scope initial
+## Périmètre initial
 
 ### Marché
 
 - Bitcoin spot ;
-- provider initial : Binance ;
+- fournisseur initial : Binance ;
 - accès principal : CCXT derrière une abstraction interne ;
-- marché initial : BTC/USDC côté provider ;
+- marché initial : BTC/USDC côté fournisseur ;
 - timeframes : `1h`, `4h`, `1d` ;
 - UTC canonique.
 
@@ -372,11 +373,11 @@ V2 n'est pas :
 - pentes ;
 - compression / expansion ;
 - événements techniques ;
-- événements chandeliers ;
+- événements de chandeliers ;
 - contextes ;
-- forward outcomes.
+- outcomes futurs.
 
-### Chart patterns
+### Figures chartistes
 
 Les figures chartistes ne sont pas un objectif central. Elles pourront être ajoutées comme interprétations optionnelles si elles démontrent une valeur analytique supplémentaire.
 
@@ -395,7 +396,7 @@ Le succès n'est pas d'accumuler des indicateurs. Le succès est d'obtenir un sy
 
 ---
 
-## SOURCE FILE: `docs/01_ARCHITECTURE.md`
+## FICHIER SOURCE : `docs/01_ARCHITECTURE.md`
 
 # 01 — Architecture
 
@@ -405,39 +406,39 @@ Le succès n'est pas d'accumuler des indicateurs. Le succès est d'obtenir un sy
 Exchange
    |
    v
-Market Data Access
+Accès aux données de marché
    |
    v
-Normalization + Validation
+Normalisation + Validation
    |
    v
-Canonical Market Data
+Données de marché canoniques
    |
    +-------------------+
    |                   |
    v                   v
-Causal Feature      Research Dataset
-Engine              (Parquet/DuckDB)
+Moteur de features   Jeu de données de recherche
+causales             (Parquet/DuckDB)
    |
    v
-Market Structure
+Structure de marché
    |
    v
-Event Engine
+Moteur d'événements
    |
    v
-Context Engine
+Moteur de contextes
    |
    v
-Occurrence Store
+Stockage des occurrences
    |
    +------------------------+
    |                        |
    v                        v
-Product API            Outcome Engine
-                            |
-                            v
-                       Experiment Engine
+API produit             Moteur d'outcomes
+                             |
+                             v
+                        Moteur d'expériences
 ```
 
 ## Frontières obligatoires
@@ -485,30 +486,30 @@ btc_analytics_v2/
 
 ---
 
-## SOURCE FILE: `docs/02_TECH_STACK.md`
+## FICHIER SOURCE : `docs/02_TECH_STACK.md`
 
-# 02 — Tech Stack
+# 02 — Stack technique
 
-## Policy
+## Politique
 
-External libraries provide generic primitives. BTC Analytics owns domain semantics, causal contracts, versioning and reproducibility.
+Les bibliothèques externes fournissent des primitives génériques. BTC Analytics possède la sémantique du domaine, les contrats causaux, le versionnement et la reproductibilité.
 
-Exact package versions are pinned in lockfiles at repository bootstrap after compatibility checks.
+Les versions exactes des paquets sont figées dans les fichiers de verrouillage lors de l'amorçage du dépôt, après vérification de compatibilité.
 
-## ADOPT — product/runtime
+## ADOPT — produit/exécution
 
 - Python
 - NumPy
 - Polars
 - SciPy
-- CCXT behind `MarketDataProvider`
-- TA-Lib behind internal adapters for selected validated functions
+- CCXT derrière `MarketDataProvider`
+- TA-Lib derrière des adaptateurs internes pour les fonctions sélectionnées et validées
 - PostgreSQL
 - FastAPI
 - Pydantic
 - Alembic
 
-## ADOPT — development
+## ADOPT — développement
 
 - uv
 - pytest
@@ -525,108 +526,108 @@ Exact package versions are pinned in lockfiles at repository bootstrap after com
 - Lightweight Charts
 - shadcn/ui
 
-## ADOPT — research/data snapshots
+## ADOPT — recherche/snapshots de données
 
 - Parquet
 - DuckDB
 
 ## RESEARCH / REFERENCE
 
-- VectorBT: vectorized experimentation concepts, grids and walk-forward; not product portfolio engine.
-- ruptures: offline change-point research only until a causal formulation is validated.
-- statsmodels: only when a concrete statistical need exists.
+- VectorBT : concepts d'expérimentation vectorisée, grilles et walk-forward ; pas de moteur produit de portefeuille.
+- ruptures : recherche hors ligne de points de rupture uniquement jusqu'à validation d'une formulation causale.
+- statsmodels : uniquement lorsqu'un besoin statistique concret existe.
 
-## REJECT as product dependencies
+## REJECT comme dépendances produit
 
 - PatternPy
 - TradingPatternScanner
 
-## TA-Lib scoped decision
+## Décision TA-Lib à périmètre limité
 
-TA-Lib may execute selected standard indicators and candlestick functions only when each selected function has:
+TA-Lib peut exécuter certains indicateurs standards et certaines fonctions de chandeliers uniquement lorsque chaque fonction sélectionnée possède :
 
-- documented inputs/lookback;
-- causal verification under BTC Analytics closed-candle semantics;
-- golden tests;
-- a BTC Analytics definition/version wrapper.
+- des entrées et une période rétrospective (`lookback`) documentées ;
+- une vérification causale sous la sémantique de bougies clôturées (`closed-candle`) de BTC Analytics ;
+- des tests de référence (`golden tests`) ;
+- un adaptateur BTC Analytics (`wrapper`) avec définition/version.
 
-TA-Lib can additionally serve as a reference oracle for primitives implemented internally.
+TA-Lib peut également servir d'oracle de référence pour des primitives implémentées en interne.
 
-## Performance rule
+## Règle de performance
 
-1. correct algorithm;
-2. vectorized NumPy/Polars implementation;
-3. profiling;
-4. Numba/Rust only for demonstrated bottlenecks.
+1. algorithme correct ;
+2. implémentation vectorisée NumPy/Polars ;
+3. profilage ;
+4. Numba/Rust uniquement pour des goulots d'étranglement démontrés.
 
 
 ---
 
-## SOURCE FILE: `docs/03_DOMAIN_MODEL.md`
+## FICHIER SOURCE : `docs/03_DOMAIN_MODEL.md`
 
-# 03 — Domain Model
+# 03 — Modèle de domaine
 
-## Shared identity primitives
+## Primitives d'identité partagées
 
-### Canonical parameter representation
+### Représentation canonique des paramètres
 
-Every canonical analytical definition owns a parameter schema.
+Chaque définition analytique canonique possède un schéma de paramètres.
 
-Before identity calculation:
+Avant le calcul d'identité :
 
-- all schema defaults are materialized explicitly;
-- object member names and enum/string values use their canonical schema spelling;
-- unordered collections are sorted according to their definition-specific schema rule before serialization;
-- timestamps, when parameters, use integer Unix epoch milliseconds UTC;
-- non-finite numbers (`NaN`, `+Inf`, `-Inf`) are forbidden;
-- exact decimal semantics must be represented as normalized decimal strings, not binary floating-point values.
+- toutes les valeurs par défaut du schéma sont matérialisées explicitement ;
+- les noms des membres d'objet et les valeurs d'enum/string utilisent l'orthographe canonique de leur schéma ;
+- les collections non ordonnées sont triées selon la règle propre au schéma de leur définition avant sérialisation ;
+- les timestamps, lorsqu'ils sont des paramètres, utilisent des millisecondes Unix UTC entières ;
+- les nombres non finis (`NaN`, `+Inf`, `-Inf`) sont interdits ;
+- les sémantiques décimales exactes doivent être représentées par des chaînes décimales normalisées, et non par des nombres flottants binaires.
 
-Canonical parameter bytes are the UTF-8 bytes of the parameter object serialized with **RFC 8785 JSON Canonicalization Scheme (JCS)**.
+Les octets canoniques des paramètres sont les octets UTF-8 de l'objet de paramètres sérialisé avec le **JSON Canonicalization Scheme (JCS) RFC 8785**.
 
-Normalized decimal strings use:
+Les chaînes décimales normalisées utilisent :
 
-- no leading `+`;
-- `-0` normalized to `0`;
-- no unnecessary leading integer zeros;
-- no trailing fractional zeros;
-- no decimal point when the fractional part is empty;
-- base-10 plain notation unless a definition explicitly versions another representation.
+- aucun `+` initial ;
+- `-0` normalisé en `0` ;
+- aucun zéro entier initial inutile ;
+- aucun zéro fractionnaire final inutile ;
+- aucun point décimal lorsque la partie fractionnaire est vide ;
+- une notation décimale en base 10 sans exposant, sauf si une définition versionnée spécifie explicitement une autre représentation.
 
-Examples:
+Exemples :
 
 ```text
-"001.2300" -> invalid input form; normalized semantic value -> "1.23"
+"001.2300" -> forme d'entrée invalide ; valeur sémantique normalisée -> "1.23"
 "-0.000"   -> "0"
 "2.500"    -> "2.5"
 ```
 
 ### DefinitionIdentity
 
-Every canonical analytical definition has:
+Chaque définition analytique canonique possède :
 
-- `definition_key`: stable namespaced key;
-- `definition_version`: changes whenever semantics change;
-- `parameters`: normalized canonical parameter object;
+- `definition_key` : clé namespacée stable ;
+- `definition_version` : change dès que la sémantique change ;
+- `parameters` : objet de paramètres canoniques normalisés ;
 - `parameter_fingerprint`.
 
-`parameter_fingerprint` is exactly:
+`parameter_fingerprint` vaut exactement :
 
 ```text
 "sha256:" + lowercase_hex(SHA-256(JCS(parameters)))
 ```
 
-The hash covers the normalized parameters only. Definition key/version remain explicit identity fields.
+Le hash couvre uniquement les paramètres normalisés. La clé et la version de définition restent des champs d'identité explicites.
 
 ### Provenance
 
-Canonical derived artifacts must be traceable to:
+Les artefacts dérivés canoniques doivent être traçables jusqu'à :
 
-- market;
-- timeframe;
-- source data identity or DatasetSnapshot when applicable;
-- definition key/version;
-- parameter fingerprint;
-- computation software revision/run when material.
+- market ;
+- timeframe ;
+- l'identité des données source ou le DatasetSnapshot lorsque pertinent ;
+- la clé/version de définition ;
+- le fingerprint des paramètres ;
+- la révision logicielle/le run de calcul lorsque cela est matériel.
 
 ## Market
 
@@ -636,11 +637,11 @@ Canonical derived artifacts must be traceable to:
 - market_type
 - canonical_symbol
 
-`canonical_symbol` is a BTC Analytics domain identifier and is independent from CCXT/provider notation.
+`canonical_symbol` est un identifiant de domaine BTC Analytics indépendant de la notation CCXT/fournisseur.
 
 ## Candle
 
-Canonical closed OHLCV bar:
+Bougie OHLCV clôturée canonique :
 
 - market
 - timeframe
@@ -651,87 +652,87 @@ Canonical closed OHLCV bar:
 - low
 - close
 - `base_volume`
-- optional `quote_volume`
-- optional `trade_count`
+- `quote_volume` optionnel
+- `trade_count` optionnel
 - source
 - source_symbol
 - `available_at`
 - `ingested_at`
-- current accepted revision metadata
+- métadonnées de la révision courante acceptée
 
-Identity:
+Identité :
 
 ```text
 (market, timeframe, open_time)
 ```
 
-The canonical interval is `[open_time, end_time)` and `available_at = end_time` in the initial reconstructed closed-candle analytical model.
+L'intervalle canonique est `[open_time, end_time)` et `available_at = end_time` dans le modèle analytique initial de bougies clôturées reconstruites.
 
 ## CandleRevision
 
-Every canonical candle has an explicit append-only revision lineage, including its first accepted observation and every later distinct observation.
+Chaque bougie canonique possède une lignée de révisions explicite et append-only, comprenant sa première observation acceptée et chaque observation distincte ultérieure.
 
-Minimum fields:
+Champs minimaux :
 
-- candle identity `(market, timeframe, open_time)`;
-- monotonically increasing local `revision_seq`;
-- normalized OHLCV values;
-- `observed_at`;
-- optional `accepted_at`;
-- `revision_status`: `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined`;
-- primary provider provenance;
-- confirmation provenance when required;
-- before/after logical value fingerprints;
-- reason/audit metadata.
+- identité de la bougie `(market, timeframe, open_time)` ;
+- `revision_seq` local croissant de manière monotone ;
+- valeurs OHLCV normalisées ;
+- `observed_at` ;
+- `accepted_at` optionnel ;
+- `revision_status` : `pending_confirmation`, `accepted_current`, `accepted_superseded`, `quarantined` ;
+- provenance du fournisseur primaire ;
+- provenance de confirmation lorsque nécessaire ;
+- fingerprints logiques avant/après des valeurs ;
+- motif/métadonnées d'audit.
 
-The stable exact local revision reference is:
+La référence locale exacte et stable d'une révision est :
 
 ```text
 (market, timeframe, open_time, revision_seq)
 ```
 
-### Initial accepted revision
+### Première révision acceptée
 
-The first valid observation of a previously unknown closed candle creates the first revision immediately:
+La première observation valide d'une bougie clôturée jusque-là inconnue crée immédiatement la première révision :
 
-- `revision_seq = 1`;
-- `observed_at` = earliest time BTC Analytics observed that normalized candle;
-- `accepted_at` = instant canonical validation succeeds;
+- `revision_seq = 1` ;
+- `observed_at` = premier instant auquel BTC Analytics a observé cette bougie normalisée ;
+- `accepted_at` = instant où la validation canonique réussit ;
 - `revision_status = accepted_current`.
 
-Initial acceptance does not require a per-candle same-venue native confirmation. Provider-path correctness is validated separately by the bounded P1 CCXT-vs-native fixture.
+L'acceptation initiale ne requiert pas de confirmation native individuelle sur la même venue pour chaque bougie. La correction du chemin fournisseur est validée séparément par la fixture P1 bornée CCXT-vs-native.
 
-### Later distinct observations
+### Observations distinctes ultérieures
 
-Every later observation that differs from the current accepted logical values creates a new revision candidate and receives the next monotonically increasing `revision_seq` **at candidate creation time**. Sequence numbers are never reused.
+Toute observation ultérieure qui diffère des valeurs logiques de la révision courante acceptée crée une nouvelle candidate de révision et reçoit le prochain `revision_seq` croissant **au moment de la création de la candidate**. Les numéros de séquence ne sont jamais réutilisés.
 
-The newly created candidate is persisted with `revision_status = pending_confirmation`, has `observed_at`, and has no `accepted_at`. A `pending_confirmation` revision is never PIT-eligible.
+La nouvelle candidate est persistée avec `revision_status = pending_confirmation`, possède `observed_at` et n'a pas d'`accepted_at`. Une révision `pending_confirmation` n'est jamais éligible au PIT.
 
-For a given candle lineage, at most one unresolved `pending_confirmation` revision may exist at a time. Processing of another distinct candidate for that candle is serialized until the pending revision resolves. A same-value re-observation matching the pending candidate is idempotent and creates no additional revision. This prevents confirmation outcomes from being applied out of revision order.
+Pour une lignée de bougie donnée, au plus une révision `pending_confirmation` non résolue peut exister à la fois. Le traitement d'une autre candidate distincte pour cette bougie est sérialisé jusqu'à résolution de la révision en attente. Une réobservation de mêmes valeurs correspondant à la candidate en attente est idempotente et ne crée aucune révision supplémentaire. Cela empêche l'application des résultats de confirmation hors ordre de révision.
 
-If native confirmation succeeds, the **same** pending revision transitions to `accepted_current`: promotion never renumbers it, records `accepted_at`, and marks the previous current accepted revision `accepted_superseded`. If confirmation disagrees, is unavailable, or validation fails, the same pending revision transitions to `quarantined`, retains its allocated `revision_seq`, and keeps `accepted_at` absent.
+Si la confirmation native réussit, la **même** révision en attente passe à `accepted_current` : la promotion ne la renumérote jamais, enregistre `accepted_at` et marque la précédente révision courante acceptée comme `accepted_superseded`. Si la confirmation est en désaccord, indisponible ou si la validation échoue, la même révision en attente passe à `quarantined`, conserve son `revision_seq` alloué et garde `accepted_at` absent.
 
-An interruption/restart does not infer a terminal status: an unresolved pending revision remains `pending_confirmation`, remains PIT-ineligible, and must be retried/reconciled before another distinct candidate for the same candle is processed.
+Une interruption ou un redémarrage n'infère aucun statut terminal : une révision en attente non résolue reste `pending_confirmation`, reste non éligible au PIT et doit être retentée/réconciliée avant le traitement d'une autre candidate distincte pour la même bougie.
 
-A same-value re-observation of the current accepted revision is idempotent and creates no new semantic revision when no conflicting pending candidate exists.
+Une réobservation de mêmes valeurs que la révision courante acceptée est idempotente et ne crée aucun nouvel état sémantique de révision lorsqu'aucune candidate en attente conflictuelle n'existe.
 
-A later revision never mutates an immutable DatasetSnapshot.
+Une révision ultérieure ne modifie jamais un DatasetSnapshot immuable.
 
-`observed_at` is the earliest time BTC Analytics observed that revision. A correction observed later must never be represented as having been actually observed by the system at the historical candle `end_time`.
+`observed_at` est le premier instant auquel BTC Analytics a observé cette révision. Une correction observée plus tard ne doit jamais être représentée comme ayant réellement été observée par le système à l'`end_time` historique de la bougie.
 
-`accepted_at` is the instant at which required validation/confirmation succeeds and the revision becomes accepted canonical state. It is present only for revisions that have been accepted at least once (`accepted_current` or `accepted_superseded`). A quarantined revision has no `accepted_at`.
+`accepted_at` est l'instant auquel la validation/confirmation requise réussit et où la révision devient l'état canonique accepté. Il est présent uniquement pour les révisions qui ont été acceptées au moins une fois (`accepted_current` ou `accepted_superseded`). Une révision mise en quarantaine n'a pas d'`accepted_at`.
 
-For every accepted revision:
+Pour chaque révision acceptée :
 
 ```text
 observed_at <= accepted_at
 ```
 
-`accepted_at` is temporal provenance. It does not participate in Candle identity, DefinitionIdentity, `occurrence_key`, or any other semantic identity unless a future versioned contract explicitly says otherwise.
+`accepted_at` est une provenance temporelle. Il ne participe pas à l'identité de Candle, DefinitionIdentity, `occurrence_key` ni à aucune autre identité sémantique, sauf si un futur contrat versionné le prévoit explicitement.
 
 ## FeatureDefinition / FeatureValue
 
-A FeatureValue includes definition identity, market/timeframe, `event_time`, `known_at`, values and provenance.
+Un FeatureValue inclut l'identité de définition, market/timeframe, `event_time`, `known_at`, les valeurs et la provenance.
 
 ## StructuralPoint
 
@@ -739,56 +740,56 @@ A FeatureValue includes definition identity, market/timeframe, `event_time`, `kn
 - `known_at`
 - price
 - kind
-- definition identity
-- metrics
+- identité de définition
+- métriques
 - provenance
 
-`physical_time < known_at` is valid for confirmed historical structure.
+`physical_time < known_at` est valide pour une structure historique confirmée.
 
 ## StructuralSegment
 
-Links structural points and records direction, return, ATR-normalized amplitude, duration, slope, velocity and retracement relationships.
+Relie des points structurels et enregistre direction, rendement, amplitude normalisée par ATR, durée, pente, vélocité et relations de retracement.
 
-Its `known_at` cannot precede the latest required input `known_at`.
+Son `known_at` ne peut pas précéder le `known_at` le plus tardif parmi les entrées requises.
 
 ## EventDefinition / Event
 
-An Event is a versioned causal occurrence with:
+Un Event est une occurrence causale versionnée avec :
 
-- definition identity;
-- `event_time`;
-- `known_at`;
-- evidence/values;
-- deterministic `instance_discriminator`;
+- identité de définition ;
+- `event_time` ;
+- `known_at` ;
+- preuves/valeurs ;
+- `instance_discriminator` déterministe ;
 - provenance.
 
-For a given DefinitionIdentity, market, timeframe and anchor candle, the default rule is at most one canonical event with `instance_discriminator = "0"`.
+Pour une DefinitionIdentity, un market, un timeframe et une bougie d'ancrage donnés, la règle par défaut est au plus un événement canonique avec `instance_discriminator = "0"`.
 
-If a definition can emit multiple distinct canonical events for the same anchor, its versioned schema must define a deterministic non-empty `instance_discriminator`.
+Si une définition peut émettre plusieurs événements canoniques distincts pour le même ancrage, son schéma versionné doit définir un `instance_discriminator` déterministe et non vide.
 
 ## ContextDefinition / ContextSnapshot
 
-A ContextSnapshot is a causal state evaluated at an anchor candle using only artifacts whose `known_at <= anchor.end_time`.
+Un ContextSnapshot est un état causal évalué sur une bougie d'ancrage en utilisant uniquement des artefacts dont `known_at <= anchor.end_time`.
 
 ## Occurrence
 
-The central historical analysis unit.
+Unité centrale de l'analyse historique.
 
-Minimum fields:
+Champs minimaux :
 
-- deterministic `occurrence_key`;
-- definition identity;
-- market/timeframe;
-- `event_time` when physically meaningful;
-- `known_at`;
-- anchor candle identity;
-- `instance_discriminator`;
-- context reference/snapshot when used;
-- provenance/input references.
+- `occurrence_key` déterministe ;
+- identité de définition ;
+- market/timeframe ;
+- `event_time` lorsqu'il a un sens physique ;
+- `known_at` ;
+- identité de la bougie d'ancrage ;
+- `instance_discriminator` ;
+- référence/snapshot de contexte lorsque utilisé ;
+- provenance/références d'entrées.
 
-### Occurrence key payload
+### Payload de la clé d'occurrence
 
-The exact v1 identity payload is:
+Le payload exact d'identité v1 est :
 
 ```json
 {
@@ -804,417 +805,417 @@ The exact v1 identity payload is:
 }
 ```
 
-Rules:
+Règles :
 
-- timestamps are integer Unix epoch milliseconds UTC;
-- `event_time_ms` is the canonical physical/event attribution time; if the definition has no distinct physical attribution, it equals the anchor candle `end_time`;
-- `instance_discriminator` defaults to `"0"`;
-- context is **not** part of occurrence identity; contexts are attached analytical state and may be used for slicing without duplicating the occurrence;
-- DatasetSnapshot is provenance, not occurrence identity, so the same semantic occurrence can be compared across snapshots/revisions.
+- les timestamps sont des millisecondes Unix UTC entières ;
+- `event_time_ms` est le temps canonique d'attribution physique/de l'événement ; si la définition n'a pas d'attribution physique distincte, il est égal à l'`end_time` de la bougie d'ancrage ;
+- `instance_discriminator` vaut par défaut `"0"` ;
+- le contexte ne fait **pas** partie de l'identité de l'occurrence ; les contextes sont un état analytique attaché et peuvent servir au découpage sans dupliquer l'occurrence ;
+- DatasetSnapshot est une provenance, pas une identité d'occurrence, de sorte qu'une même occurrence sémantique peut être comparée entre snapshots/révisions.
 
-`occurrence_key` is exactly:
+`occurrence_key` vaut exactement :
 
 ```text
 "sha256:" + lowercase_hex(SHA-256(JCS(occurrence_key_payload)))
 ```
 
-Database insertion order, surrogate IDs and computation run IDs never participate in the key.
+L'ordre d'insertion en base, les identifiants de substitution et les identifiants de run de calcul ne participent jamais à la clé.
 
 ## OutcomeDefinition
 
-Defines:
+Définit :
 
-- metric key/version;
-- horizon in bars;
-- reference-price convention;
-- future-window convention;
-- gap policy;
-- metric-specific parameters.
+- clé/version de métrique ;
+- horizon en barres ;
+- convention de prix de référence ;
+- convention de fenêtre future ;
+- politique de gaps ;
+- paramètres spécifiques à la métrique.
 
-OutcomeDefinition parameter identity follows the same JCS/SHA-256 rule.
+L'identité des paramètres d'OutcomeDefinition suit la même règle JCS/SHA-256.
 
 ## Outcome
 
-Attached to an Occurrence and OutcomeDefinition.
+Attaché à une Occurrence et une OutcomeDefinition.
 
-Outcome never changes the original occurrence and may be `complete`, `incomplete_gap` or `incomplete_end_of_dataset`.
+Un Outcome ne modifie jamais l'occurrence d'origine et peut être `complete`, `incomplete_gap` ou `incomplete_end_of_dataset`.
 
 ## BaselineDefinition
 
-Every experiment comparing conditional distributions must explicitly define its baseline population:
+Chaque expérience comparant des distributions conditionnelles doit définir explicitement sa population de baseline :
 
-- market/timeframe;
-- historical range;
-- eligible anchor policy;
-- context filter if any;
-- same outcome/gap conventions;
-- sampling policy/version.
+- market/timeframe ;
+- plage historique ;
+- politique d'ancrages éligibles ;
+- filtre de contexte le cas échéant ;
+- mêmes conventions d'outcomes/gaps ;
+- politique/version d'échantillonnage.
 
-BaselineDefinition identity follows the same DefinitionIdentity parameter canonicalization rules.
+L'identité de BaselineDefinition suit les mêmes règles de canonicalisation des paramètres que DefinitionIdentity.
 
 ## DatasetSnapshot
 
-Immutable experiment input identity containing at minimum:
+Identité immuable d'entrée d'expérience contenant au minimum :
 
-- `snapshot_id`;
-- source market/timeframes;
-- temporal coverage;
-- creation time;
-- `knowledge_mode`;
-- manifest/content hashes;
-- gap summary;
-- exact accepted CandleRevision references included in the snapshot.
+- `snapshot_id` ;
+- markets/timeframes sources ;
+- couverture temporelle ;
+- instant de création ;
+- `knowledge_mode` ;
+- hashes de manifeste/contenu ;
+- résumé des gaps ;
+- références exactes des CandleRevision acceptées incluses dans le snapshot.
 
-Initial `knowledge_mode` values:
+Valeurs initiales de `knowledge_mode` :
 
-- `reconstructed_latest`;
-- `observed_point_in_time` when sufficient observation/revision history exists.
+- `reconstructed_latest` ;
+- `observed_point_in_time` lorsqu'un historique suffisant d'observation/révision existe.
 
-The snapshot identity payload excludes creation time and includes:
+Le payload d'identité du snapshot exclut l'instant de création et inclut :
 
-- snapshot schema/version;
-- market/timeframes;
-- temporal coverage;
-- knowledge mode;
-- logical manifest hash of included candle identities + accepted revision identifiers.
+- schéma/version du snapshot ;
+- markets/timeframes ;
+- couverture temporelle ;
+- knowledge mode ;
+- hash logique du manifeste des identités de bougies + identifiants de révisions acceptées incluses.
 
-`snapshot_id` is:
+`snapshot_id` vaut :
 
 ```text
 "sha256:" + lowercase_hex(SHA-256(JCS(snapshot_identity_payload)))
 ```
 
-Parquet is the initial physical format for immutable analytical snapshots. Physical Parquet byte layout is not used as the sole logical identity because different writers may encode equivalent logical data differently.
+Parquet est le format physique initial des snapshots analytiques immuables. La disposition physique des octets Parquet n'est pas utilisée comme seule identité logique, car différents writers peuvent encoder différemment des données logiquement équivalentes.
 
 ## ExperimentDefinition / ExperimentRun
 
-A run freezes:
+Un run fige :
 
-- DatasetSnapshot;
-- analytical definition versions;
-- parameter grid;
-- OutcomeDefinitions;
-- BaselineDefinition;
-- split policy;
-- software/config revision.
+- DatasetSnapshot ;
+- versions des définitions analytiques ;
+- grille de paramètres ;
+- OutcomeDefinitions ;
+- BaselineDefinition ;
+- politique de split ;
+- révision logicielle/configuration.
 
 
 ---
 
-## SOURCE FILE: `docs/04_CAUSALITY.md`
+## FICHIER SOURCE : `docs/04_CAUSALITY.md`
 
-# 04 — Causality Contract
+# 04 — Contrat de causalité
 
-## Absolute rule
+## Règle absolue
 
-If BTC Analytics says an artifact is known at T, no information after T may have contributed to it.
+Si BTC Analytics affirme qu'un artefact est connu à T, aucune information postérieure à T ne peut avoir contribué à cet artefact.
 
-## Initial cadence
+## Cadence initiale
 
-P0–P8 canonical analytics operate on **closed candles**.
+Les analyses canoniques P0–P8 fonctionnent sur des **bougies clôturées**.
 
-Derived artifacts therefore become known on canonical candle boundaries unless a future milestone defines an explicit intrabar contract.
+Les artefacts dérivés deviennent donc connus sur les frontières canoniques de bougies, sauf si un futur jalon définit explicitement un contrat intrabar.
 
-## Time coordinates
+## Coordonnées temporelles
 
-- candle `open_time`: inclusive start;
-- candle `end_time`: exclusive end;
-- candle `available_at`: `end_time` in historical closed-bar semantics;
-- derived `event_time`/`physical_time`: where the phenomenon belongs;
-- derived `known_at`: earliest canonical time at which all required evidence is available;
-- `ingested_at`: system observation time, not a substitute for analytical `known_at`.
+- `open_time` de la bougie : début inclusif ;
+- `end_time` de la bougie : fin exclusive ;
+- `available_at` de la bougie : `end_time` dans la sémantique historique closed-bar ;
+- `event_time`/`physical_time` dérivé : instant auquel appartient physiquement le phénomène ;
+- `known_at` dérivé : premier instant canonique auquel toutes les preuves requises sont disponibles ;
+- `ingested_at` : instant d'observation par le système, pas un substitut à l'`known_at` analytique.
 
-## Layer rules
+## Règles par couche
 
 ### market_data
 
-Open/provider-in-progress bars are not eligible for canonical analytical computation.
+Les barres ouvertes ou encore en cours côté fournisseur ne sont pas éligibles au calcul analytique canonique.
 
 ### features
 
-Strictly causal. Forbidden without an explicit delayed `known_at` formulation:
+Strictement causal. Interdit sans formulation explicite avec `known_at` retardé :
 
-- `shift(-1)`;
-- centered windows;
-- global-fit smoothing;
-- full-series parameter fitting;
-- future-confirmed extrema assigned retroactively to physical time.
+- `shift(-1)` ;
+- fenêtres centrées ;
+- lissage ajusté sur la série complète ;
+- ajustement global de paramètres sur la série complète ;
+- extrema confirmés par le futur affectés rétroactivement à leur temps physique.
 
 ### structure
 
-May refer to a past physical point, but confirmation latency must be represented by `known_at`.
+Peut référencer un point physique passé, mais la latence de confirmation doit être représentée par `known_at`.
 
 ### events / contexts / occurrences
 
-`known_at` equals or exceeds every required input's `known_at`.
+`known_at` est supérieur ou égal à chaque `known_at` d'entrée requis.
 
 ### outcomes
 
-Future use is allowed only after occurrence selection is frozen.
+L'utilisation du futur est autorisée uniquement après que la sélection de l'occurrence a été figée.
 
 ### research
 
-Look-ahead/offline methods are permitted only when explicitly labeled research and cannot be promoted without a causal production contract.
+Les méthodes look-ahead/offline sont autorisées uniquement lorsqu'elles sont explicitement étiquetées comme recherche et ne peuvent pas être promues sans contrat causal de production.
 
-## Mandatory prefix-invariance testing
+## Tests obligatoires d'invariance par préfixe
 
-Applies to every artifact declared known at T:
+Ils s'appliquent à tout artefact déclaré connu à T :
 
-- FeatureValue;
-- StructuralPoint;
-- StructuralSegment;
-- Event;
-- ContextSnapshot;
-- derived Occurrence.
+- FeatureValue ;
+- StructuralPoint ;
+- StructuralSegment ;
+- Event ;
+- ContextSnapshot ;
+- Occurrence dérivée.
 
-Test protocol:
+Protocole de test :
 
-1. compute on the full series;
-2. compute on historical prefixes ending at multiple T;
-3. compare artifacts whose `known_at <= T`;
-4. adding future bars must not alter their canonical identity/value/state.
+1. calculer sur la série complète ;
+2. calculer sur plusieurs préfixes historiques se terminant à différents T ;
+3. comparer les artefacts dont `known_at <= T` ;
+4. l'ajout de barres futures ne doit pas modifier leur identité, valeur ou état canonique.
 
-Any legitimate later revision must be modeled as a new explicitly timestamped state/version, not silent retroactive mutation.
+Toute révision ultérieure légitime doit être modélisée comme un nouvel état/une nouvelle version explicitement timestampée, jamais comme une mutation rétroactive silencieuse.
 
 
 ---
 
-## SOURCE FILE: `docs/05_MARKET_DATA.md`
+## FICHIER SOURCE : `docs/05_MARKET_DATA.md`
 
-# 05 — Market Data
+# 05 — Données de marché
 
-## Goal
+## Objectif
 
-Provide reliable exchange-independent closed candles for analytical use.
+Fournir des bougies clôturées fiables et indépendantes de la plateforme d'échange pour l'usage analytique.
 
-## Access architecture
+## Architecture d'accès
 
 ```text
-Exchange -> CCXT Adapter -> Provider DTO -> Normalizer -> Validator -> Canonical Candle
-                                                     -> PostgreSQL current canonical store
-                                                     -> Parquet immutable analytical snapshots
+Plateforme d'échange -> Adaptateur CCXT -> DTO fournisseur -> Normaliseur -> Validateur -> Bougie canonique (`Candle`)
+                                                          -> stockage canonique courant PostgreSQL
+                                                          -> snapshots analytiques immuables Parquet
 ```
 
-## Initial provider/market
+## Fournisseur/marché initial
 
-- access library: CCXT;
-- exchange: Binance Spot;
-- provider symbol: `BTC/USDC`;
-- internal canonical market identity is independent of CCXT notation.
+- bibliothèque d'accès : CCXT ;
+- plateforme d'échange : Binance Spot ;
+- symbole fournisseur : `BTC/USDC` ;
+- l'identité canonique interne du marché est indépendante de la notation CCXT.
 
-The domain never imports CCXT types.
+Le domaine n'importe jamais de types CCXT.
 
-## Canonical candle semantics
+## Sémantique de la bougie canonique
 
-- interval: `[open_time, end_time)`;
-- UTC;
-- P1 stores/uses closed candles for analytics;
-- `available_at = end_time` describes historical market-time bar availability;
-- provider-specific raw close timestamps may be retained as provenance only.
+- intervalle : `[open_time, end_time)` ;
+- UTC ;
+- P1 stocke/utilise des bougies clôturées pour l'analytique ;
+- `available_at = end_time` décrit la disponibilité historique de la barre en temps de marché ;
+- les timestamps bruts de clôture propres au fournisseur peuvent être conservés uniquement comme provenance.
 
 ### Volume
 
-Canonical `base_volume` is volume in the base asset (BTC for BTC/USDC).
+Le `base_volume` canonique est le volume dans l'actif de base (BTC pour BTC/USDC).
 
-If retained, quote activity is named `quote_volume`; trade count is `trade_count`. No ambiguous generic `volume` field is used in canonical domain contracts.
+Si elles sont conservées, l'activité en devise de cotation est nommée `quote_volume` et le nombre de transactions `trade_count`. Aucun champ canonique ambigu nommé simplement `volume` n'est utilisé dans les contrats du domaine.
 
-## Initial native timeframes
+## Unités de temps natives initiales (`timeframes`)
 
 - `1h`
 - `4h`
 - `1d`
 
-P1 fetches each timeframe natively from the provider. No canonical resampling is performed in P1.
+P1 récupère chaque unité de temps nativement auprès du fournisseur. Aucun rééchantillonnage canonique (`resampling`) n'est effectué en P1.
 
-Expected UTC alignment is validated.
+L'alignement UTC attendu est validé.
 
-If an exchange/provider does not support a required native timeframe, that market/timeframe is unsupported until a separate resampling contract is explicitly added.
+Si une plateforme d'échange ou un fournisseur ne prend pas en charge une unité de temps native requise, ce couple `market/timeframe` est non pris en charge jusqu'à l'ajout explicite d'un contrat distinct de rééchantillonnage (`resampling`).
 
 ## Validation
 
-- timezone/interval alignment;
-- OHLC invariants;
-- non-negative volumes/counts;
-- uniqueness;
-- closed status/eligibility;
-- monotonic ordering;
-- duplicate detection;
-- gap detection.
+- alignement fuseau horaire/intervalle ;
+- invariants OHLC ;
+- volumes/nombres de transactions non négatifs ;
+- unicité ;
+- statut/éligibilité de clôture ;
+- ordre monotone ;
+- détection des doublons ;
+- détection des gaps.
 
-## Gap policy
+## Politique des lacunes (`gaps`)
 
-A gap is never interpolated silently.
+Une lacune (`gap`) n'est jamais interpolée silencieusement.
 
-Canonical analytics treat gaps as hard continuity boundaries:
+Les analyses canoniques traitent les lacunes (`gaps`) comme des frontières dures de continuité :
 
-- rolling feature warm-up restarts after a gap when continuity is required;
-- structural algorithms do not connect points across a gap by default;
-- events/contexts depending on continuous history are unavailable until their requirements are satisfied again;
-- an outcome horizon crossing a gap is `incomplete_gap`;
-- ExperimentRun reports exclusions/incomplete counts.
+- la phase d'initialisation (`warm-up`) des `features` glissantes redémarre après un `gap` lorsqu'une continuité est requise ;
+- les algorithmes structurels ne relient pas par défaut des points de part et d'autre d'un gap ;
+- les événements/contextes dépendant d'un historique continu sont indisponibles jusqu'à ce que leurs exigences soient de nouveau satisfaites ;
+- un horizon d'`Outcome` traversant un `gap` est `incomplete_gap` ;
+- ExperimentRun rapporte les exclusions et comptes incomplets.
 
-## PostgreSQL authority
+## Autorité PostgreSQL
 
-PostgreSQL is the **current canonical product store**.
+PostgreSQL est le **stockage produit canonique courant**.
 
-Repeated observations that normalize to the same values are idempotent.
+Les observations répétées qui se normalisent vers les mêmes valeurs sont idempotentes.
 
-### Initial closed candle ingestion
+### Ingestion initiale d'une bougie clôturée
 
-For the first valid observation of a previously unknown closed candle:
+Pour la première observation valide d'une bougie clôturée jusque-là inconnue :
 
-1. normalize the provider observation;
-2. validate all canonical invariants;
-3. create `CandleRevision` with `revision_seq = 1`;
-4. record `observed_at` from the first BTC Analytics observation of that normalized candle;
-5. record `accepted_at` when canonical validation succeeds;
-6. set `revision_status = accepted_current`;
-7. make the canonical Candle current state reference that exact revision.
+1. normaliser l'observation du fournisseur ;
+2. valider tous les invariants canoniques ;
+3. créer une `CandleRevision` avec `revision_seq = 1` ;
+4. enregistrer `observed_at` au premier instant où BTC Analytics a observé cette bougie normalisée ;
+5. enregistrer `accepted_at` lorsque la validation canonique réussit ;
+6. définir `revision_status = accepted_current` ;
+7. faire référencer cet identifiant exact de révision par l'état courant de la Candle canonique.
 
-The initial accepted revision does **not** require a per-candle confirmation against the native endpoint. P1 instead validates the CCXT provider path with the bounded CCXT-vs-Binance-native fixture defined below. Native per-candle confirmation is required when a later observation conflicts with an already accepted candle.
+La première révision acceptée ne requiert **pas** de confirmation individuelle par bougie contre l'endpoint natif. P1 valide plutôt le chemin fournisseur CCXT avec un jeu de test de référence borné (`fixture`) CCXT-vs-Binance-native défini ci-dessous. Une confirmation native par bougie est requise lorsqu'une observation ultérieure entre en conflit avec une bougie déjà acceptée.
 
-The exact local revision reference is `(market, timeframe, open_time, revision_seq)`.
+La référence locale exacte de révision est `(market, timeframe, open_time, revision_seq)`.
 
-### Changed closed candle: revision acceptance policy v1
+### Bougie clôturée modifiée : politique d'acceptation des révisions v1 (`revision acceptance policy v1`)
 
-A different re-observation of an already stored closed candle never overwrites current state directly.
+Une réobservation différente d'une bougie clôturée déjà stockée n'écrase jamais directement l'état courant.
 
-The deterministic flow is:
+Le flux déterministe est :
 
-1. normalize the new observation;
-2. validate all canonical invariants;
-3. compare it with the current accepted revision;
-4. if values are identical, do nothing except optional observation metadata;
-5. if values differ, create and persist a revision candidate with the next monotonically increasing `revision_seq`, record `observed_at`, set `revision_status = pending_confirmation`, and leave `accepted_at` absent;
-6. confirm that pending candidate against the configured native authoritative endpoint for the **same venue and market**;
-7. promote the candidate only if the normalized native confirmation agrees on canonical OHLC and `base_volume`;
-8. when confirmed, transition that same revision from `pending_confirmation` to `accepted_current`, record `accepted_at` at the successful promotion instant, mark the old revision `accepted_superseded`, preserve the candidate's already allocated `revision_seq`, and write the before/after audit entry;
-9. if confirmation disagrees, is unavailable, or validation fails, transition that same revision from `pending_confirmation` to `quarantined`, preserve its allocated `revision_seq`, leave `accepted_at` absent, and leave PostgreSQL current canonical values unchanged.
+1. normaliser la nouvelle observation ;
+2. valider tous les invariants canoniques ;
+3. la comparer à la révision courante acceptée ;
+4. si les valeurs sont identiques, ne rien faire hormis d'éventuelles métadonnées d'observation ;
+5. si les valeurs diffèrent, créer et persister une candidate de révision avec le prochain `revision_seq` croissant, enregistrer `observed_at`, définir `revision_status = pending_confirmation` et laisser `accepted_at` absent ;
+6. confirmer cette candidate en attente contre l'endpoint natif faisant autorité configuré pour la **même venue et le même marché** ;
+7. promouvoir la candidate uniquement si la confirmation native normalisée concorde sur OHLC canonique et `base_volume` ;
+8. en cas de confirmation, faire passer cette même révision de `pending_confirmation` à `accepted_current`, enregistrer `accepted_at` à l'instant de la promotion réussie, marquer l'ancienne révision comme `accepted_superseded`, préserver le `revision_seq` déjà alloué à la candidate et écrire l'entrée d'audit avant/après ;
+9. si la confirmation est en désaccord, indisponible ou si la validation échoue, faire passer cette même révision de `pending_confirmation` à `quarantined`, préserver son `revision_seq`, laisser `accepted_at` absent et ne pas modifier les valeurs canoniques courantes de PostgreSQL.
 
-For the initial Binance provider, the confirmation source is Binance native klines.
+Pour le fournisseur Binance initial, la source de confirmation est l'endpoint natif Binance klines.
 
-No observation from another exchange/venue can automatically replace the canonical Binance candle.
+Aucune observation provenant d'un autre exchange/d'une autre venue ne peut remplacer automatiquement la bougie canonique Binance.
 
-### Pending confirmation serialization
+### Sérialisation des confirmations en attente (`pending_confirmation`)
 
-For one candle lineage, at most one unresolved `pending_confirmation` revision may exist at a time. Confirmation processing is serialized per candle so an older pending candidate cannot be accepted after a newer candidate and overwrite acceptance order.
+Pour une lignée de bougie donnée, au plus une révision `pending_confirmation` non résolue peut exister à la fois. Le traitement des confirmations est sérialisé par bougie afin qu'une ancienne candidate en attente ne puisse pas être acceptée après une candidate plus récente et écraser l'ordre d'acceptation.
 
-While a revision is pending:
+Tant qu'une révision est en attente :
 
-- a re-observation with the same normalized logical values as that pending revision is idempotent and does not allocate another `revision_seq`;
-- another distinct candidate for the same candle is not processed as a new revision until the existing pending candidate has resolved;
-- `accepted_at` remains absent and the pending revision is never eligible for point-in-time replay.
+- une réobservation avec les mêmes valeurs logiques normalisées que cette révision en attente est idempotente et n'alloue pas de nouveau `revision_seq` ;
+- une autre candidate distincte pour la même bougie n'est pas traitée comme nouvelle révision avant résolution de la candidate en attente existante ;
+- `accepted_at` reste absent et la révision en attente n'est jamais éligible au relecture point-in-time (`PIT`).
 
-If processing is interrupted, the persisted pending revision remains `pending_confirmation` after restart. Recovery retries/reconciles that exact revision before processing another distinct candidate for the same candle; restart alone never promotes or quarantines it.
+Si le traitement est interrompu, la révision en attente persistée reste `pending_confirmation` après redémarrage. La reprise retente/réconcilie cette révision exacte avant de traiter une autre candidate distincte pour la même bougie ; le redémarrage seul ne la promeut ni ne la met en quarantaine.
 
-### Revision temporal semantics
+### Sémantique temporelle des révisions
 
-Two notions must not be conflated:
+Trois notions ne doivent pas être confondues :
 
-- `available_at = end_time`: market-time availability of the completed candle in the reconstructed closed-bar model;
-- `CandleRevision.observed_at`: when BTC Analytics first observed a particular revision candidate;
-- `CandleRevision.accepted_at`: when validation/confirmation completed successfully and that revision became accepted canonical state.
+- `available_at = end_time` : disponibilité en temps de marché de la bougie terminée dans le modèle reconstruit à bougies clôturées (`closed-bar`) ;
+- `CandleRevision.observed_at` : instant où BTC Analytics a observé pour la première fois une candidate de révision particulière ;
+- `CandleRevision.accepted_at` : instant où la validation/confirmation a réussi et où cette révision est devenue l'état canonique accepté.
 
-For every accepted revision, `observed_at <= accepted_at`. Pending and quarantined revisions have no `accepted_at`.
+Pour toute révision acceptée, `observed_at <= accepted_at`. Les révisions en attente et `quarantined` n'ont pas d'`accepted_at`.
 
-A correction discovered later is never claimed to have been **system-observed** or **accepted** at the original `end_time`.
+Une correction découverte plus tard n'est jamais présentée comme ayant été **observée par le système** ou **acceptée** à l'`end_time` historique d'origine.
 
-## Dataset knowledge modes
+## Modes de connaissance du jeu de données
 
 ### `reconstructed_latest`
 
-Default mode for historical analytical research.
+Mode par défaut pour la recherche analytique historique.
 
-The snapshot uses the accepted current revision for each candle at snapshot creation.
+Le snapshot (`DatasetSnapshot`) utilise la révision courante acceptée de chaque bougie au moment de sa création.
 
-Causal feature/event sequencing is anchored to candle `end_time`, but the run must be described as a **reconstructed-latest historical analysis**. It must not claim that later provider corrections were actually known to BTC Analytics or a market participant at the original historical T.
+Le séquençage causal des features/événements est ancré sur l'`end_time` des bougies, mais l'exécution doit être décrite comme une **analyse historique `reconstructed_latest`**. Il ne doit pas prétendre que des corrections ultérieures du fournisseur étaient réellement connues de BTC Analytics ou d'un acteur de marché au T historique d'origine.
 
-This mode is appropriate for “analyse the best currently available reconstruction of history”.
+Ce mode convient à la question : « analyser la meilleure reconstruction de l'histoire actuellement disponible ».
 
 ### `observed_point_in_time`
 
-Strict replay mode.
+Mode strict de replay.
 
-A candle revision may influence an anchor T only if it had already become accepted canonical state no later than T.
+Une révision de bougie ne peut influencer un ancrage T que si elle était déjà devenue l'état canonique accepté au plus tard à T.
 
-For a given candle, point-in-time replay selects the accepted revision with the greatest `accepted_at` satisfying:
+Pour une bougie donnée, le relecture point-in-time (`PIT`) sélectionne la révision acceptée ayant le plus grand `accepted_at` satisfaisant :
 
 ```text
 accepted_at <= T
 ```
 
-`observed_at <= T` alone is insufficient: a `pending_confirmation` candidate that had not yet passed confirmation at T cannot influence the replay. Pending and quarantined revisions are never eligible because they have no `accepted_at`.
+`observed_at <= T` seul est insuffisant : une candidate `pending_confirmation` qui n'avait pas encore passé la confirmation à T ne peut pas influencer le replay. Les révisions en attente et `quarantined` ne sont jamais éligibles car elles n'ont pas d'`accepted_at`.
 
-Example: if a candidate is observed at 10:00 and accepted at 10:05, replay at 10:02 uses the previously accepted revision; replay at or after 10:05 may use the new accepted revision.
+Exemple : si une candidate est observée à 10:00 et acceptée à 10:05, le replay à 10:02 utilise la révision précédemment acceptée ; le replay à 10:05 ou après peut utiliser la nouvelle révision acceptée.
 
-This mode is only valid for periods with sufficient continuous observation/revision provenance. Historical backfill predating BTC Analytics observation coverage cannot be silently treated as point-in-time observed history.
+Ce mode n'est valide que pour les périodes disposant d'une provenance continue suffisante d'observation/révision. Un backfill historique antérieur à la couverture d'observation de BTC Analytics ne peut pas être silencieusement traité comme un historique observé point-in-time.
 
-P0 defines the semantics; P1 does not need to implement a full live point-in-time replay engine unless explicitly scheduled.
+P0 définit la sémantique ; P1 n'a pas à implémenter un moteur complet de relecture point-in-time (`PIT`) live sauf si cela est explicitement planifié.
 
-## Parquet snapshots
+## Snapshots Parquet
 
-Parquet snapshots are immutable derived datasets for reproducible analytics/research, not a second mutable authority.
+Les snapshots Parquet sont des datasets dérivés immuables pour l'analytique/recherche reproductible, pas une seconde autorité mutable.
 
-Each DatasetSnapshot freezes:
+Chaque DatasetSnapshot fige :
 
-- candle identities;
-- exact accepted revision identifiers;
-- knowledge mode;
-- gaps;
-- logical manifest/content hashes.
+- les identités de bougies ;
+- les identifiants exacts de révisions acceptées ;
+- le knowledge mode ;
+- les gaps ;
+- les hashes logiques de manifeste/contenu.
 
-A later PostgreSQL candle correction never modifies an existing snapshot.
+Une correction ultérieure de bougie PostgreSQL ne modifie jamais un snapshot existant.
 
 ## Idempotence
 
-Repeated fetches that normalize to the same canonical candle create no new semantic state.
+Des récupérations répétées qui se normalisent vers la même bougie canonique ne créent aucun nouvel état sémantique.
 
-## Cross-check P1
+## Vérification croisée P1
 
-A bounded fixture/range compares CCXT Binance OHLCV with Binance-native kline data for timestamp/OHLC/base volume after normalization.
+Une fixture/plage bornée compare les OHLCV Binance via CCXT aux klines natives Binance pour timestamp/OHLC/base volume après normalisation.
 
-The same native path is used as confirmation only when a changed historical observation requires revision validation.
+Le même chemin natif est utilisé comme confirmation uniquement lorsqu'une observation historique modifiée nécessite la validation d'une révision.
 
-## Real-time
+## Temps réel
 
-Out of P1. WebSocket/open-candle handling requires a later explicit intrabar/live contract.
+Hors périmètre P1. La gestion WebSocket/des bougies ouvertes requiert un futur contrat explicite intrabar/live.
 
 
 ---
 
-## SOURCE FILE: `docs/06_ANALYTICS_METHODOLOGY.md`
+## FICHIER SOURCE : `docs/06_ANALYTICS_METHODOLOGY.md`
 
-# 06 — Analytics Methodology
+# 06 — Méthodologie analytique
 
 ## Hiérarchie
 
 ```text
 OHLCV
-  -> Primitive Features
-  -> Market Structure
-  -> Events
-  -> Contexts
+  -> Features primitives
+  -> Structure de marché
+  -> Événements
+  -> Contextes
   -> Occurrences
-  -> Forward Outcomes
+  -> Outcomes futurs
 ```
 
-## Features initiales
+## Caractéristiques initiales (`features`)
 
 ### Prix
 
-returns, range, gaps, position dans range.
+rendements, range, gaps, position dans le range.
 
 ### Volatilité
 
-true range, ATR, realized volatility, expansion/compression.
+true range, ATR, volatilité réalisée, expansion/compression.
 
 ### Momentum
 
 RSI, ROC, MACD seulement si justifié.
 
-### Trend
+### Tendance
 
-slope, ADX, structure.
+pente, ADX, structure.
 
 ### Volume
 
@@ -1222,15 +1223,15 @@ volume brut, normalisé, changements relatifs.
 
 ### Structure
 
-extrema, prominence, swings, HH/HL/LH/LL, amplitude ATR, duration, retracement, slope, compression/expansion.
+extrema, prominence, swings, HH/HL/LH/LL, amplitude ATR, durée, retracement, pente, compression/expansion.
 
-## Events
+## Événements
 
 Causaux, versionnés, timestampés, explicables, testables.
 
-## Candlestick patterns
+## Configurations de chandeliers
 
-Shortlist à étudier :
+Liste initiale à étudier :
 
 - Doji
 - Hammer
@@ -1245,16 +1246,16 @@ Shortlist à étudier :
 
 Ils sont des événements, jamais des recommandations.
 
-## Chart patterns
+## Figures chartistes
 
-Optionnels. Une figure ne devient canonique que si sa définition est objective, causale, inspectable, stable et apporte une information supplémentaire mesurable.
+Optionnelles. Une figure ne devient canonique que si sa définition est objective, causale, inspectable, stable et apporte une information supplémentaire mesurable.
 
 ## Mesure d'utilité
 
 - nombre d'occurrences
 - stabilité temporelle
 - distribution conditionnelle des outcomes
-- différence vs baseline
+- différence par rapport à la baseline
 - robustesse multi-timeframe
 - sensibilité aux paramètres
 - robustesse walk-forward
@@ -1266,289 +1267,290 @@ Optionnels. Une figure ne devient canonique que si sa définition est objective,
 
 ---
 
-## SOURCE FILE: `docs/07_EXPERIMENT_ENGINE.md`
+## FICHIER SOURCE : `docs/07_EXPERIMENT_ENGINE.md`
 
-# 07 — Experiment Engine
+# 07 — Moteur d'expériences
 
-## Goal
+## Objectif
 
-Compare analytical hypotheses using batch/vectorized parameter grids, without trading or portfolio simulation.
+Comparer des hypothèses analytiques à l'aide de grilles de paramètres batch/vectorisées, sans trading ni simulation de portefeuille.
 
-## Required frozen inputs
+## Entrées figées obligatoires
 
-Every ExperimentRun records:
+Chaque ExperimentRun enregistre :
 
-- DatasetSnapshot, including its `knowledge_mode` and exact CandleRevision manifest;
-- historical range;
-- timeframes;
-- definition keys/versions;
-- normalized parameter grid;
-- OutcomeDefinitions;
-- BaselineDefinition;
-- split/walk-forward policy;
-- software/config revision.
+- DatasetSnapshot, notamment son `knowledge_mode` et le manifeste exact de CandleRevision ;
+- plage historique ;
+- timeframes ;
+- clés/versions de définitions ;
+- grille de paramètres normalisée ;
+- OutcomeDefinitions ;
+- BaselineDefinition ;
+- politique de split/walk-forward ;
+- révision logicielle/configuration.
 
-## Parameter dimensions
+## Dimensions de paramètres
 
-Examples: timeframe, feature parameters, structure parameters, context definition, outcome horizon.
+Exemples : timeframe, paramètres de feature, paramètres de structure, définition de contexte, horizon d'outcome.
 
-## Outcome metrics
+## Métriques de résultat (`outcome`)
 
-Initial standard metrics:
+Métriques standards initiales :
 
-- forward close return;
-- MFE;
-- MAE;
-- future volatility when its metric definition is versioned.
+- rendement futur de clôture ;
+- MFE ;
+- MAE ;
+- volatilité future lorsque sa définition de métrique est versionnée.
 
-Exact temporal semantics live in `16_OUTCOME_BASELINE_CONVENTIONS.md`.
+Les sémantiques temporelles exactes sont définies dans `16_OUTCOME_BASELINE_CONVENTIONS.md`.
 
-## Baseline
+## Population de référence
 
-No experiment may rely on an implicit phrase such as “relevant baseline”. A BaselineDefinition is mandatory for comparative claims.
+Aucune expérience ne peut s'appuyer sur une formulation implicite telle que « baseline pertinente ». Une BaselineDefinition est obligatoire pour toute affirmation comparative.
 
-Default candidate baseline: all eligible anchor candles in the same market/timeframe/snapshot/date range, applying the same data-quality, gap and outcome-completeness rules as the conditional sample.
+Population de référence candidate par défaut : toutes les bougies d'ancrage éligibles du même market/timeframe/snapshot/plage de dates, en appliquant les mêmes règles de qualité des données, de gaps et de complétude des outcomes que l'échantillon conditionnel.
 
-Alternative baselines must be explicit and versioned.
+Les populations de référence alternatives doivent être explicites et versionnées.
 
 ## Walk-forward
 
-Calibration and evaluation periods are temporally separated. The run stores split boundaries and whether parameters were selected using earlier folds.
+Les périodes de calibration et d'évaluation sont séparées temporellement. Le run enregistre les frontières des splits et indique si les paramètres ont été sélectionnés à l'aide de folds antérieurs.
 
-## Anti-overfitting
+## Anti-surapprentissage
 
-Require where relevant:
+Exiger lorsque pertinent :
 
-- out-of-sample evaluation;
-- temporal stability;
-- multi-timeframe robustness;
-- parameter sensitivity;
-- sample-size reporting.
+- évaluation hors échantillon ;
+- stabilité temporelle ;
+- robustesse multi-timeframe ;
+- sensibilité aux paramètres ;
+- rapport de taille d'échantillon.
 
+## Reproductibilité de l'identité
 
-## Identity reproducibility
+Les paramètres d'expérience normalisés utilisent la représentation canonique des paramètres définie dans `03_DOMAIN_MODEL.md` :
 
-Normalized experiment parameters use the canonical parameter representation defined in `03_DOMAIN_MODEL.md`:
+- normalisation par schéma ;
+- sérialisation RFC 8785 JCS ;
+- fingerprints SHA-256 en hexadécimal minuscule.
 
-- schema normalization;
-- RFC 8785 JCS serialization;
-- SHA-256 lowercase hex fingerprints.
+ExperimentRun doit enregistrer les fingerprints exacts des paramètres utilisés.
 
-ExperimentRun must record the exact parameter fingerprints used.
+## Sémantique de révision des données
 
-## Data revision semantics
+Un ExperimentRun ne suit jamais l'état courant mutable de PostgreSQL après son lancement.
 
-An ExperimentRun never follows mutable PostgreSQL current state after launch.
+Il évalue le DatasetSnapshot immuable auquel il fait référence.
 
-It evaluates the immutable DatasetSnapshot it references.
-
-If a later provider correction changes current canonical PostgreSQL values, a new snapshot/run is required. Results from different snapshots remain comparable through explicit snapshot identities and revision provenance.
+Si une correction ultérieure du fournisseur modifie les valeurs canoniques courantes de PostgreSQL, un nouveau snapshot/run est requis. Les résultats provenant de snapshots différents restent comparables grâce aux identités explicites de snapshots et à la provenance des révisions.
 
 
 ---
 
-## SOURCE FILE: `docs/08_RESEARCH_CATALOG.md`
+## FICHIER SOURCE : `docs/08_RESEARCH_CATALOG.md`
 
-# 08 — Research Catalog
+# 08 — Catalogue de recherche
 
-This catalog is a decision index. Detailed evidence for structural dependencies is in `17_DEPENDENCY_ASSESSMENT.md`.
+Ce catalogue est un index de décisions. Les éléments détaillés concernant les dépendances structurelles figurent dans `17_DEPENDENCY_ASSESSMENT.md`.
 
-| Tool | Candidate status | Scope |
+| Outil | Statut candidat | Périmètre |
 |---|---|---|
-| NumPy | ADOPT | numerical arrays |
-| Polars | ADOPT | dataframe/query engine |
-| SciPy | ADOPT | scientific/signal primitives |
-| CCXT | ADOPT | exchange access behind adapter |
-| TA-Lib selected functions | ADOPT | validated standard indicators/candlesticks behind adapter |
-| TA-Lib | REFERENCE | oracle/comparison where useful |
-| PostgreSQL | ADOPT | current canonical product store |
-| Parquet | ADOPT | immutable research snapshots |
-| DuckDB | ADOPT research | analytical SQL over snapshots |
-| FastAPI/Pydantic | ADOPT | API/contracts |
-| uv | ADOPT dev | package/project management |
-| Ruff | ADOPT dev | lint/format |
-| Pyright | ADOPT dev | static typing |
+| NumPy | ADOPT | tableaux numériques |
+| Polars | ADOPT | moteur de tableaux de données/requêtes (`dataframe`) |
+| SciPy | ADOPT | primitives scientifiques/signal |
+| CCXT | ADOPT | accès à la plateforme d'échange derrière adaptateur |
+| fonctions TA-Lib sélectionnées | ADOPT | indicateurs/chandeliers standards validés derrière adaptateur |
+| TA-Lib | REFERENCE | oracle/comparaison lorsque utile |
+| PostgreSQL | ADOPT | stockage produit canonique courant |
+| Parquet | ADOPT | snapshots de recherche immuables |
+| DuckDB | ADOPT recherche | SQL analytique sur snapshots |
+| FastAPI/Pydantic | ADOPT | API/contrats |
+| uv | ADOPT dev | gestion des paquets/projet |
+| Ruff | ADOPT dev | analyse de style (`lint`)/formatage |
+| Pyright | ADOPT dev | typage statique |
 | pytest | ADOPT dev | tests |
-| VectorBT | RESEARCH/REFERENCE | vectorized experiment concepts |
-| ruptures | RESEARCH | offline change-point research |
-| statsmodels | RESEARCH / adopt-on-need | statistical methods |
-| PatternPy | REJECT product | comparison only |
-| TradingPatternScanner | REJECT product | comparison/research only |
+| VectorBT | RESEARCH/REFERENCE | concepts d'expérimentation vectorisée |
+| ruptures | RESEARCH | recherche hors ligne de points de rupture |
+| statsmodels | RESEARCH / adoption au besoin | méthodes statistiques |
+| PatternPy | REJECT produit | comparaison uniquement |
+| TradingPatternScanner | REJECT produit | comparaison/recherche uniquement |
 
-## Mandatory evaluation dimensions
+## Dimensions d'évaluation obligatoires
 
-Function, method, causal implications, validation/testing, maintenance, performance fit, license, coupling, final scope.
+Fonction, méthode, implications causales, validation/tests, maintenance, adéquation des performances, licence, couplage, périmètre final.
 
-A tool may have different statuses for different roles, but those roles must be explicit (e.g. TA-Lib execution vs oracle).
+Un outil peut avoir des statuts différents selon ses rôles, mais ces rôles doivent être explicites (par exemple exécution TA-Lib vs oracle).
 
 
 ---
 
-## SOURCE FILE: `docs/09_TESTING_QUALITY.md`
+## FICHIER SOURCE : `docs/09_TESTING_QUALITY.md`
 
-# 09 — Testing & Quality
+# 09 — Tests et qualité
 
-## Tooling
+## Outils
 
 - pytest
 - Ruff
 - Pyright
 - GitHub Actions
 
-## Test classes
+## Classes de tests
 
-### Unit
+### Unitaires
 
-Normalization, indicators, structural metrics, event rules, outcome metrics, serializers.
+Normalisation, indicateurs, métriques structurelles, règles d'événements, métriques d'outcomes, sérialiseurs.
 
-### Invariants/property tests
+### Invariants/tests de propriétés
 
-OHLC validity, interval alignment, deterministic fingerprints, monotonic timestamps, gap rules, MFE/MAE conventions.
+Validité OHLC, alignement des intervalles, fingerprints déterministes, timestamps monotones, règles de gaps, conventions MFE/MAE.
 
-### Integration
+### Intégration
 
-CCXT -> normalize/validate -> PostgreSQL; snapshot -> DuckDB/Polars; feature -> structure/event/context -> occurrence -> outcome.
+CCXT -> normalisation/validation -> PostgreSQL ; snapshot -> DuckDB/Polars ; feature -> structure/event/context -> occurrence -> outcome.
 
-### Golden datasets
+### Jeux de données de référence
 
-Versioned small fixtures for market normalization, selected TA-Lib parity, causal structure and outcomes.
+Petites fixtures versionnées pour la normalisation de marché, la parité avec les fonctions TA-Lib sélectionnées, la structure causale et les outcomes.
 
-### Causality/prefix invariance
+### Causalité/invariance par préfixe
 
-Mandatory for every artifact declared known at T: feature, structural point/segment, event, context and derived occurrence.
+Obligatoire pour tout artefact déclaré connu à T : feature, point/segment structurel, événement, contexte et occurrence dérivée.
 
-### Data revision tests
+### Tests de révision des données
 
-Verify:
+Vérifier :
 
-- first valid ingestion creates `revision_seq = 1` as `accepted_current`;
-- the initial accepted revision records `observed_at` and `accepted_at` with `observed_at <= accepted_at`;
-- its exact revision reference is stable for DatasetSnapshot manifests;
-- same-value re-fetch is idempotent and creates no new revision;
-- changed source candle creates a persisted `pending_confirmation` revision with the next `revision_seq` before confirmation;
-- pending candidate records `observed_at`, has no `accepted_at`, and is never PIT-eligible;
-- same-value re-observation of the pending candidate is idempotent and allocates no new revision;
-- at most one unresolved pending candidate exists per candle lineage and confirmation outcomes cannot be applied out of order;
-- interruption/restart preserves pending state and never implies acceptance or quarantine;
-- a quarantined candidate retains its allocated sequence and the next candidate does not reuse it;
-- promotion preserves the candidate's already allocated `revision_seq`;
-- native confirmation agreement promotes the revision and records `accepted_at`;
-- every accepted revision satisfies `observed_at <= accepted_at`;
-- disagreement/unavailable confirmation quarantines it, leaves `accepted_at` absent, and preserves current canonical state;
-- an observed candidate is not PIT-eligible before `accepted_at`;
-- PIT replay selects the accepted revision with greatest `accepted_at <= T`;
-- a quarantined revision is never PIT-eligible;
-- accepted correction never mutates an existing DatasetSnapshot;
-- `reconstructed_latest` and `observed_point_in_time` do not make the same historical-knowledge claim;
-- golden temporal fixture: candidate observed at 10:00 and accepted at 10:05 must not affect replay at 10:02 and may affect replay at 10:05 or later.
+- que la première ingestion valide crée `revision_seq = 1` comme `accepted_current` ;
+- que la première révision acceptée enregistre `observed_at` et `accepted_at` avec `observed_at <= accepted_at` ;
+- que sa référence exacte de révision est stable pour les manifestes DatasetSnapshot ;
+- qu'une nouvelle récupération avec les mêmes valeurs est idempotente et ne crée aucune nouvelle révision ;
+- qu'une bougie source modifiée crée une révision persistée `pending_confirmation` avec le prochain `revision_seq` avant confirmation ;
+- que la candidate en attente enregistre `observed_at`, n'a pas d'`accepted_at` et n'est jamais éligible au PIT ;
+- qu'une réobservation de mêmes valeurs de la candidate en attente est idempotente et n'alloue pas de nouveau `revision_seq` ;
+- qu'au plus une candidate en attente non résolue existe par lignée de bougie et que les résultats de confirmation ne peuvent pas être appliqués hors ordre ;
+- qu'une interruption/redémarrage préserve l'état pending et n'implique jamais acceptation ou quarantaine ;
+- qu'une candidate mise en quarantaine conserve sa séquence allouée et que la candidate suivante ne la réutilise pas ;
+- qu'une promotion préserve le `revision_seq` déjà alloué à la candidate ;
+- qu'un accord avec la confirmation native promeut la révision et enregistre `accepted_at` ;
+- que toute révision acceptée satisfait `observed_at <= accepted_at` ;
+- qu'un désaccord/une confirmation indisponible met la révision en `quarantined`, laisse `accepted_at` absent et préserve l'état canonique courant ;
+- qu'une candidate observée n'est pas éligible au PIT avant `accepted_at` ;
+- que le replay PIT sélectionne la révision acceptée ayant le plus grand `accepted_at <= T` ;
+- qu'une révision mise en quarantaine n'est jamais éligible au PIT ;
+- qu'une correction acceptée ne modifie jamais un DatasetSnapshot existant ;
+- que `reconstructed_latest` et `observed_point_in_time` ne portent pas la même affirmation de connaissance historique ;
+- fixture temporelle de référence : une candidate observée à 10:00 et acceptée à 10:05 ne doit pas affecter le replay à 10:02 et peut l'affecter à 10:05 ou après.
 
-### Deterministic identity golden tests
+### Tests de référence (`golden tests`) d'identité déterministe
 
-Golden fixtures must lock:
+Les fixtures de référence doivent figer :
 
-- canonical parameter normalization;
-- RFC 8785 JCS bytes;
-- SHA-256 `parameter_fingerprint`;
-- exact `occurrence_key` payload and resulting key;
-- DatasetSnapshot logical identity.
+- la normalisation canonique des paramètres ;
+- les octets RFC 8785 JCS ;
+- le `parameter_fingerprint` SHA-256 ;
+- le payload exact d'`occurrence_key` et la clé résultante ;
+- l'identité logique de DatasetSnapshot.
 
-At least one independent fixture representation must verify that semantically identical parameter objects with different input key ordering produce identical fingerprints.
+Au moins une représentation de fixture indépendante doit vérifier que des objets de paramètres sémantiquement identiques mais dont l'ordre des clés d'entrée diffère produisent les mêmes fingerprints.
 
-## Definition of Done
+## Définition de terminé
 
-A milestone is complete only when docs/contracts, tests, edge cases, causal checks, migrations/API/UI where applicable, CURRENT_STATE and Git milestone state are validated.
+Un jalon est terminé uniquement lorsque les docs/contrats, tests, edge cases, contrôles de causalité, migrations/API/UI lorsque pertinentes, `CURRENT_STATE.md` et l'état du jalon Git ont été validés.
 
-No milestone is called validated before actual local/CI command output is reviewed.
+Aucun jalon n'est déclaré validé avant l'examen des sorties réelles des commandes locales/CI.
 
 
 ---
 
-## SOURCE FILE: `docs/10_DECISIONS.md`
+## FICHIER SOURCE : `docs/10_DECISIONS.md`
 
-# 10 — Decision Log — P0 Validated
+# 10 — Journal de décisions — P0 validé
 
-Policy: D-001 through D-020 were explicitly approved by the user on 2026-09-06 and are now validated, append-only historical decisions. Any future semantic change requires an explicit new/versioned decision and must not silently rewrite these entries.
+> Traduction documentaire non sémantique du journal P0 validé. Le texte historique exact approuvé reste figé dans le tag `p0-foundation-v7` au commit `a055c5f386ce328cb46d57908cf26ea9ddff4255`.
 
-| ID | Validated decision | Status |
+Politique : D-001 à D-020 ont été explicitement approuvées par l'utilisateur le 6 septembre 2026 et sont désormais des décisions historiques validées, à ajouts uniquement (append-only). Toute future modification sémantique exige une nouvelle décision explicite et versionnée et ne doit jamais réécrire silencieusement ces entrées.
+
+| ID | Décision validée | Statut |
 |---|---|---|
-| D-001 | V2 is a greenfield repository; V1 code is not migrated automatically. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-002 | Product scope is analysis, not trading/portfolio/order/strategy execution. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-003 | Strict causality: no artifact known at T may use information after T. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-004 | CCXT is the initial exchange-access implementation behind an internal MarketDataProvider abstraction. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-005 | PostgreSQL is the current canonical product store; immutable Parquet snapshots serve reproducible research; DuckDB queries those snapshots. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-006 | Polars is the primary dataframe engine; NumPy/SciPy supply numerical/scientific primitives. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-007 | Selected TA-Lib functions may be ADOPTed only behind adapters after per-function causal/golden validation; TA-Lib can also serve as REFERENCE. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-008 | VectorBT is research/reference inspiration; its portfolio/trading engine is not a product dependency. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-009 | Candlestick patterns are analytical events, never trading signals. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-010 | Chart patterns are optional interpretation above market structure and require demonstrated incremental value. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-011 | Canonical Candle interval is `[open_time,end_time)` UTC; closed-bar analytical `available_at=end_time`; `ingested_at` is technical provenance. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-012 | P0–P8 canonical analytics operate on closed-candle cadence; intrabar semantics require a future explicit contract. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-013 | Outcome base price is anchor-candle close; horizon H uses the next H complete candles, excluding the anchor candle. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-014 | Every comparative ExperimentRun freezes an explicit BaselineDefinition. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-015 | P1 timeframes 1h/4h/1d are fetched natively; no canonical resampling; gaps are hard continuity boundaries. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-016 | Source candle corrections are audited; experiment reproducibility uses immutable DatasetSnapshots. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-017 | Pyright is the Python static type checker for V2. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-018 | Basic causal Context definitions move to P5; P8 is Advanced Contexts & Regimes. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-019 | Deterministic analytical identities use schema-normalized parameters, RFC 8785 JCS serialization and SHA-256 lowercase-hex fingerprints; `occurrence_key.v1` uses the exact canonical payload defined in the Domain Model. | VALIDATED — USER APPROVED 2026-09-06 |
-| D-020 | Every canonical closed candle has an append-only revision lineage: first valid ingestion creates `revision_seq = 1` as `accepted_current` with `observed_at` and `accepted_at`; each later distinct observation allocates the next `revision_seq` at candidate creation and is persisted as `pending_confirmation` before native confirmation. Pending revisions have no `accepted_at`, are never PIT-eligible, survive interruption without implied acceptance, and are serialized to at most one unresolved pending candidate per candle lineage. Changed accepted candles are confirmed against the same venue's native authoritative endpoint; agreement transitions the same pending revision to `accepted_current` and supersedes the prior current revision, while disagreement/unavailability/validation failure transitions it to `quarantined` without renumbering. Accepted revisions satisfy `observed_at <= accepted_at`; `observed_point_in_time` selects only the latest accepted revision with `accepted_at <= T`; snapshots never retroactively claim a late correction was observed or accepted at historical T. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-001 | V2 est un repository greenfield ; le code de la V1 n'est pas migré automatiquement. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-002 | Le périmètre produit est l'analyse, pas le trading, la gestion de portefeuille, l'exécution d'ordres ou de stratégies. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-003 | Causalité stricte : aucun artefact déclaré connu à T ne peut utiliser d'information postérieure à T. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-004 | CCXT est l'implémentation initiale d'accès aux exchanges derrière une abstraction interne `MarketDataProvider`. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-005 | PostgreSQL est le stockage produit canonique courant ; les snapshots Parquet immuables servent la recherche reproductible ; DuckDB interroge ces snapshots. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-006 | Polars est le moteur dataframe principal ; NumPy/SciPy fournissent les primitives numériques/scientifiques. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-007 | Les fonctions TA-Lib sélectionnées peuvent être ADOPTées uniquement derrière des adaptateurs après validation causale/golden fonction par fonction ; TA-Lib peut aussi servir de REFERENCE. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-008 | VectorBT est une source d'inspiration RESEARCH/REFERENCE ; son moteur de portefeuille/trading n'est pas une dépendance produit. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-009 | Les configurations de chandeliers sont des événements analytiques, jamais des signaux de trading. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-010 | Les figures chartistes sont une interprétation optionnelle au-dessus de la structure de marché et exigent une valeur incrémentale démontrée. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-011 | L'intervalle de Candle canonique est `[open_time,end_time)` UTC ; en analytique closed-bar `available_at=end_time` ; `ingested_at` est une provenance technique. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-012 | Les analyses canoniques P0–P8 fonctionnent à la cadence des bougies clôturées ; une sémantique intrabar exige un futur contrat explicite. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-013 | Le prix de base d'un Outcome est la clôture de la bougie d'ancrage ; l'horizon H utilise les H prochaines bougies complètes en excluant la bougie d'ancrage. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-014 | Chaque ExperimentRun comparatif fige une BaselineDefinition explicite. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-015 | Les timeframes P1 `1h`/`4h`/`1d` sont récupérés nativement ; aucun resampling canonique ; les gaps sont des frontières dures de continuité. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-016 | Les corrections de bougies source sont auditées ; la reproductibilité des expériences utilise des DatasetSnapshots immuables. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-017 | Pyright est le type checker Python de V2. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-018 | Les définitions causales de contextes basiques passent en P5 ; P8 couvre les contextes avancés et régimes. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-019 | Les identités analytiques déterministes utilisent des paramètres normalisés par schéma, la sérialisation RFC 8785 JCS et des fingerprints SHA-256 en hexadécimal minuscule ; `occurrence_key.v1` utilise le payload canonique exact défini dans le modèle de domaine. | VALIDATED — USER APPROVED 2026-09-06 |
+| D-020 | Chaque bougie clôturée canonique possède une lignée de révisions à ajouts uniquement (append-only) : la première ingestion valide crée `revision_seq = 1` comme `accepted_current` avec `observed_at` et `accepted_at` ; chaque observation distincte ultérieure alloue le prochain `revision_seq` lors de la création de la candidate et est persistée comme `pending_confirmation` avant confirmation native. Les révisions en attente n'ont pas d'`accepted_at`, ne sont jamais éligibles au PIT, survivent à une interruption sans acceptation implicite et sont sérialisées à au plus une candidate en attente non résolue par lignée de bougie. Les bougies acceptées modifiées sont confirmées contre l'endpoint natif faisant autorité de la même venue ; un accord fait passer la même révision en attente à `accepted_current` et supersède la précédente révision courante, tandis qu'un désaccord, une indisponibilité ou un échec de validation la fait passer à `quarantined` sans renumérotation. Les révisions acceptées satisfont `observed_at <= accepted_at` ; `observed_point_in_time` sélectionne uniquement la dernière révision acceptée dont `accepted_at <= T` ; les snapshots ne prétendent jamais rétroactivement qu'une correction tardive a été observée ou acceptée au T historique. | VALIDATED — USER APPROVED 2026-09-06 |
 
 
 ---
 
-## SOURCE FILE: `docs/11_ROADMAP.md`
+## FICHIER SOURCE : `docs/11_ROADMAP.md`
 
-# 11 — Roadmap
+# 11 — Feuille de route
 
-## P0 — Foundation
+## P0 — Fondation
 
-Charter, architecture, stack, domain identity/provenance, temporal conventions, causal contract, Market Data semantics, outcome/baseline conventions, dependency assessment, quality policy and decision log.
+Charte, architecture, stack, identité/provenance du domaine, conventions temporelles, contrat causal, sémantique des données de marché, conventions outcome/baseline, évaluation des dépendances, politique qualité et journal de décisions.
 
-## P1 — Market Data
+## P1 — Données de marché
 
-Repo bootstrap, PostgreSQL, CCXT adapter, canonical closed Candle, native 1h/4h/1d ingestion, validation, gaps, revision audit, idempotence, CCXT-vs-native fixture.
+Bootstrap du repository, PostgreSQL, adaptateur CCXT, Candle canonique clôturée, ingestion native `1h`/`4h`/`1d`, validation, gaps, audit des révisions, idempotence, fixture CCXT-vs-native.
 
-## P2 — Analytics Core
+## P2 — Cœur analytique
 
-Time alignment, feature interface/registry, versioning/fingerprints, Polars/NumPy conventions, materialization policy.
+Alignement temporel, interface/registre des features, versionnement/fingerprints, conventions Polars/NumPy, politique de matérialisation.
 
-## P3 — Technical Features
+## P3 — Caractéristiques techniques (`features`)
 
-Returns/range, ATR, RSI, volatility, momentum, volume and selected standard features with causal/golden tests.
+Rendements/range, ATR, RSI, volatilité, momentum, volume et features standards sélectionnées avec tests causaux/golden.
 
-## P4 — Market Structure
+## P4 — Structure de marché
 
-Causal extrema, prominence, pivots/swings, HH/HL/LH/LL, amplitude, duration, slope, retracement, compression/expansion.
+Extrema causaux, prominence, pivots/swings, HH/HL/LH/LL, amplitude, durée, pente, retracement, compression/expansion.
 
-## P5 — Events, Occurrences & Basic Contexts
+## P5 — Événements, occurrences et contextes basiques
 
-Event definitions, occurrence identity, technical/structural events, validated candlestick shortlist, basic causal ContextDefinition/ContextSnapshot and context-filtered occurrences.
+Définitions d'événements, identité d'occurrence, événements techniques/structurels, shortlist validée de configurations de chandeliers, ContextDefinition/ContextSnapshot causaux basiques et occurrences filtrées par contexte.
 
-## P6 — Forward Outcomes
+## P6 — Résultats futurs (`outcomes`)
 
-Versioned OutcomeDefinitions, forward returns, MFE, MAE, future-volatility definition, completeness/gap states and baseline populations.
+OutcomeDefinitions versionnées, rendements futurs, MFE, MAE, définition de volatilité future, états de complétude/gap et populations de baseline.
 
-## P7 — Experiment Engine
+## P7 — Moteur d'expériences
 
-DatasetSnapshots, parameter grids, multi-timeframe batch evaluation, BaselineDefinition, walk-forward and robustness reports.
+DatasetSnapshots, grilles de paramètres, évaluation batch multi-timeframe, BaselineDefinition, walk-forward et rapports de robustesse.
 
-## P8 — Advanced Contexts & Regimes
+## P8 — Contextes avancés et régimes
 
-Richer state combinations, regime research, offline change-point exploration and causal promotion rules.
+Combinaisons d'états plus riches, recherche sur les régimes, exploration offline de points de rupture et règles de promotion causale.
 
-## P9 — Analytical Workbench
+## P9 — Poste de travail analytique
 
-API + chart + structure/event/context inspection + occurrence/outcome/experiment comparison.
+API + graphique + inspection structure/événement/contexte + comparaison occurrences/outcomes/expériences.
 
-## P10 — Optional Analytics
+## P10 — Analyses optionnelles
 
-Chart patterns or other interpretive models only if incremental value is demonstrated. P10 may remain empty.
+Figures chartistes ou autres modèles interprétatifs uniquement si une valeur incrémentale est démontrée. P10 peut rester vide.
 
 
 ---
 
-## SOURCE FILE: `docs/12_CANDLESTICK_EVENTS.md`
+## FICHIER SOURCE : `docs/12_CANDLESTICK_EVENTS.md`
 
-# 12 — Candlestick Events
+# 12 — Événements de chandeliers
 
 ## Positionnement
 
@@ -1556,15 +1558,15 @@ Couche analytique prévue mais non fondamentale.
 
 ## Règles
 
-Un candlestick pattern :
+Une configuration de chandeliers :
 
-- est calculé sur candles clôturées ;
+- est calculée sur des bougies clôturées ;
 - possède `event_time` et `known_at` ;
 - n'implique aucune recommandation ;
-- est versionné ;
+- est versionnée ;
 - utilise le même Outcome Engine que les autres événements.
 
-## Shortlist initiale à étudier
+## Liste initiale à étudier
 
 Doji, Hammer, Inverted Hammer, Shooting Star, Bullish/Bearish Engulfing, Morning/Evening Star, Three White Soldiers, Three Black Crows.
 
@@ -1576,23 +1578,23 @@ Avant adoption canonique : définition exacte, causalité, golden tests, convent
 
 ## Utilité
 
-Mesurer le pattern seul puis conditionné par contexte : tendance, volatilité, structure, etc.
+Mesurer la configuration seule puis conditionnée par contexte : tendance, volatilité, structure, etc.
 
 
 ---
 
-## SOURCE FILE: `docs/13_OPTIONAL_CHART_PATTERNS.md`
+## FICHIER SOURCE : `docs/13_OPTIONAL_CHART_PATTERNS.md`
 
-# 13 — Optional Chart Patterns
+# 13 — Figures chartistes optionnelles
 
 ## Positionnement
 
-Les chart patterns ne sont pas un objectif central.
+Les figures chartistes ne sont pas un objectif central.
 
 ## Ordre correct
 
 ```text
-candles -> extrema -> swings -> structural metrics -> optional named pattern
+bougies -> extrema -> swings -> métriques structurelles -> figure nommée optionnelle
 ```
 
 ## Conditions d'adoption
@@ -1601,52 +1603,52 @@ candles -> extrema -> swings -> structural metrics -> optional named pattern
 - causalité
 - stabilité multi-timeframe
 - qualité visuelle
-- valeur incrémentale vs structure
+- valeur incrémentale par rapport à la structure
 - robustesse hors échantillon
 
 Question centrale :
 
 > Le label apporte-t-il une information supplémentaire par rapport aux swings, amplitudes, contexte et métriques de structure ?
 
-Aucun milestone P0-P9 ne dépend des chart patterns.
+Aucun jalon P0-P9 ne dépend des figures chartistes.
 
 
 ---
 
-## SOURCE FILE: `docs/14_OBSERVABILITY.md`
+## FICHIER SOURCE : `docs/14_OBSERVABILITY.md`
 
-# 14 — Observability
+# 14 — Observabilité
 
 ## Minimum
 
-Logs structurés avec component, operation, market, timeframe, run_id, duration, row counts et contexte d'erreur.
+Logs structurés avec composant, opération, market, timeframe, run_id, durée, nombres de lignes et contexte d'erreur.
 
-## Data quality metrics
+## Métriques de qualité des données
 
-candles fetched, duplicates rejected, gaps detected, invalid candles, latest closed candle, ingestion lag.
+bougies récupérées, doublons rejetés, gaps détectés, bougies invalides, dernière bougie clôturée, latence d'ingestion.
 
-## Analytics metrics
+## Métriques analytiques
 
-feature rows, occurrences, experiment duration, parameter combinations, failures.
+lignes de features, occurrences, durée des expériences, combinaisons de paramètres, échecs.
 
 ## Reproductibilité
 
-Chaque batch significatif doit être relié à code version, config, dataset et timestamps.
+Chaque batch significatif doit être relié à la version du code, la configuration, le dataset et les timestamps.
 
-Commencer simple ; ajouter OpenTelemetry/Prometheus uniquement en réponse à un besoin réel.
+Commencer simplement ; ajouter OpenTelemetry/Prometheus uniquement en réponse à un besoin réel.
 
 
 ---
 
-## SOURCE FILE: `docs/15_TEMPORAL_CONVENTIONS.md`
+## FICHIER SOURCE : `docs/15_TEMPORAL_CONVENTIONS.md`
 
-# 15 — Temporal Conventions
+# 15 — Conventions temporelles
 
-This document is the canonical temporal coordinate contract for P0.
+Ce document est le contrat canonique des coordonnées temporelles pour P0.
 
-## Candle coordinates
+## Coordonnées d'une bougie
 
-For timeframe duration `Δ`:
+Pour une durée de timeframe `Δ` :
 
 ```text
 open_time = t
@@ -1655,105 +1657,104 @@ interval  = [t, t + Δ)
 available_at = end_time
 ```
 
-All canonical timestamps are UTC.
+Tous les timestamps canoniques sont en UTC.
 
-Provider-specific close timestamps that use inclusive final milliseconds are normalized and never redefine the canonical interval.
+Les timestamps de clôture propres au fournisseur utilisant une dernière milliseconde inclusive sont normalisés et ne redéfinissent jamais l'intervalle canonique.
 
-## Closed-bar analytical model
+## Modèle analytique à bougies clôturées (`closed-bar`)
 
-Initial V2 analytics use only complete candles. `available_at=end_time` expresses market-time historical availability of the complete OHLCV bar.
+Les analyses initiales de la V2 utilisent uniquement des bougies complètes. `available_at=end_time` exprime la disponibilité historique en temps de marché de la barre OHLCV complète.
 
-`ingested_at` records when BTC Analytics observed/stored a version and is not used to shift historical analytical anchors.
+`ingested_at` enregistre quand BTC Analytics a observé/stocké une version et n'est pas utilisé pour déplacer les ancrages analytiques historiques.
 
-A future real-time/intrabar subsystem may additionally model system-observation latency, but must not change P0 historical semantics retroactively.
+Un futur sous-système temps réel/intrabar peut en plus modéliser la latence d'observation par le système, mais ne doit pas modifier rétroactivement la sémantique historique P0.
 
-## Derived artifact timing
+## Temporalité des artefacts dérivés
 
-### Feature on candle C
+### Caractéristique (`Feature`) sur une bougie C
 
-- `event_time = C.end_time` unless the definition documents a physical-time alternative;
-- `known_at = C.end_time` if all required inputs are available by then.
+- `event_time = C.end_time` sauf si la définition documente une autre attribution en temps physique ;
+- `known_at = C.end_time` si toutes les entrées requises sont disponibles à cet instant.
 
-### Confirmed structural point
+### Point structurel confirmé
 
-A pivot may have:
+Un pivot peut avoir :
 
 ```text
 physical_time = candle_100.end_time
 known_at      = candle_103.end_time
 ```
 
-The point belongs physically to 100 but is not eligible for occurrence selection before 103.
+Le point appartient physiquement à 100 mais n'est pas éligible à la sélection d'occurrence avant 103.
 
-### Multi-bar event
+### Événement multi-barres
 
-The definition must state:
+La définition doit préciser :
 
-- physical/event attribution rule;
-- last required evidence candle;
-- `known_at = end_time` of that last required candle.
+- la règle d'attribution physique/de l'événement ;
+- la dernière bougie de preuve requise ;
+- `known_at = end_time` de cette dernière bougie requise.
 
-## Joins
+## Jointures
 
-A causal join at anchor T may include only records with `known_at <= T`.
+Une jointure causale à l'ancrage T peut inclure uniquement des enregistrements avec `known_at <= T`.
 
-Joining a structural point by physical time while ignoring its later `known_at` is a causality violation.
+Joindre un point structurel par son temps physique tout en ignorant son `known_at` ultérieur constitue une violation de causalité.
 
+## Révisions de bougies et affirmations historiques
 
-## Candle revisions and historical claims
+`available_at=end_time` appartient au modèle reconstructed closed-bar en temps de marché.
 
-`available_at=end_time` belongs to the reconstructed closed-bar market-time model.
+Chaque bougie canonique possède une lignée de révisions. Chaque révision enregistre `observed_at` ; toute révision qui devient acceptée enregistre en plus `accepted_at`.
 
-Every canonical candle has a revision lineage. Each revision records `observed_at`; every revision that becomes accepted additionally records `accepted_at`.
-
-For accepted revisions:
+Pour les révisions acceptées :
 
 ```text
 observed_at <= accepted_at
 ```
 
-Therefore:
+Par conséquent :
 
-- `reconstructed_latest` analyses may use the latest accepted revision while anchoring analytical bar sequencing at `end_time`, but must not claim that a later correction was actually known or accepted at historical T;
-- `observed_point_in_time` analyses may use only an accepted revision whose `accepted_at <= T`;
-- `observed_at <= T` alone is insufficient when the candidate had not yet been accepted by T;
-- for a given candle, PIT selects the accepted revision with the greatest `accepted_at <= T`;
-- quarantined revisions have no `accepted_at` and are never PIT-eligible.
+- les analyses `reconstructed_latest` peuvent utiliser la dernière révision acceptée tout en ancrant le séquençage analytique des barres sur `end_time`, mais ne doivent pas prétendre qu'une correction ultérieure était réellement connue ou acceptée au T historique ;
+- les analyses `observed_point_in_time` peuvent utiliser uniquement une révision acceptée dont `accepted_at <= T` ;
+- `observed_at <= T` seul est insuffisant lorsque la candidate n'avait pas encore été acceptée à T ;
+- pour une bougie donnée, le PIT sélectionne la révision acceptée ayant le plus grand `accepted_at <= T` ;
+- les révisions quarantined n'ont pas d'`accepted_at` et ne sont jamais éligibles au PIT.
 
-Example: a correction observed at 10:00 and accepted at 10:05 cannot influence replay at 10:02; it becomes eligible at 10:05.
+Exemple : une correction observée à 10:00 et acceptée à 10:05 ne peut pas influencer le replay à 10:02 ; elle devient éligible à 10:05.
 
-Historical periods without sufficient observation **and acceptance** provenance cannot be labeled `observed_point_in_time`. Historical backfills created later are analyzed with `reconstructed_latest` unless genuine point-in-time revision provenance exists.
+Les périodes historiques sans provenance suffisante d'**observation et d'acceptation** ne peuvent pas être étiquetées `observed_point_in_time`. Les backfills historiques créés ultérieurement sont analysés avec `reconstructed_latest`, sauf s'il existe une véritable provenance point-in-time des révisions.
 
 
 ---
 
-## SOURCE FILE: `docs/16_OUTCOME_BASELINE_CONVENTIONS.md`
+## FICHIER SOURCE : `docs/16_OUTCOME_BASELINE_CONVENTIONS.md`
 
-# 16 — Outcome & Baseline Conventions
+# 16 — Conventions des résultats (`outcomes`) et des populations de référence (`baselines`)
 
-## Anchor
+## Ancrage
 
-Initial canonical occurrences are closed-candle anchored.
+Les occurrences canoniques initiales sont ancrées sur des bougies clôturées.
 
-`Occurrence.known_at` corresponds to the `end_time` of an anchor candle A.
+`Occurrence.known_at` correspond à l'`end_time` d'une bougie d'ancrage A.
 
-Default reference price:
+Prix de référence par défaut :
 
 ```text
 P0 = close(A)
 ```
 
-The anchor candle itself is excluded from future excursion windows because its high/low occurred partly or entirely before the occurrence became known.
+La bougie d'ancrage elle-même est exclue des fenêtres d'excursion future car son high/low s'est produit partiellement ou entièrement avant que l'occurrence ne devienne connue.
 
 ## Horizon H
 
-Horizon `H` consists of the next H complete expected candles after A:
+L'horizon `H` est constitué des H prochaines bougies complètes attendues après A :
 
 ```text
 A+1, A+2, ..., A+H
 ```
 
-## Forward close return
+## Rendement futur de clôture
 
 ```text
 return_H = close(A+H) / P0 - 1
@@ -1765,7 +1766,7 @@ return_H = close(A+H) / P0 - 1
 MFE_H = max(0, max(high(A+i) / P0 - 1)), i=1..H
 ```
 
-Canonical MFE is therefore non-negative. If price never trades above P0 during the horizon, MFE is `0`.
+La MFE canonique est donc non négative. Si le prix ne se négocie jamais au-dessus de P0 pendant l'horizon, MFE vaut `0`.
 
 ## MAE
 
@@ -1773,156 +1774,155 @@ Canonical MFE is therefore non-negative. If price never trades above P0 during t
 MAE_H = min(0, min(low(A+i) / P0 - 1)), i=1..H
 ```
 
-Canonical MAE is therefore non-positive. If price never trades below P0 during the horizon, MAE is `0`.
+La MAE canonique est donc non positive. Si le prix ne se négocie jamais sous P0 pendant l'horizon, MAE vaut `0`.
 
-## Missing future
+## Futur manquant
 
-If the expected sequence A+1..A+H contains:
+Si la séquence attendue A+1..A+H contient :
 
-- a data gap -> `incomplete_gap`;
-- end of available dataset -> `incomplete_end_of_dataset`.
+- un gap de données -> `incomplete_gap` ;
+- la fin du dataset disponible -> `incomplete_end_of_dataset`.
 
-No interpolation or shortening is allowed for a result labeled complete.
+Aucune interpolation ni réduction de l'horizon n'est autorisée pour un résultat étiqueté complete.
 
-## Metric definitions
+## Définitions de métriques
 
-Future volatility and any additional metric require their own versioned OutcomeDefinition before canonical use.
+La volatilité future et toute métrique supplémentaire exigent leur propre OutcomeDefinition versionnée avant utilisation canonique.
 
-## BaselineDefinition
+## `BaselineDefinition` — définition de population de référence
 
-Every comparative experiment stores an explicit baseline.
+Chaque expérience comparative stocke une population de référence explicite (`BaselineDefinition`).
 
-Default candidate baseline population:
+Population de référence candidate par défaut :
 
-- same DatasetSnapshot;
-- same market/timeframe/date range;
-- all eligible closed anchor candles;
-- same gap/completeness rules;
-- same OutcomeDefinitions;
-- no condition/event filter unless explicitly declared.
+- même DatasetSnapshot ;
+- même market/timeframe/plage de dates ;
+- toutes les bougies d'ancrage clôturées éligibles ;
+- mêmes règles de gaps/complétude ;
+- mêmes OutcomeDefinitions ;
+- aucun filtre de condition/événement sauf déclaration explicite.
 
-A context-matched or regime-matched baseline is allowed only as a separate versioned BaselineDefinition.
+Une population de référence appariée par contexte ou régime est autorisée uniquement comme BaselineDefinition distincte et versionnée.
 
+## Cohérence des révisions de dataset
 
-## Dataset revision consistency
+Les échantillons conditionnels et leur BaselineDefinition doivent utiliser le même DatasetSnapshot et donc les mêmes :
 
-Conditional samples and their BaselineDefinition must use the same DatasetSnapshot and therefore the same:
+- knowledge mode ;
+- ensemble de révisions de bougies ;
+- état des gaps ;
+- couverture temporelle.
 
-- knowledge mode;
-- candle revision set;
-- gap state;
-- temporal coverage.
-
-A comparison between different snapshot revisions is a separate experiment/comparison dimension and must never be hidden inside a baseline.
+Une comparaison entre différentes révisions de snapshots constitue une dimension distincte d'expérience/comparaison et ne doit jamais être masquée à l'intérieur d'une population de référence.
 
 
 ---
 
-## SOURCE FILE: `docs/17_DEPENDENCY_ASSESSMENT.md`
+## FICHIER SOURCE : `docs/17_DEPENDENCY_ASSESSMENT.md`
 
-# 17 — Dependency Assessment
+# 17 — Évaluation des dépendances
 
-Verification date: 2026-09-06. Exact versions are pinned only at repository bootstrap.
+Date de vérification : 2026-09-06. Les versions exactes sont figées uniquement lors de l'amorçage du dépôt.
 
-## CCXT — ADOPT behind adapter
+## CCXT — ADOPT derrière adaptateur
 
-- Function: unified exchange/market-data access.
-- Method: exchange-specific implementations exposed through a unified API including OHLCV retrieval.
-- Causality: neutral; BTC Analytics must filter to closed bars and define its own temporal semantics.
-- Validation: requires P1 cross-check against Binance-native klines.
-- Maintenance: active project with Binance support and current unified OHLCV documentation.
-- License: MIT.
-- Coupling: medium if leaked; low when isolated behind `MarketDataProvider`.
-- Decision: ADOPT as access layer, not domain model.
+- Fonction : accès unifié aux plateformes d'échange et aux données de marché.
+- Méthode : implémentations propres aux plateformes d'échange exposées via une API unifiée comprenant la récupération OHLCV.
+- Causalité : neutre ; BTC Analytics doit filtrer les barres clôturées et définir sa propre sémantique temporelle.
+- Validation : requiert en P1 une vérification croisée contre les klines natives Binance.
+- Maintenance : projet actif avec support Binance et documentation OHLCV unifiée à jour.
+- Licence : MIT.
+- Couplage : moyen en cas de fuite ; faible lorsqu'il est isolé derrière `MarketDataProvider`.
+- Décision : ADOPT comme couche d'accès, pas comme modèle de domaine.
 
 ## Polars — ADOPT
 
-- Function: dataframe/transformation engine.
-- Method: Rust columnar engine, lazy query optimization, parallel execution and streaming.
-- Causality: neutral; expressions must still obey BTC Analytics causal windows.
-- Validation: strong project documentation and active development.
-- Performance fit: excellent candidate for batch columnar analytics.
-- License: MIT.
-- Coupling: keep Polars objects inside computation/storage boundaries, not API/domain contracts.
+- Fonction : moteur de tableaux de données/transformation (`dataframe`).
+- Méthode : moteur colonnaire Rust, optimisation différée des requêtes (`lazy`), exécution parallèle et traitement en flux (`streaming`).
+- Causalité : neutre ; les expressions doivent toujours respecter les fenêtres causales BTC Analytics.
+- Validation : documentation de projet solide et développement actif.
+- Adéquation des performances : excellent candidat pour l'analytique colonnaire par lots (`batch`).
+- Licence : MIT.
+- Couplage : conserver les objets Polars dans les frontières calcul/stockage, pas dans les contrats API/domaine.
 
 ## SciPy — ADOPT
 
-- Function: scientific algorithms, statistics and signal primitives.
-- Method: mature numerical/scientific implementations; `signal` can supply generic peak/prominence primitives.
-- Causality: function-specific. Some filters/smoothers can be non-causal; each adopted use must be reviewed.
-- Validation: mature project with extensive releases/tests.
-- License: BSD-3-Clause.
-- Coupling: low behind BTC Analytics feature/structure definitions.
+- Fonction : algorithmes scientifiques, statistiques et primitives de signal.
+- Méthode : implémentations numériques/scientifiques matures ; `signal` peut fournir des primitives génériques de pics/prominence.
+- Causalité : dépend de la fonction. Certains filtres/lissages peuvent être non causaux ; chaque usage adopté doit être revu.
+- Validation : projet mature avec de nombreuses versions publiées et tests.
+- Licence : BSD-3-Clause.
+- Couplage : faible derrière les définitions BTC Analytics de features/structure.
 
-## TA-Lib Python — scoped ADOPT + REFERENCE
+## TA-Lib Python — ADOPT à périmètre limité + REFERENCE
 
-- Function: standard technical indicators and candlestick pattern functions.
-- Method: Python/Cython wrapper over TA-Lib core.
-- Causality: function-specific; adoption requires per-function lookback/closed-bar validation.
-- Validation: project classifies package as production/stable; wrappers/types are available for modern Python releases.
-- Maintenance: active upstream in 2026.
-- License: Python wrapper BSD-2-Clause; core uses BSD-family licensing.
-- Coupling: medium if function names become domain contracts; mitigate with internal definition/adapters.
-- Decision: selected validated functions ADOPT; oracle/reference use remains REFERENCE.
+- Fonction : indicateurs techniques standards et fonctions de configurations de chandeliers.
+- Méthode : adaptateur Python/Cython (`wrapper`) au-dessus du cœur TA-Lib.
+- Causalité : dépend de la fonction ; l'adoption exige une validation de période rétrospective / bougies clôturées (`lookback`/`closed-bar`) fonction par fonction.
+- Validation : le projet classe le package comme production/stable ; adaptateurs/types (`wrappers`) disponibles pour les versions Python modernes.
+- Maintenance : projet amont actif en 2026.
+- Licence : wrapper Python BSD-2-Clause ; le cœur utilise une licence de famille BSD.
+- Couplage : moyen si les noms de fonctions deviennent des contrats du domaine ; atténuer avec des définitions/adaptateurs internes.
+- Décision : fonctions sélectionnées et validées en ADOPT ; usage oracle/référence en REFERENCE.
 
-## DuckDB — ADOPT for research
+## DuckDB — ADOPT pour la recherche
 
-- Function: local analytical SQL over Parquet/datasets.
-- Method: in-process analytical database with direct Parquet scanning and pushdown.
-- Causality: neutral; used after dataset construction.
-- Validation: project documents extensive CI/testing, including millions of queries.
-- Maintenance: active; project remains open source under independent foundation governance.
-- License: MIT.
-- Coupling: low because product API does not depend on DuckDB.
+- Fonction : SQL analytique local sur Parquet/jeux de données.
+- Méthode : base analytique embarquée dans le processus (`in-process`) avec scan direct Parquet et pushdown.
+- Causalité : neutre ; utilisée après construction du dataset.
+- Validation : le projet documente une CI/des tests étendus, notamment des millions de requêtes.
+- Maintenance : actif ; le projet reste à code source ouvert sous gouvernance d'une fondation indépendante.
+- Licence : MIT.
+- Couplage : faible car l'API produit ne dépend pas de DuckDB.
 
-## FastAPI / Pydantic — ADOPT API boundary
+## FastAPI / Pydantic — ADOPT à la frontière API
 
-- Function: typed HTTP API and schemas.
-- Causality: neutral.
-- License: FastAPI MIT; package versions/compatibility pinned at bootstrap.
-- Coupling: intentionally limited to API/application layer; domain must remain framework-independent.
+- Fonction : API HTTP typée et schémas.
+- Causalité : neutre.
+- Licence : FastAPI MIT ; versions/compatibilité des paquets figées au bootstrap.
+- Couplage : intentionnellement limité à la couche API/application ; le domaine doit rester indépendant du framework.
 
-## uv — ADOPT development tooling
+## uv — ADOPT pour l'outillage de développement
 
-- Function: Python package/project/environment management.
-- Method: Rust implementation and lock/project workflow.
-- Causality/runtime: none.
-- Maintenance: active and production-oriented.
-- License: MIT OR Apache-2.0.
-- Coupling: development only.
+- Fonction : gestion des paquets/projet/environnement Python.
+- Méthode : implémentation Rust et flux de travail de verrouillage/projet (`lock`).
+- Causalité/exécution : aucune.
+- Maintenance : actif et orienté production.
+- Licence : MIT OR Apache-2.0.
+- Couplage : développement uniquement.
 
-## Ruff — ADOPT development tooling
+## Ruff — ADOPT pour l'outillage de développement
 
-- Function: Python linting and formatting.
-- Method: Rust implementation.
-- Causality/runtime: none.
-- License: MIT.
-- Coupling: development only.
+- Fonction : analyse de style (`lint`) et formatage Python.
+- Méthode : implémentation Rust.
+- Causalité/exécution : aucune.
+- Licence : MIT.
+- Couplage : développement uniquement.
 
-## Pyright — ADOPT development tooling
+## Pyright — ADOPT pour l'outillage de développement
 
-- Function: static Python type checking.
-- Method: standards-based high-performance static checker.
-- Causality/runtime: none.
-- Maintenance: active project.
-- License: MIT.
-- Coupling: development only.
+- Fonction : vérification statique des types Python.
+- Méthode : vérificateur de types haute performance basé sur les standards.
+- Causalité/exécution : aucune.
+- Maintenance : projet actif.
+- Licence : MIT.
+- Couplage : développement uniquement.
 
-## pytest — ADOPT development tooling
+## pytest — ADOPT pour l'outillage de développement
 
-- Function: test runner/framework.
-- Causality/runtime: none in product; used to enforce causal invariants and integration contracts.
-- License: MIT.
-- Coupling: tests only.
+- Fonction : exécuteur/cadre de tests (`runner`/`framework`).
+- Causalité/exécution : aucune dans le produit ; utilisé pour imposer les invariants causaux et les contrats d'intégration.
+- Licence : MIT.
+- Couplage : tests uniquement.
 
 ## VectorBT — RESEARCH / REFERENCE
 
-Use conceptual inspiration for vectorized parameter grids, broadcasting and walk-forward experimentation. Do not make product semantics or portfolio/trading abstractions depend on it.
+Utiliser comme inspiration conceptuelle pour les grilles de paramètres vectorisées, la diffusion (`broadcasting`) et l'expérimentation walk-forward. Ne pas faire dépendre la sémantique produit ou les abstractions de portefeuille/trading de VectorBT.
 
 ## ruptures — RESEARCH
 
-Offline change-point algorithms are research-only by default. Any production promotion requires a separately demonstrated causal formulation.
+Les algorithmes hors ligne de points de rupture sont par défaut réservés à la recherche. Toute promotion en production exige une formulation causale démontrée séparément.
 
-## PatternPy / TradingPatternScanner — REJECT product
+## PatternPy / TradingPatternScanner — REJECT produit
 
-Retain only as comparative/research references. They are not foundations of V2 market structure or chart-pattern semantics.
+Les conserver uniquement comme références de comparaison/recherche. Ils ne constituent pas des fondations de la structure de marché ou de la sémantique des figures chartistes de V2.

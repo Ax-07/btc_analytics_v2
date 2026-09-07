@@ -1,4 +1,4 @@
-# 12 — Candlestick Events
+# 12 — Événements de chandeliers
 
 ## Positionnement
 
@@ -6,15 +6,15 @@ Couche analytique prévue mais non fondamentale.
 
 ## Règles
 
-Un candlestick pattern :
+Une configuration de chandeliers :
 
-- est calculé sur candles clôturées ;
+- est calculée sur des bougies clôturées ;
 - possède `event_time` et `known_at` ;
 - n'implique aucune recommandation ;
-- est versionné ;
+- est versionnée ;
 - utilise le même Outcome Engine que les autres événements.
 
-## Shortlist initiale à étudier
+## Liste initiale à étudier
 
 Doji, Hammer, Inverted Hammer, Shooting Star, Bullish/Bearish Engulfing, Morning/Evening Star, Three White Soldiers, Three Black Crows.
 
@@ -26,4 +26,4 @@ Avant adoption canonique : définition exacte, causalité, golden tests, convent
 
 ## Utilité
 
-Mesurer le pattern seul puis conditionné par contexte : tendance, volatilité, structure, etc.
+Mesurer la configuration seule puis conditionnée par contexte : tendance, volatilité, structure, etc.

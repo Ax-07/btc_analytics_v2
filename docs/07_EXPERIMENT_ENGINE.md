@@ -1,75 +1,74 @@
-# 07 — Experiment Engine
+# 07 — Moteur d'expériences
 
-## Goal
+## Objectif
 
-Compare analytical hypotheses using batch/vectorized parameter grids, without trading or portfolio simulation.
+Comparer des hypothèses analytiques à l'aide de grilles de paramètres batch/vectorisées, sans trading ni simulation de portefeuille.
 
-## Required frozen inputs
+## Entrées figées obligatoires
 
-Every ExperimentRun records:
+Chaque ExperimentRun enregistre :
 
-- DatasetSnapshot, including its `knowledge_mode` and exact CandleRevision manifest;
-- historical range;
-- timeframes;
-- definition keys/versions;
-- normalized parameter grid;
-- OutcomeDefinitions;
-- BaselineDefinition;
-- split/walk-forward policy;
-- software/config revision.
+- DatasetSnapshot, notamment son `knowledge_mode` et le manifeste exact de CandleRevision ;
+- plage historique ;
+- timeframes ;
+- clés/versions de définitions ;
+- grille de paramètres normalisée ;
+- OutcomeDefinitions ;
+- BaselineDefinition ;
+- politique de split/walk-forward ;
+- révision logicielle/configuration.
 
-## Parameter dimensions
+## Dimensions de paramètres
 
-Examples: timeframe, feature parameters, structure parameters, context definition, outcome horizon.
+Exemples : timeframe, paramètres de feature, paramètres de structure, définition de contexte, horizon d'outcome.
 
-## Outcome metrics
+## Métriques de résultat (`outcome`)
 
-Initial standard metrics:
+Métriques standards initiales :
 
-- forward close return;
-- MFE;
-- MAE;
-- future volatility when its metric definition is versioned.
+- rendement futur de clôture ;
+- MFE ;
+- MAE ;
+- volatilité future lorsque sa définition de métrique est versionnée.
 
-Exact temporal semantics live in `16_OUTCOME_BASELINE_CONVENTIONS.md`.
+Les sémantiques temporelles exactes sont définies dans `16_OUTCOME_BASELINE_CONVENTIONS.md`.
 
-## Baseline
+## Population de référence
 
-No experiment may rely on an implicit phrase such as “relevant baseline”. A BaselineDefinition is mandatory for comparative claims.
+Aucune expérience ne peut s'appuyer sur une formulation implicite telle que « baseline pertinente ». Une BaselineDefinition est obligatoire pour toute affirmation comparative.
 
-Default candidate baseline: all eligible anchor candles in the same market/timeframe/snapshot/date range, applying the same data-quality, gap and outcome-completeness rules as the conditional sample.
+Population de référence candidate par défaut : toutes les bougies d'ancrage éligibles du même market/timeframe/snapshot/plage de dates, en appliquant les mêmes règles de qualité des données, de gaps et de complétude des outcomes que l'échantillon conditionnel.
 
-Alternative baselines must be explicit and versioned.
+Les populations de référence alternatives doivent être explicites et versionnées.
 
 ## Walk-forward
 
-Calibration and evaluation periods are temporally separated. The run stores split boundaries and whether parameters were selected using earlier folds.
+Les périodes de calibration et d'évaluation sont séparées temporellement. Le run enregistre les frontières des splits et indique si les paramètres ont été sélectionnés à l'aide de folds antérieurs.
 
-## Anti-overfitting
+## Anti-surapprentissage
 
-Require where relevant:
+Exiger lorsque pertinent :
 
-- out-of-sample evaluation;
-- temporal stability;
-- multi-timeframe robustness;
-- parameter sensitivity;
-- sample-size reporting.
+- évaluation hors échantillon ;
+- stabilité temporelle ;
+- robustesse multi-timeframe ;
+- sensibilité aux paramètres ;
+- rapport de taille d'échantillon.
 
+## Reproductibilité de l'identité
 
-## Identity reproducibility
+Les paramètres d'expérience normalisés utilisent la représentation canonique des paramètres définie dans `03_DOMAIN_MODEL.md` :
 
-Normalized experiment parameters use the canonical parameter representation defined in `03_DOMAIN_MODEL.md`:
+- normalisation par schéma ;
+- sérialisation RFC 8785 JCS ;
+- fingerprints SHA-256 en hexadécimal minuscule.
 
-- schema normalization;
-- RFC 8785 JCS serialization;
-- SHA-256 lowercase hex fingerprints.
+ExperimentRun doit enregistrer les fingerprints exacts des paramètres utilisés.
 
-ExperimentRun must record the exact parameter fingerprints used.
+## Sémantique de révision des données
 
-## Data revision semantics
+Un ExperimentRun ne suit jamais l'état courant mutable de PostgreSQL après son lancement.
 
-An ExperimentRun never follows mutable PostgreSQL current state after launch.
+Il évalue le DatasetSnapshot immuable auquel il fait référence.
 
-It evaluates the immutable DatasetSnapshot it references.
-
-If a later provider correction changes current canonical PostgreSQL values, a new snapshot/run is required. Results from different snapshots remain comparable through explicit snapshot identities and revision provenance.
+Si une correction ultérieure du fournisseur modifie les valeurs canoniques courantes de PostgreSQL, un nouveau snapshot/run est requis. Les résultats provenant de snapshots différents restent comparables grâce aux identités explicites de snapshots et à la provenance des révisions.

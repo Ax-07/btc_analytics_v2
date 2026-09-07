@@ -1,31 +1,31 @@
-# 08 — Research Catalog
+# 08 — Catalogue de recherche
 
-This catalog is a decision index. Detailed evidence for structural dependencies is in `17_DEPENDENCY_ASSESSMENT.md`.
+Ce catalogue est un index de décisions. Les éléments détaillés concernant les dépendances structurelles figurent dans `17_DEPENDENCY_ASSESSMENT.md`.
 
-| Tool | Candidate status | Scope |
+| Outil | Statut candidat | Périmètre |
 |---|---|---|
-| NumPy | ADOPT | numerical arrays |
-| Polars | ADOPT | dataframe/query engine |
-| SciPy | ADOPT | scientific/signal primitives |
-| CCXT | ADOPT | exchange access behind adapter |
-| TA-Lib selected functions | ADOPT | validated standard indicators/candlesticks behind adapter |
-| TA-Lib | REFERENCE | oracle/comparison where useful |
-| PostgreSQL | ADOPT | current canonical product store |
-| Parquet | ADOPT | immutable research snapshots |
-| DuckDB | ADOPT research | analytical SQL over snapshots |
-| FastAPI/Pydantic | ADOPT | API/contracts |
-| uv | ADOPT dev | package/project management |
-| Ruff | ADOPT dev | lint/format |
-| Pyright | ADOPT dev | static typing |
+| NumPy | ADOPT | tableaux numériques |
+| Polars | ADOPT | moteur de tableaux de données/requêtes (`dataframe`) |
+| SciPy | ADOPT | primitives scientifiques/signal |
+| CCXT | ADOPT | accès à la plateforme d'échange derrière adaptateur |
+| fonctions TA-Lib sélectionnées | ADOPT | indicateurs/chandeliers standards validés derrière adaptateur |
+| TA-Lib | REFERENCE | oracle/comparaison lorsque utile |
+| PostgreSQL | ADOPT | stockage produit canonique courant |
+| Parquet | ADOPT | snapshots de recherche immuables |
+| DuckDB | ADOPT recherche | SQL analytique sur snapshots |
+| FastAPI/Pydantic | ADOPT | API/contrats |
+| uv | ADOPT dev | gestion des paquets/projet |
+| Ruff | ADOPT dev | analyse de style (`lint`)/formatage |
+| Pyright | ADOPT dev | typage statique |
 | pytest | ADOPT dev | tests |
-| VectorBT | RESEARCH/REFERENCE | vectorized experiment concepts |
-| ruptures | RESEARCH | offline change-point research |
-| statsmodels | RESEARCH / adopt-on-need | statistical methods |
-| PatternPy | REJECT product | comparison only |
-| TradingPatternScanner | REJECT product | comparison/research only |
+| VectorBT | RESEARCH/REFERENCE | concepts d'expérimentation vectorisée |
+| ruptures | RESEARCH | recherche hors ligne de points de rupture |
+| statsmodels | RESEARCH / adoption au besoin | méthodes statistiques |
+| PatternPy | REJECT produit | comparaison uniquement |
+| TradingPatternScanner | REJECT produit | comparaison/recherche uniquement |
 
-## Mandatory evaluation dimensions
+## Dimensions d'évaluation obligatoires
 
-Function, method, causal implications, validation/testing, maintenance, performance fit, license, coupling, final scope.
+Fonction, méthode, implications causales, validation/tests, maintenance, adéquation des performances, licence, couplage, périmètre final.
 
-A tool may have different statuses for different roles, but those roles must be explicit (e.g. TA-Lib execution vs oracle).
+Un outil peut avoir des statuts différents selon ses rôles, mais ces rôles doivent être explicites (par exemple exécution TA-Lib vs oracle).

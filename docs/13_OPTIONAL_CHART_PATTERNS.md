@@ -1,13 +1,13 @@
-# 13 — Optional Chart Patterns
+# 13 — Figures chartistes optionnelles
 
 ## Positionnement
 
-Les chart patterns ne sont pas un objectif central.
+Les figures chartistes ne sont pas un objectif central.
 
 ## Ordre correct
 
 ```text
-candles -> extrema -> swings -> structural metrics -> optional named pattern
+bougies -> extrema -> swings -> métriques structurelles -> figure nommée optionnelle
 ```
 
 ## Conditions d'adoption
@@ -16,11 +16,11 @@ candles -> extrema -> swings -> structural metrics -> optional named pattern
 - causalité
 - stabilité multi-timeframe
 - qualité visuelle
-- valeur incrémentale vs structure
+- valeur incrémentale par rapport à la structure
 - robustesse hors échantillon
 
 Question centrale :
 
 > Le label apporte-t-il une information supplémentaire par rapport aux swings, amplitudes, contexte et métriques de structure ?
 
-Aucun milestone P0-P9 ne dépend des chart patterns.
+Aucun jalon P0-P9 ne dépend des figures chartistes.

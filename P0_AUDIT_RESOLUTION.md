@@ -1,56 +1,56 @@
-# P0 Audit Resolution — Consolidated v7
+# Résolution de l'audit P0 — Consolidée v7
 
-## Status
+## Statut
 
 `P0 — VALIDATED`
 
-This revision closes the final blocker reported by the independent v6 audit. Two independent final v7 audits subsequently concluded `P0 — VALIDATION READY`. On 2026-09-06, the user explicitly approved D-001 through D-020 in block. P0 is therefore validated and P1 is authorized to begin from these frozen contracts.
+Cette révision ferme le dernier blocage signalé par l'audit indépendant de la v6. Deux audits finaux indépendants de la v7 ont ensuite conclu `P0 — VALIDATION READY`. Le 6 septembre 2026, l'utilisateur a explicitement approuvé D-001 à D-020 en bloc. P0 est donc validé et P1 est autorisé à démarrer à partir de ces contrats figés.
 
-## Previously resolved v6 blockers
+## Blocages v6 précédemment résolus
 
-The v6 candidate already closed:
+La candidate v6 avait déjà fermé :
 
-- the stale `observed_at <= T` point-in-time rule in Temporal Conventions, replacing it with the canonical `accepted_at <= T` rule;
-- the initial accepted `CandleRevision` lifecycle, including `revision_seq = 1`, stable local revision references and monotonic sequence allocation at candidate creation.
+- la règle point-in-time obsolète `observed_at <= T` dans les conventions temporelles, remplacée par la règle canonique `accepted_at <= T` ;
+- le cycle de vie de la première `CandleRevision` acceptée, notamment `revision_seq = 1`, les références locales stables de révision et l'allocation monotone de séquence à la création d'une candidate.
 
-Those contracts remain unchanged.
+Ces contrats restent inchangés.
 
-## Blocker R6 — unresolved revision candidate state
+## Blocage R6 — état non résolu d'une candidate de révision
 
-The v6 model created a distinct revision candidate and allocated its `revision_seq` before same-venue native confirmation, but the allowed `revision_status` values were only `accepted_current`, `accepted_superseded`, and `quarantined`. No status represented the real interval between candidate creation and confirmation resolution.
+Le modèle v6 créait une candidate de révision distincte et allouait son `revision_seq` avant la confirmation native de la même venue, mais les valeurs autorisées de `revision_status` étaient uniquement `accepted_current`, `accepted_superseded` et `quarantined`. Aucun statut ne représentait l'intervalle réel entre la création de la candidate et la résolution de la confirmation.
 
-Resolved candidate contract in v7:
+Contrat de candidate résolu en v7 :
 
-- `revision_status` additionally includes `pending_confirmation`;
-- a later distinct observation of an already accepted candle creates a durable `pending_confirmation` revision with the next `revision_seq`, `observed_at`, and no `accepted_at`;
-- `pending_confirmation` is never eligible for `observed_point_in_time`;
-- successful native confirmation transitions that same revision to `accepted_current`, records `accepted_at`, and moves the previous current accepted revision to `accepted_superseded`;
-- disagreement, unavailable confirmation, or validation failure transitions the same revision to `quarantined`, retaining its sequence and leaving `accepted_at` absent;
-- promotion/quarantine never renumbers the revision;
-- at most one unresolved `pending_confirmation` revision may exist for a candle lineage at a time; processing of another distinct candidate for that candle is serialized until the pending revision resolves;
-- a same-value observation matching the pending candidate is idempotent and does not allocate another sequence;
-- after interruption/restart, an unresolved pending revision remains pending and PIT-ineligible until confirmation is retried/resolved; it is never silently treated as accepted or quarantined.
+- `revision_status` inclut en plus `pending_confirmation` ;
+- une observation ultérieure distincte d'une bougie déjà acceptée crée une révision durable `pending_confirmation` avec le prochain `revision_seq`, `observed_at` et sans `accepted_at` ;
+- `pending_confirmation` n'est jamais éligible à `observed_point_in_time` ;
+- une confirmation native réussie fait passer cette même révision à `accepted_current`, enregistre `accepted_at` et fait passer l'ancienne révision courante acceptée à `accepted_superseded` ;
+- un désaccord, une confirmation indisponible ou un échec de validation fait passer cette même révision à `quarantined`, en conservant sa séquence et sans renseigner `accepted_at` ;
+- une promotion ou une mise en quarantaine ne renumérote jamais la révision ;
+- au plus une révision `pending_confirmation` non résolue peut exister à la fois pour une lignée de bougie ; le traitement d'une autre candidate distincte pour cette bougie est sérialisé jusqu'à résolution de la révision en attente ;
+- une observation de mêmes valeurs correspondant à la candidate en attente est idempotente et n'alloue pas une nouvelle séquence ;
+- après interruption/redémarrage, une révision en attente non résolue reste pending et non éligible au PIT jusqu'à ce que la confirmation soit retentée/résolue ; elle n'est jamais silencieusement considérée comme acceptée ou quarantined.
 
-## Decision update
+## Mise à jour de décision
 
-D-020 now explicitly includes the `pending_confirmation` state, its PIT ineligibility and serialized per-candle transition rule.
+D-020 inclut désormais explicitement l'état `pending_confirmation`, sa non-éligibilité au PIT et la règle de sérialisation des transitions par candle.
 
-## Tests added to the contract
+## Tests ajoutés au contrat
 
-Data revision tests must additionally verify:
+Les tests de révision de données doivent en plus vérifier :
 
-- a changed observation is persisted as `pending_confirmation` before confirmation returns;
-- pending revision has `observed_at`, no `accepted_at`, and is never PIT-eligible;
-- successful confirmation transitions the same revision/sequence to `accepted_current`;
-- failed/unavailable confirmation transitions the same revision/sequence to `quarantined`;
-- same-value re-observation of a pending candidate is idempotent;
-- a candle cannot have two unresolved pending candidates and confirmation outcomes cannot be applied out of order;
-- restart/recovery preserves pending state and does not imply acceptance.
+- qu'une observation modifiée est persistée comme `pending_confirmation` avant le retour de la confirmation ;
+- qu'une révision en attente possède `observed_at`, n'a pas d'`accepted_at` et n'est jamais éligible au PIT ;
+- qu'une confirmation réussie fait passer la même révision/séquence à `accepted_current` ;
+- qu'une confirmation échouée ou indisponible fait passer la même révision/séquence à `quarantined` ;
+- qu'une réobservation de mêmes valeurs d'une candidate en attente est idempotente ;
+- qu'une bougie ne peut pas avoir deux candidates en attente non résolues et que les résultats de confirmation ne peuvent pas être appliqués hors ordre ;
+- qu'un redémarrage/recovery conserve l'état pending sans impliquer une acceptation.
 
-## Gate — satisfied
+## Critère de validation — satisfait
 
-- Final independent audit A: `P0 — VALIDATION READY`.
-- Final independent audit B: `P0 — VALIDATION READY`.
-- User approval: D-001 through D-020 explicitly approved in block on 2026-09-06.
+- Audit final indépendant A : `P0 — VALIDATION READY`.
+- Audit final indépendant B : `P0 — VALIDATION READY`.
+- Approbation utilisateur : D-001 à D-020 explicitement approuvées en bloc le 6 septembre 2026.
 
-Result: `P0 — VALIDATED`. P1 may begin, but validated P0 decisions are append-only historical contracts and must not be silently rewritten.
+Résultat : `P0 — VALIDATED`. P1 peut démarrer, mais les décisions P0 validées sont des contrats historiques à ajouts uniquement (append-only) et ne doivent jamais être réécrites silencieusement.

@@ -1,45 +1,45 @@
-# 11 — Roadmap
+# 11 — Feuille de route
 
-## P0 — Foundation
+## P0 — Fondation
 
-Charter, architecture, stack, domain identity/provenance, temporal conventions, causal contract, Market Data semantics, outcome/baseline conventions, dependency assessment, quality policy and decision log.
+Charte, architecture, stack, identité/provenance du domaine, conventions temporelles, contrat causal, sémantique des données de marché, conventions outcome/baseline, évaluation des dépendances, politique qualité et journal de décisions.
 
-## P1 — Market Data
+## P1 — Données de marché
 
-Repo bootstrap, PostgreSQL, CCXT adapter, canonical closed Candle, native 1h/4h/1d ingestion, validation, gaps, revision audit, idempotence, CCXT-vs-native fixture.
+Bootstrap du repository, PostgreSQL, adaptateur CCXT, Candle canonique clôturée, ingestion native `1h`/`4h`/`1d`, validation, gaps, audit des révisions, idempotence, fixture CCXT-vs-native.
 
-## P2 — Analytics Core
+## P2 — Cœur analytique
 
-Time alignment, feature interface/registry, versioning/fingerprints, Polars/NumPy conventions, materialization policy.
+Alignement temporel, interface/registre des features, versionnement/fingerprints, conventions Polars/NumPy, politique de matérialisation.
 
-## P3 — Technical Features
+## P3 — Caractéristiques techniques (`features`)
 
-Returns/range, ATR, RSI, volatility, momentum, volume and selected standard features with causal/golden tests.
+Rendements/range, ATR, RSI, volatilité, momentum, volume et features standards sélectionnées avec tests causaux/golden.
 
-## P4 — Market Structure
+## P4 — Structure de marché
 
-Causal extrema, prominence, pivots/swings, HH/HL/LH/LL, amplitude, duration, slope, retracement, compression/expansion.
+Extrema causaux, prominence, pivots/swings, HH/HL/LH/LL, amplitude, durée, pente, retracement, compression/expansion.
 
-## P5 — Events, Occurrences & Basic Contexts
+## P5 — Événements, occurrences et contextes basiques
 
-Event definitions, occurrence identity, technical/structural events, validated candlestick shortlist, basic causal ContextDefinition/ContextSnapshot and context-filtered occurrences.
+Définitions d'événements, identité d'occurrence, événements techniques/structurels, shortlist validée de configurations de chandeliers, ContextDefinition/ContextSnapshot causaux basiques et occurrences filtrées par contexte.
 
-## P6 — Forward Outcomes
+## P6 — Résultats futurs (`outcomes`)
 
-Versioned OutcomeDefinitions, forward returns, MFE, MAE, future-volatility definition, completeness/gap states and baseline populations.
+OutcomeDefinitions versionnées, rendements futurs, MFE, MAE, définition de volatilité future, états de complétude/gap et populations de baseline.
 
-## P7 — Experiment Engine
+## P7 — Moteur d'expériences
 
-DatasetSnapshots, parameter grids, multi-timeframe batch evaluation, BaselineDefinition, walk-forward and robustness reports.
+DatasetSnapshots, grilles de paramètres, évaluation batch multi-timeframe, BaselineDefinition, walk-forward et rapports de robustesse.
 
-## P8 — Advanced Contexts & Regimes
+## P8 — Contextes avancés et régimes
 
-Richer state combinations, regime research, offline change-point exploration and causal promotion rules.
+Combinaisons d'états plus riches, recherche sur les régimes, exploration offline de points de rupture et règles de promotion causale.
 
-## P9 — Analytical Workbench
+## P9 — Poste de travail analytique
 
-API + chart + structure/event/context inspection + occurrence/outcome/experiment comparison.
+API + graphique + inspection structure/événement/contexte + comparaison occurrences/outcomes/expériences.
 
-## P10 — Optional Analytics
+## P10 — Analyses optionnelles
 
-Chart patterns or other interpretive models only if incremental value is demonstrated. P10 may remain empty.
+Figures chartistes ou autres modèles interprétatifs uniquement si une valeur incrémentale est démontrée. P10 peut rester vide.

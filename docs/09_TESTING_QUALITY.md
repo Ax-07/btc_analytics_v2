@@ -1,73 +1,73 @@
-# 09 — Testing & Quality
+# 09 — Tests et qualité
 
-## Tooling
+## Outils
 
 - pytest
 - Ruff
 - Pyright
 - GitHub Actions
 
-## Test classes
+## Classes de tests
 
-### Unit
+### Unitaires
 
-Normalization, indicators, structural metrics, event rules, outcome metrics, serializers.
+Normalisation, indicateurs, métriques structurelles, règles d'événements, métriques d'outcomes, sérialiseurs.
 
-### Invariants/property tests
+### Invariants/tests de propriétés
 
-OHLC validity, interval alignment, deterministic fingerprints, monotonic timestamps, gap rules, MFE/MAE conventions.
+Validité OHLC, alignement des intervalles, fingerprints déterministes, timestamps monotones, règles de gaps, conventions MFE/MAE.
 
-### Integration
+### Intégration
 
-CCXT -> normalize/validate -> PostgreSQL; snapshot -> DuckDB/Polars; feature -> structure/event/context -> occurrence -> outcome.
+CCXT -> normalisation/validation -> PostgreSQL ; snapshot -> DuckDB/Polars ; feature -> structure/event/context -> occurrence -> outcome.
 
-### Golden datasets
+### Jeux de données de référence
 
-Versioned small fixtures for market normalization, selected TA-Lib parity, causal structure and outcomes.
+Petites fixtures versionnées pour la normalisation de marché, la parité avec les fonctions TA-Lib sélectionnées, la structure causale et les outcomes.
 
-### Causality/prefix invariance
+### Causalité/invariance par préfixe
 
-Mandatory for every artifact declared known at T: feature, structural point/segment, event, context and derived occurrence.
+Obligatoire pour tout artefact déclaré connu à T : feature, point/segment structurel, événement, contexte et occurrence dérivée.
 
-### Data revision tests
+### Tests de révision des données
 
-Verify:
+Vérifier :
 
-- first valid ingestion creates `revision_seq = 1` as `accepted_current`;
-- the initial accepted revision records `observed_at` and `accepted_at` with `observed_at <= accepted_at`;
-- its exact revision reference is stable for DatasetSnapshot manifests;
-- same-value re-fetch is idempotent and creates no new revision;
-- changed source candle creates a persisted `pending_confirmation` revision with the next `revision_seq` before confirmation;
-- pending candidate records `observed_at`, has no `accepted_at`, and is never PIT-eligible;
-- same-value re-observation of the pending candidate is idempotent and allocates no new revision;
-- at most one unresolved pending candidate exists per candle lineage and confirmation outcomes cannot be applied out of order;
-- interruption/restart preserves pending state and never implies acceptance or quarantine;
-- a quarantined candidate retains its allocated sequence and the next candidate does not reuse it;
-- promotion preserves the candidate's already allocated `revision_seq`;
-- native confirmation agreement promotes the revision and records `accepted_at`;
-- every accepted revision satisfies `observed_at <= accepted_at`;
-- disagreement/unavailable confirmation quarantines it, leaves `accepted_at` absent, and preserves current canonical state;
-- an observed candidate is not PIT-eligible before `accepted_at`;
-- PIT replay selects the accepted revision with greatest `accepted_at <= T`;
-- a quarantined revision is never PIT-eligible;
-- accepted correction never mutates an existing DatasetSnapshot;
-- `reconstructed_latest` and `observed_point_in_time` do not make the same historical-knowledge claim;
-- golden temporal fixture: candidate observed at 10:00 and accepted at 10:05 must not affect replay at 10:02 and may affect replay at 10:05 or later.
+- que la première ingestion valide crée `revision_seq = 1` comme `accepted_current` ;
+- que la première révision acceptée enregistre `observed_at` et `accepted_at` avec `observed_at <= accepted_at` ;
+- que sa référence exacte de révision est stable pour les manifestes DatasetSnapshot ;
+- qu'une nouvelle récupération avec les mêmes valeurs est idempotente et ne crée aucune nouvelle révision ;
+- qu'une bougie source modifiée crée une révision persistée `pending_confirmation` avec le prochain `revision_seq` avant confirmation ;
+- que la candidate en attente enregistre `observed_at`, n'a pas d'`accepted_at` et n'est jamais éligible au PIT ;
+- qu'une réobservation de mêmes valeurs de la candidate en attente est idempotente et n'alloue pas de nouveau `revision_seq` ;
+- qu'au plus une candidate en attente non résolue existe par lignée de bougie et que les résultats de confirmation ne peuvent pas être appliqués hors ordre ;
+- qu'une interruption/redémarrage préserve l'état pending et n'implique jamais acceptation ou quarantaine ;
+- qu'une candidate mise en quarantaine conserve sa séquence allouée et que la candidate suivante ne la réutilise pas ;
+- qu'une promotion préserve le `revision_seq` déjà alloué à la candidate ;
+- qu'un accord avec la confirmation native promeut la révision et enregistre `accepted_at` ;
+- que toute révision acceptée satisfait `observed_at <= accepted_at` ;
+- qu'un désaccord/une confirmation indisponible met la révision en `quarantined`, laisse `accepted_at` absent et préserve l'état canonique courant ;
+- qu'une candidate observée n'est pas éligible au PIT avant `accepted_at` ;
+- que le replay PIT sélectionne la révision acceptée ayant le plus grand `accepted_at <= T` ;
+- qu'une révision mise en quarantaine n'est jamais éligible au PIT ;
+- qu'une correction acceptée ne modifie jamais un DatasetSnapshot existant ;
+- que `reconstructed_latest` et `observed_point_in_time` ne portent pas la même affirmation de connaissance historique ;
+- fixture temporelle de référence : une candidate observée à 10:00 et acceptée à 10:05 ne doit pas affecter le replay à 10:02 et peut l'affecter à 10:05 ou après.
 
-### Deterministic identity golden tests
+### Tests de référence (`golden tests`) d'identité déterministe
 
-Golden fixtures must lock:
+Les fixtures de référence doivent figer :
 
-- canonical parameter normalization;
-- RFC 8785 JCS bytes;
-- SHA-256 `parameter_fingerprint`;
-- exact `occurrence_key` payload and resulting key;
-- DatasetSnapshot logical identity.
+- la normalisation canonique des paramètres ;
+- les octets RFC 8785 JCS ;
+- le `parameter_fingerprint` SHA-256 ;
+- le payload exact d'`occurrence_key` et la clé résultante ;
+- l'identité logique de DatasetSnapshot.
 
-At least one independent fixture representation must verify that semantically identical parameter objects with different input key ordering produce identical fingerprints.
+Au moins une représentation de fixture indépendante doit vérifier que des objets de paramètres sémantiquement identiques mais dont l'ordre des clés d'entrée diffère produisent les mêmes fingerprints.
 
-## Definition of Done
+## Définition de terminé
 
-A milestone is complete only when docs/contracts, tests, edge cases, causal checks, migrations/API/UI where applicable, CURRENT_STATE and Git milestone state are validated.
+Un jalon est terminé uniquement lorsque les docs/contrats, tests, edge cases, contrôles de causalité, migrations/API/UI lorsque pertinentes, `CURRENT_STATE.md` et l'état du jalon Git ont été validés.
 
-No milestone is called validated before actual local/CI command output is reviewed.
+Aucun jalon n'est déclaré validé avant l'examen des sorties réelles des commandes locales/CI.

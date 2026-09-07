@@ -6,39 +6,39 @@
 Exchange
    |
    v
-Market Data Access
+Accès aux données de marché
    |
    v
-Normalization + Validation
+Normalisation + Validation
    |
    v
-Canonical Market Data
+Données de marché canoniques
    |
    +-------------------+
    |                   |
    v                   v
-Causal Feature      Research Dataset
-Engine              (Parquet/DuckDB)
+Moteur de features   Jeu de données de recherche
+causales             (Parquet/DuckDB)
    |
    v
-Market Structure
+Structure de marché
    |
    v
-Event Engine
+Moteur d'événements
    |
    v
-Context Engine
+Moteur de contextes
    |
    v
-Occurrence Store
+Stockage des occurrences
    |
    +------------------------+
    |                        |
    v                        v
-Product API            Outcome Engine
-                            |
-                            v
-                       Experiment Engine
+API produit             Moteur d'outcomes
+                             |
+                             v
+                        Moteur d'expériences
 ```
 
 ## Frontières obligatoires

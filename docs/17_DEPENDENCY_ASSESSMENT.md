@@ -1,106 +1,106 @@
-# 17 — Dependency Assessment
+# 17 — Évaluation des dépendances
 
-Verification date: 2026-09-06. Exact versions are pinned only at repository bootstrap.
+Date de vérification : 2026-09-06. Les versions exactes sont figées uniquement lors de l'amorçage du dépôt.
 
-## CCXT — ADOPT behind adapter
+## CCXT — ADOPT derrière adaptateur
 
-- Function: unified exchange/market-data access.
-- Method: exchange-specific implementations exposed through a unified API including OHLCV retrieval.
-- Causality: neutral; BTC Analytics must filter to closed bars and define its own temporal semantics.
-- Validation: requires P1 cross-check against Binance-native klines.
-- Maintenance: active project with Binance support and current unified OHLCV documentation.
-- License: MIT.
-- Coupling: medium if leaked; low when isolated behind `MarketDataProvider`.
-- Decision: ADOPT as access layer, not domain model.
+- Fonction : accès unifié aux plateformes d'échange et aux données de marché.
+- Méthode : implémentations propres aux plateformes d'échange exposées via une API unifiée comprenant la récupération OHLCV.
+- Causalité : neutre ; BTC Analytics doit filtrer les barres clôturées et définir sa propre sémantique temporelle.
+- Validation : requiert en P1 une vérification croisée contre les klines natives Binance.
+- Maintenance : projet actif avec support Binance et documentation OHLCV unifiée à jour.
+- Licence : MIT.
+- Couplage : moyen en cas de fuite ; faible lorsqu'il est isolé derrière `MarketDataProvider`.
+- Décision : ADOPT comme couche d'accès, pas comme modèle de domaine.
 
 ## Polars — ADOPT
 
-- Function: dataframe/transformation engine.
-- Method: Rust columnar engine, lazy query optimization, parallel execution and streaming.
-- Causality: neutral; expressions must still obey BTC Analytics causal windows.
-- Validation: strong project documentation and active development.
-- Performance fit: excellent candidate for batch columnar analytics.
-- License: MIT.
-- Coupling: keep Polars objects inside computation/storage boundaries, not API/domain contracts.
+- Fonction : moteur de tableaux de données/transformation (`dataframe`).
+- Méthode : moteur colonnaire Rust, optimisation différée des requêtes (`lazy`), exécution parallèle et traitement en flux (`streaming`).
+- Causalité : neutre ; les expressions doivent toujours respecter les fenêtres causales BTC Analytics.
+- Validation : documentation de projet solide et développement actif.
+- Adéquation des performances : excellent candidat pour l'analytique colonnaire par lots (`batch`).
+- Licence : MIT.
+- Couplage : conserver les objets Polars dans les frontières calcul/stockage, pas dans les contrats API/domaine.
 
 ## SciPy — ADOPT
 
-- Function: scientific algorithms, statistics and signal primitives.
-- Method: mature numerical/scientific implementations; `signal` can supply generic peak/prominence primitives.
-- Causality: function-specific. Some filters/smoothers can be non-causal; each adopted use must be reviewed.
-- Validation: mature project with extensive releases/tests.
-- License: BSD-3-Clause.
-- Coupling: low behind BTC Analytics feature/structure definitions.
+- Fonction : algorithmes scientifiques, statistiques et primitives de signal.
+- Méthode : implémentations numériques/scientifiques matures ; `signal` peut fournir des primitives génériques de pics/prominence.
+- Causalité : dépend de la fonction. Certains filtres/lissages peuvent être non causaux ; chaque usage adopté doit être revu.
+- Validation : projet mature avec de nombreuses versions publiées et tests.
+- Licence : BSD-3-Clause.
+- Couplage : faible derrière les définitions BTC Analytics de features/structure.
 
-## TA-Lib Python — scoped ADOPT + REFERENCE
+## TA-Lib Python — ADOPT à périmètre limité + REFERENCE
 
-- Function: standard technical indicators and candlestick pattern functions.
-- Method: Python/Cython wrapper over TA-Lib core.
-- Causality: function-specific; adoption requires per-function lookback/closed-bar validation.
-- Validation: project classifies package as production/stable; wrappers/types are available for modern Python releases.
-- Maintenance: active upstream in 2026.
-- License: Python wrapper BSD-2-Clause; core uses BSD-family licensing.
-- Coupling: medium if function names become domain contracts; mitigate with internal definition/adapters.
-- Decision: selected validated functions ADOPT; oracle/reference use remains REFERENCE.
+- Fonction : indicateurs techniques standards et fonctions de configurations de chandeliers.
+- Méthode : adaptateur Python/Cython (`wrapper`) au-dessus du cœur TA-Lib.
+- Causalité : dépend de la fonction ; l'adoption exige une validation de période rétrospective / bougies clôturées (`lookback`/`closed-bar`) fonction par fonction.
+- Validation : le projet classe le package comme production/stable ; adaptateurs/types (`wrappers`) disponibles pour les versions Python modernes.
+- Maintenance : projet amont actif en 2026.
+- Licence : wrapper Python BSD-2-Clause ; le cœur utilise une licence de famille BSD.
+- Couplage : moyen si les noms de fonctions deviennent des contrats du domaine ; atténuer avec des définitions/adaptateurs internes.
+- Décision : fonctions sélectionnées et validées en ADOPT ; usage oracle/référence en REFERENCE.
 
-## DuckDB — ADOPT for research
+## DuckDB — ADOPT pour la recherche
 
-- Function: local analytical SQL over Parquet/datasets.
-- Method: in-process analytical database with direct Parquet scanning and pushdown.
-- Causality: neutral; used after dataset construction.
-- Validation: project documents extensive CI/testing, including millions of queries.
-- Maintenance: active; project remains open source under independent foundation governance.
-- License: MIT.
-- Coupling: low because product API does not depend on DuckDB.
+- Fonction : SQL analytique local sur Parquet/jeux de données.
+- Méthode : base analytique embarquée dans le processus (`in-process`) avec scan direct Parquet et pushdown.
+- Causalité : neutre ; utilisée après construction du dataset.
+- Validation : le projet documente une CI/des tests étendus, notamment des millions de requêtes.
+- Maintenance : actif ; le projet reste à code source ouvert sous gouvernance d'une fondation indépendante.
+- Licence : MIT.
+- Couplage : faible car l'API produit ne dépend pas de DuckDB.
 
-## FastAPI / Pydantic — ADOPT API boundary
+## FastAPI / Pydantic — ADOPT à la frontière API
 
-- Function: typed HTTP API and schemas.
-- Causality: neutral.
-- License: FastAPI MIT; package versions/compatibility pinned at bootstrap.
-- Coupling: intentionally limited to API/application layer; domain must remain framework-independent.
+- Fonction : API HTTP typée et schémas.
+- Causalité : neutre.
+- Licence : FastAPI MIT ; versions/compatibilité des paquets figées au bootstrap.
+- Couplage : intentionnellement limité à la couche API/application ; le domaine doit rester indépendant du framework.
 
-## uv — ADOPT development tooling
+## uv — ADOPT pour l'outillage de développement
 
-- Function: Python package/project/environment management.
-- Method: Rust implementation and lock/project workflow.
-- Causality/runtime: none.
-- Maintenance: active and production-oriented.
-- License: MIT OR Apache-2.0.
-- Coupling: development only.
+- Fonction : gestion des paquets/projet/environnement Python.
+- Méthode : implémentation Rust et flux de travail de verrouillage/projet (`lock`).
+- Causalité/exécution : aucune.
+- Maintenance : actif et orienté production.
+- Licence : MIT OR Apache-2.0.
+- Couplage : développement uniquement.
 
-## Ruff — ADOPT development tooling
+## Ruff — ADOPT pour l'outillage de développement
 
-- Function: Python linting and formatting.
-- Method: Rust implementation.
-- Causality/runtime: none.
-- License: MIT.
-- Coupling: development only.
+- Fonction : analyse de style (`lint`) et formatage Python.
+- Méthode : implémentation Rust.
+- Causalité/exécution : aucune.
+- Licence : MIT.
+- Couplage : développement uniquement.
 
-## Pyright — ADOPT development tooling
+## Pyright — ADOPT pour l'outillage de développement
 
-- Function: static Python type checking.
-- Method: standards-based high-performance static checker.
-- Causality/runtime: none.
-- Maintenance: active project.
-- License: MIT.
-- Coupling: development only.
+- Fonction : vérification statique des types Python.
+- Méthode : vérificateur de types haute performance basé sur les standards.
+- Causalité/exécution : aucune.
+- Maintenance : projet actif.
+- Licence : MIT.
+- Couplage : développement uniquement.
 
-## pytest — ADOPT development tooling
+## pytest — ADOPT pour l'outillage de développement
 
-- Function: test runner/framework.
-- Causality/runtime: none in product; used to enforce causal invariants and integration contracts.
-- License: MIT.
-- Coupling: tests only.
+- Fonction : exécuteur/cadre de tests (`runner`/`framework`).
+- Causalité/exécution : aucune dans le produit ; utilisé pour imposer les invariants causaux et les contrats d'intégration.
+- Licence : MIT.
+- Couplage : tests uniquement.
 
 ## VectorBT — RESEARCH / REFERENCE
 
-Use conceptual inspiration for vectorized parameter grids, broadcasting and walk-forward experimentation. Do not make product semantics or portfolio/trading abstractions depend on it.
+Utiliser comme inspiration conceptuelle pour les grilles de paramètres vectorisées, la diffusion (`broadcasting`) et l'expérimentation walk-forward. Ne pas faire dépendre la sémantique produit ou les abstractions de portefeuille/trading de VectorBT.
 
 ## ruptures — RESEARCH
 
-Offline change-point algorithms are research-only by default. Any production promotion requires a separately demonstrated causal formulation.
+Les algorithmes hors ligne de points de rupture sont par défaut réservés à la recherche. Toute promotion en production exige une formulation causale démontrée séparément.
 
-## PatternPy / TradingPatternScanner — REJECT product
+## PatternPy / TradingPatternScanner — REJECT produit
 
-Retain only as comparative/research references. They are not foundations of V2 market structure or chart-pattern semantics.
+Les conserver uniquement comme références de comparaison/recherche. Ils ne constituent pas des fondations de la structure de marché ou de la sémantique des figures chartistes de V2.

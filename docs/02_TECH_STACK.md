@@ -1,25 +1,25 @@
-# 02 — Tech Stack
+# 02 — Stack technique
 
-## Policy
+## Politique
 
-External libraries provide generic primitives. BTC Analytics owns domain semantics, causal contracts, versioning and reproducibility.
+Les bibliothèques externes fournissent des primitives génériques. BTC Analytics possède la sémantique du domaine, les contrats causaux, le versionnement et la reproductibilité.
 
-Exact package versions are pinned in lockfiles at repository bootstrap after compatibility checks.
+Les versions exactes des paquets sont figées dans les fichiers de verrouillage lors de l'amorçage du dépôt, après vérification de compatibilité.
 
-## ADOPT — product/runtime
+## ADOPT — produit/exécution
 
 - Python
 - NumPy
 - Polars
 - SciPy
-- CCXT behind `MarketDataProvider`
-- TA-Lib behind internal adapters for selected validated functions
+- CCXT derrière `MarketDataProvider`
+- TA-Lib derrière des adaptateurs internes pour les fonctions sélectionnées et validées
 - PostgreSQL
 - FastAPI
 - Pydantic
 - Alembic
 
-## ADOPT — development
+## ADOPT — développement
 
 - uv
 - pytest
@@ -36,36 +36,36 @@ Exact package versions are pinned in lockfiles at repository bootstrap after com
 - Lightweight Charts
 - shadcn/ui
 
-## ADOPT — research/data snapshots
+## ADOPT — recherche/snapshots de données
 
 - Parquet
 - DuckDB
 
 ## RESEARCH / REFERENCE
 
-- VectorBT: vectorized experimentation concepts, grids and walk-forward; not product portfolio engine.
-- ruptures: offline change-point research only until a causal formulation is validated.
-- statsmodels: only when a concrete statistical need exists.
+- VectorBT : concepts d'expérimentation vectorisée, grilles et walk-forward ; pas de moteur produit de portefeuille.
+- ruptures : recherche hors ligne de points de rupture uniquement jusqu'à validation d'une formulation causale.
+- statsmodels : uniquement lorsqu'un besoin statistique concret existe.
 
-## REJECT as product dependencies
+## REJECT comme dépendances produit
 
 - PatternPy
 - TradingPatternScanner
 
-## TA-Lib scoped decision
+## Décision TA-Lib à périmètre limité
 
-TA-Lib may execute selected standard indicators and candlestick functions only when each selected function has:
+TA-Lib peut exécuter certains indicateurs standards et certaines fonctions de chandeliers uniquement lorsque chaque fonction sélectionnée possède :
 
-- documented inputs/lookback;
-- causal verification under BTC Analytics closed-candle semantics;
-- golden tests;
-- a BTC Analytics definition/version wrapper.
+- des entrées et une période rétrospective (`lookback`) documentées ;
+- une vérification causale sous la sémantique de bougies clôturées (`closed-candle`) de BTC Analytics ;
+- des tests de référence (`golden tests`) ;
+- un adaptateur BTC Analytics (`wrapper`) avec définition/version.
 
-TA-Lib can additionally serve as a reference oracle for primitives implemented internally.
+TA-Lib peut également servir d'oracle de référence pour des primitives implémentées en interne.
 
-## Performance rule
+## Règle de performance
 
-1. correct algorithm;
-2. vectorized NumPy/Polars implementation;
-3. profiling;
-4. Numba/Rust only for demonstrated bottlenecks.
+1. algorithme correct ;
+2. implémentation vectorisée NumPy/Polars ;
+3. profilage ;
+4. Numba/Rust uniquement pour des goulots d'étranglement démontrés.
