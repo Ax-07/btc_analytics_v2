@@ -1,0 +1,1 @@
+"""Primitives d’observabilité structurée."""

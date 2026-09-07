@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main, p1-market-data]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18.6
+        env:
+          POSTGRES_DB: btc_analytics
+          POSTGRES_USER: btc_analytics
+          POSTGRES_PASSWORD: btc_analytics_dev
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U btc_analytics -d btc_analytics"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 15
+
+    env:
+      BTC_ANALYTICS_DATABASE_URL: postgresql+psycopg://btc_analytics:btc_analytics_dev@localhost:5432/btc_analytics
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Installer uv et Python
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.12.10"
+          python-version: "3.14.7"
+          enable-cache: true
+
+      - name: Installer les dépendances verrouillées
+        run: uv sync --locked --all-groups
+
+      - name: Ruff — lint
+        run: uv run ruff check backend
+
+      - name: Ruff — format
+        run: uv run ruff format --check backend
+
+      - name: Pyright
+        run: uv run pyright
+
+      - name: Connectivité Alembic
+        run: uv run alembic upgrade head
+
+      - name: Pytest
+        run: uv run pytest
