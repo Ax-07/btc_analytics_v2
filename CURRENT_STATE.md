@@ -6,21 +6,21 @@ BTC Analytics V2
 
 ## Phase
 
-P1 — Données de marché / P1C — `MarketDataProvider` + adaptateur CCXT Binance
+P1 — Données de marché / P1D — Schéma PostgreSQL canonique
 
 ## Statut
 
-`P1C — VALIDATED`
+`P1D — VALIDATION READY / VALIDATION UTILISATEUR EN ATTENTE`
 
-P0 — Fondation reste validé et figé au jalon `p0-foundation-v7`. P1A — Amorçage du backend reste validé et figé au jalon `p1a-backend-bootstrap`. P1B — Domaine des données de marché reste validé et figé au jalon `p1b-market-data-domain`.
+P0 — Fondation reste validé et figé au jalon `p0-foundation-v7`. P1A — Amorçage du backend reste validé et figé au jalon `p1a-backend-bootstrap`. P1B — Domaine des données de marché reste validé et figé au jalon `p1b-market-data-domain`. P1C — `MarketDataProvider` + adaptateur CCXT Binance reste validé et figé au jalon `p1c-ccxt-provider`.
 
-P1C implémente la frontière `MarketDataProvider`, un DTO fournisseur interne distinct de la `Candle` canonique et l'adaptateur synchrone CCXT pour Binance Spot. Le DTO réutilise les identités `Market`/`Timeframe` de P1B sans importer de types CCXT dans le domaine. Le domaine P1B n'est pas modifié.
+P1D matérialise les contrats P0/P1B dans PostgreSQL via des métadonnées SQLAlchemy et la première migration produit Alembic. Le schéma couvre `markets`, `candles` et `candle_revisions`, les identités canoniques, les coordonnées temporelles, les invariants OHLCV et les contraintes locales de statut/référence nécessaires à la future machine P1E.
 
-Le périmètre P1C reste limité à l'accès public OHLCV : mapping explicite `Market -> source_symbol`, récupération avec `since` explicite, filtrage des bougies non clôturées et isolation des erreurs CCXT derrière nos propres exceptions. La normalisation canonique complète, la persistance PostgreSQL, les transitions de révision, les gaps/contrôles de qualité et le cross-check CCXT-vs-Binance-native restent dans les sous-jalons P1 suivants.
+Les valeurs OHLCV courantes ne sont pas dupliquées dans `candles` : la table porte l'identité/temps et le pointeur exact `current_revision_seq`, tandis que `candle_revisions` reste la source unique des valeurs et de leur provenance. Les transitions transactionnelles, l'idempotence et l'allocation monotone restent explicitement reportées à P1E.
 
-CCXT reste classé **ADOPT derrière adaptateur**. La dépendance est revalidée pour P1C avant verrouillage local ; aucune API de trading, ordre ou portefeuille n'est utilisée.
+Aucune nouvelle dépendance n'est introduite en P1D. SQLAlchemy, Psycopg, PostgreSQL et Alembic restent ceux validés en P1A.
 
-Le gate local P1C a été exécuté le 7 septembre 2026 : Ruff lint et formatage sont passés, Pyright a terminé avec `0 errors, 0 warnings`, pytest avec `54 passed, 1 skipped` (le seul skip étant le smoke Binance désactivé par défaut), PostgreSQL était `healthy`, et le smoke public Binance a passé avec `1 passed`. La revue Git finale a confirmé les neuf fichiers P1C attendus. Le 7 septembre 2026, l'utilisateur a explicitement validé P1C après revue du commit candidat. Le jalon P1C est donc **validé**.
+Le gate local P1D a été exécuté le 7 septembre 2026 sur Python 3.14.7 et PostgreSQL 18.6 : PostgreSQL est `healthy`, la migration `0001_market_data_schema` est appliquée au `head`, `alembic check` ne détecte aucune opération supplémentaire, Ruff est propre sur 17 fichiers, Pyright termine avec `0 errors, 0 warnings` et un code de sortie `0`, et pytest termine avec `64 passed, 1 skipped`. Le seul skip est le smoke Binance P1C désactivé par défaut. Les tests PostgreSQL confirment la création effective des trois tables, l'écriture atomique de la première `Candle` avec sa révision `revision_seq = 1` grâce aux contraintes différées, et l'unicité d'une seule `pending_confirmation` par lignée. La revue sémantique finale n'a identifié aucun blocage P1D.
 
 ## Source canonique P0
 
@@ -30,4 +30,4 @@ Les décisions validées restent à ajouts uniquement (append-only) dans `docs/1
 
 ## Prochaine étape
 
-P1C est validé, publié sur `p1-market-data` et figé par le tag `p1c-ccxt-provider`. Démarrer **P1D — schéma PostgreSQL canonique** à partir des contrats P0 validés et des primitives P1B/P1C.
+Créer et revoir le commit candidat de **P1D — schéma PostgreSQL canonique**, puis attendre la validation explicite de l'utilisateur avant de passer P1D au statut `VALIDATED`.
