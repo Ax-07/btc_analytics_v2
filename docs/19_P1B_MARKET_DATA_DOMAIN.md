@@ -1,6 +1,6 @@
 # P1B — Domaine des données de marché
 
-Statut : `VALIDATION READY — VALIDATION UTILISATEUR EN ATTENTE`
+Statut : `VALIDATED — VALIDATION UTILISATEUR 2026-09-07`
 
 P1B implémente les contrats de domaine déjà validés en P0. Il ne redéfinit pas la sémantique des données de marché et n'ajoute aucune décision au journal `docs/10_DECISIONS.md`.
 
@@ -123,4 +123,8 @@ La suite comprend 24 tests du domaine P1B et les 2 tests déjà présents dans l
 
 La revue finale des edge cases a vérifié explicitement que `revision_seq = 1` ne peut pas représenter une révision `pending_confirmation` ou `quarantined`, conformément à D-020.
 
-Ces résultats placent P1B au statut **`VALIDATION READY`**. La validation finale du jalon reste soumise à l'approbation explicite de l'utilisateur après revue finale de l'état Git.
+Ces résultats ont été revus, puis P1B a été explicitement validé par l'utilisateur le 7 septembre 2026.
+
+## Décision de clôture
+
+Le 7 septembre 2026, l'utilisateur a explicitement validé P1B après revue du gate local, des edge cases et de l'état Git. P1B est donc clôturé avec le statut `VALIDATED`. Le sous-jalon suivant autorisé est **P1C — `MarketDataProvider` + adaptateur CCXT Binance**.
