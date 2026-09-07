@@ -30,4 +30,4 @@ Les décisions validées restent à ajouts uniquement (append-only) dans `docs/1
 
 ## Prochaine étape
 
-Créer le commit de clôture P1D, pousser la branche `p1-market-data`, figer le jalon par un tag, puis démarrer **P1E — transitions et politique des révisions** à partir des contrats D-020 et du schéma P1D validé.
+P1D est validé, publié sur `p1-market-data` et figé par le tag `p1d-postgresql-schema`. Démarrer **P1E — transitions et politique des révisions** à partir des contrats D-020 et du schéma P1D validé.
