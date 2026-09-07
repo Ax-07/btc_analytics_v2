@@ -10,7 +10,7 @@ P1 — Données de marché / P1A — Amorçage du backend
 
 ## Statut
 
-`P1A — VALIDATION READY / VALIDATION UTILISATEUR EN ATTENTE`
+`P1A — VALIDATED`
 
 P0 — Fondation reste validé et figé au jalon `p0-foundation-v7`.
 
@@ -27,7 +27,7 @@ Aucun contrat sémantique P0 n'est modifié. P1A n'implémente pas encore `Marke
 
 Le gate local P1A a été exécuté et audité le 7 septembre 2026 : uv/lockfile, PostgreSQL 18.6 via Docker Compose, Alembic, Ruff, Pyright et pytest sont passés sur l'environnement local. PostgreSQL a été confirmé `healthy` et la suite pytest a terminé avec `2 passed`.
 
-P1A reste **non validé** tant que l'utilisateur n'a pas explicitement approuvé ce jalon après revue finale des changements Git.
+Le 7 septembre 2026, l'utilisateur a explicitement validé P1A après revue des résultats locaux et de la séparation Git. Le jalon P1A est donc **validé**.
 
 ## Source canonique P0
 
@@ -37,4 +37,4 @@ Les décisions validées restent à ajouts uniquement (append-only) dans `docs/1
 
 ## Prochaine étape
 
-Effectuer la revue finale des changements Git de P1A sur la branche `p1-market-data`, séparer la normalisation documentaire de l'amorçage technique dans l'historique Git, puis attendre la validation explicite de l'utilisateur avant de passer P1A au statut `VALIDATED`.
+Créer le commit de clôture P1A, pousser la branche `p1-market-data`, puis démarrer **P1B — Domaine des données de marché** à partir des contrats P0 validés et du socle P1A.

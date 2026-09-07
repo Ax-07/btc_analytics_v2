@@ -1,6 +1,6 @@
 # P1A — Amorçage du backend
 
-Statut : `VALIDATION READY — VALIDATION UTILISATEUR EN ATTENTE`
+Statut : `VALIDATED — VALIDATION UTILISATEUR 2026-09-07`
 
 P0 reste validé et inchangé. Cet amorçage n'introduit aucune sémantique de données de marché ni aucun schéma canonique produit.
 
@@ -54,11 +54,11 @@ Les contrôles suivants ont été effectivement exécutés et leurs sorties revu
 - `uv run pytest` : 2 tests réussis ;
 - `git diff --check` : aucune erreur de whitespace ; seuls des avertissements de conversion LF/CRLF ont été observés sous Windows.
 
-Ces résultats rendent P1A **prêt pour validation utilisateur**, mais ne constituent pas encore une validation finale du jalon.
+Ces résultats ont été revus, puis P1A a été explicitement validé par l'utilisateur le 7 septembre 2026.
 
-## Critères de validation
+## Validation finale
 
-Ne pas déclarer P1A validé avant revue des sorties effectives pour :
+La validation finale de P1A couvre les sorties effectives suivantes :
 
 - `uv lock` et `uv sync --locked --all-groups` ;
 - démarrage et état `healthy` du PostgreSQL géré par Docker Compose ;
@@ -69,3 +69,7 @@ Ne pas déclarer P1A validé avant revue des sorties effectives pour :
 - `uv run pyright` ;
 - `uv run pytest` ;
 - contrôles Git finaux.
+
+## Décision de clôture
+
+Le 7 septembre 2026, l'utilisateur a explicitement validé P1A après revue du gate local et de l'état Git. P1A est donc clôturé avec le statut `VALIDATED`. Le sous-jalon suivant autorisé est **P1B — Domaine des données de marché**.
